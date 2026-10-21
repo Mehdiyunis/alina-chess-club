@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-page: #0d0b17;
+    --bg-surface: #171428;
+    --bg-raised: #211c3a;
+    --border-subtle: #2d2750;
+    --primary: #7c5cff;
+    --primary-hover: #9a82ff;
+    --secondary: #3b5bdb;
+    --text-main: #ecebf5;
+    --text-muted: #9893b8;
+    --board-light: #b9b0d9;
+    --board-dark: #5b4b9a;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #0d0b17;
+    color: #ecebf5;
+    color-scheme: dark;
+  }
+}
+
+/* Subtle checkerboard pattern */
+.bg-chess-pattern {
+  background-image: 
+    linear-gradient(45deg, rgba(45, 39, 80, 0.08) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(45, 39, 80, 0.08) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(45, 39, 80, 0.08) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(45, 39, 80, 0.08) 75%);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+}
+
+/* Violet glowing card hover effect */
+.card-hover-glow {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+.card-hover-glow:hover {
+  transform: translateY(-2px);
+  border-color: rgba(124, 92, 255, 0.4);
+  box-shadow: 0 8px 24px -4px rgba(124, 92, 255, 0.15), 0 2px 6px -1px rgba(0, 0, 0, 0.4);
+}
+
+/* Primary violet button glow */
+.btn-violet-glow {
+  background: linear-gradient(135deg, #7c5cff 0%, #6344f5 100%);
+  box-shadow: 0 4px 14px 0 rgba(124, 92, 255, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-violet-glow:hover {
+  background: linear-gradient(135deg, #9a82ff 0%, #7c5cff 100%);
+  box-shadow: 0 6px 20px 0 rgba(124, 92, 255, 0.45);
+  transform: translateY(-1px);
+}
+.btn-violet-glow:active {
+  transform: translateY(0);
+}
+
+/* Custom sleek dark scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0b17;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d2750;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c5cff;
+}

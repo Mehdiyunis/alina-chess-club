@@ -1,0 +1,6 @@
+{
+  "name": "Şahmat Məktəbi",
+  "description": "Uşaqlar və yeni başlayanlar üçün interaktiv şahmat öyrənmə portalı - qaydalar, fiqurların hərəkəti, müəllimlər və şahmat lövhəsi qurucusu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
