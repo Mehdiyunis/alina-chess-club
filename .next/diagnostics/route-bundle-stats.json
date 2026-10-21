@@ -1,0 +1,66 @@
+[
+  {
+    "route": "/",
+    "firstLoadUncompressedJsBytes": 798105,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\0umf92h1sb77c.js",
+      ".next\\static\\chunks\\0ibcpsbqx5cpt.js",
+      ".next\\static\\chunks\\16fk_vkbnq4e6.js",
+      ".next\\static\\chunks\\2i9enmv1ltzh9.js",
+      ".next\\static\\chunks\\2evgu094glu3w.js",
+      ".next\\static\\chunks\\2-1y_l9ewaeat.js",
+      ".next\\static\\chunks\\2khxl0v1q4i6n.js",
+      ".next\\static\\chunks\\turbopack-3-ry682tkyiqk.js"
+    ]
+  },
+  {
+    "route": "/admin",
+    "firstLoadUncompressedJsBytes": 766827,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\0umf92h1sb77c.js",
+      ".next\\static\\chunks\\01a3cm0drkq1c.js",
+      ".next\\static\\chunks\\16fk_vkbnq4e6.js",
+      ".next\\static\\chunks\\2evgu094glu3w.js",
+      ".next\\static\\chunks\\2-1y_l9ewaeat.js",
+      ".next\\static\\chunks\\2khxl0v1q4i6n.js",
+      ".next\\static\\chunks\\turbopack-3-ry682tkyiqk.js"
+    ]
+  },
+  {
+    "route": "/books",
+    "firstLoadUncompressedJsBytes": 756813,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\0umf92h1sb77c.js",
+      ".next\\static\\chunks\\1956n9a0dbphl.js",
+      ".next\\static\\chunks\\16fk_vkbnq4e6.js",
+      ".next\\static\\chunks\\2evgu094glu3w.js",
+      ".next\\static\\chunks\\2-1y_l9ewaeat.js",
+      ".next\\static\\chunks\\2khxl0v1q4i6n.js",
+      ".next\\static\\chunks\\turbopack-3-ry682tkyiqk.js"
+    ]
+  },
+  {
+    "route": "/auth",
+    "firstLoadUncompressedJsBytes": 755633,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\0umf92h1sb77c.js",
+      ".next\\static\\chunks\\3hdhkdsyi8l5v.js",
+      ".next\\static\\chunks\\16fk_vkbnq4e6.js",
+      ".next\\static\\chunks\\2evgu094glu3w.js",
+      ".next\\static\\chunks\\2-1y_l9ewaeat.js",
+      ".next\\static\\chunks\\2khxl0v1q4i6n.js",
+      ".next\\static\\chunks\\turbopack-3-ry682tkyiqk.js"
+    ]
+  },
+  {
+    "route": "/_not-found",
+    "firstLoadUncompressedJsBytes": 455988,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\0umf92h1sb77c.js",
+      ".next\\static\\chunks\\2evgu094glu3w.js",
+      ".next\\static\\chunks\\2-1y_l9ewaeat.js",
+      ".next\\static\\chunks\\2khxl0v1q4i6n.js",
+      ".next\\static\\chunks\\turbopack-3-ry682tkyiqk.js"
+    ]
+  }
+]
