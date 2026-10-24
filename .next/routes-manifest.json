@@ -42,12 +42,6 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
-      "page": "/admin",
-      "regex": "^/admin(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/admin(?:/)?$"
-    },
-    {
       "page": "/auth",
       "regex": "^/auth(?:/)?$",
       "routeKeys": {},

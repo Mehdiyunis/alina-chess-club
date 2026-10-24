@@ -22,20 +22,6 @@
       }
     }
   },
-  "/admin": {
-    "hints": 64,
-    "slots": {
-      "children": {
-        "hints": 96,
-        "slots": {
-          "children": {
-            "hints": 160,
-            "slots": null
-          }
-        }
-      }
-    }
-  },
   "/auth": {
     "hints": 64,
     "slots": {
@@ -47,29 +33,6 @@
             "slots": null
           }
         }
-      }
-    }
-  },
-  "/books": {
-    "hints": 64,
-    "slots": {
-      "children": {
-        "hints": 96,
-        "slots": {
-          "children": {
-            "hints": 160,
-            "slots": null
-          }
-        }
-      }
-    }
-  },
-  "/": {
-    "hints": 64,
-    "slots": {
-      "children": {
-        "hints": 160,
-        "slots": null
       }
     }
   }
