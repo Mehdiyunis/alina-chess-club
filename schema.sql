@@ -1,6 +1,6 @@
 -- ============================================================
--- Şahmat Məktəbi - Supabase Database & Storage Schema
--- Paste this script directly into Supabase SQL Editor and click RUN
+-- Şahmat Məktəbi - Supabase Database & Storage Schema (Documentation Only)
+-- This file serves as documentation for tables, triggers, and RLS policies.
 -- ============================================================
 
 -- 1. Profiles Table
@@ -20,7 +20,7 @@ create table if not exists public.contact_requests (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- 3. Books Table (PART 2: Books Feature)
+-- 3. Books Table
 create table if not exists public.books (
   id uuid default gen_random_uuid() primary key,
   title text not null,
@@ -33,7 +33,19 @@ create table if not exists public.books (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- 4. Trigger Function: automatically add profile row when new user signs up
+-- 4. Teachers Table
+create table if not exists public.teachers (
+  id uuid default gen_random_uuid() primary key,
+  first_name text not null,
+  last_name text not null,
+  role_title text,
+  description text,
+  photo_url text,
+  sort_order integer default 0,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- 5. Trigger Function: automatically add profile row when new user signs up
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -56,7 +68,7 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
--- 5. Helper function to check if the current user is admin
+-- 6. Helper function to check if the current user is admin
 create or replace function public.is_admin()
 returns boolean
 language sql
@@ -68,13 +80,13 @@ as $$
   );
 $$;
 
--- 6. Enable Row Level Security (RLS) on all tables
+-- 7. Enable Row Level Security (RLS) on all tables
 alter table public.profiles enable row level security;
 alter table public.contact_requests enable row level security;
 alter table public.books enable row level security;
+alter table public.teachers enable row level security;
 
--- 7. RLS Policies for Profiles
--- Users can read their own profile, or admins can view all profiles
+-- 8. RLS Policies for Profiles
 create policy "Users can read own profile"
   on public.profiles
   for select
@@ -97,14 +109,12 @@ create policy "Admins can view all profiles"
   for all
   using (public.is_admin());
 
--- 8. RLS Policies for Contact Requests
--- Anyone (including anonymous visitors) can insert contact requests
+-- 9. RLS Policies for Contact Requests
 create policy "Anyone can insert contact requests"
   on public.contact_requests
   for insert
   with check (true);
 
--- Only admins can select, update, or delete contact requests
 create policy "Only admins can select contact requests"
   on public.contact_requests
   for select
@@ -120,14 +130,12 @@ create policy "Only admins can delete contact requests"
   for delete
   using (public.is_admin());
 
--- 9. RLS Policies for Books
--- Anyone (including anonymous visitors) can view books
+-- 10. RLS Policies for Books
 create policy "Anyone can select books"
   on public.books
   for select
   using (true);
 
--- Only admins can insert, update or delete books
 create policy "Only admins can insert books"
   on public.books
   for insert
@@ -144,8 +152,29 @@ create policy "Only admins can delete books"
   for delete
   using (public.is_admin());
 
--- 10. Supabase Storage: Buckets and Storage Policies
--- Create two public buckets if storage extension is active
+-- 11. RLS Policies for Teachers
+create policy "Anyone can select teachers"
+  on public.teachers
+  for select
+  using (true);
+
+create policy "Only admins can insert teachers"
+  on public.teachers
+  for insert
+  with check (public.is_admin());
+
+create policy "Only admins can update teachers"
+  on public.teachers
+  for update
+  using (public.is_admin())
+  with check (public.is_admin());
+
+create policy "Only admins can delete teachers"
+  on public.teachers
+  for delete
+  using (public.is_admin());
+
+-- 12. Supabase Storage: Buckets and Storage Policies
 insert into storage.buckets (id, name, public)
 values ('book-covers', 'book-covers', true)
 on conflict (id) do update set public = true;
@@ -154,7 +183,6 @@ insert into storage.buckets (id, name, public)
 values ('book-files', 'book-files', true)
 on conflict (id) do update set public = true;
 
--- Storage RLS: Public read access for book covers and book files
 create policy "Public read access for book covers"
   on storage.objects
   for select
@@ -165,7 +193,6 @@ create policy "Public read access for book files"
   for select
   using (bucket_id = 'book-files');
 
--- Storage RLS: Admins can upload, update, and delete in book storage
 create policy "Admin upload access for book covers"
   on storage.objects
   for insert
@@ -195,8 +222,3 @@ create policy "Admin delete access for book files"
   on storage.objects
   for delete
   using (bucket_id = 'book-files' and public.is_admin());
-
--- ============================================================
--- HOW TO PROMOTE YOUR FIRST ADMIN USER:
--- UPDATE public.profiles SET role = 'admin' WHERE id = (SELECT id FROM auth.users WHERE email = 'your-email@example.com');
--- ============================================================

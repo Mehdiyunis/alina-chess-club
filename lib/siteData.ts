@@ -1,10 +1,11 @@
 export interface Teacher {
-  id: string;
-  firstName: string;
-  lastName: string;
-  role: string;
-  bio: string;
-  photoUrl: string;
+  id?: string;
+  first_name: string;
+  last_name: string;
+  role_title?: string | null;
+  description?: string | null;
+  photo_url?: string | null;
+  sort_order?: number | null;
 }
 
 export interface PieceInfo {
@@ -30,18 +31,18 @@ export interface SocialLink {
 export interface UserProfile {
   id: string;
   full_name: string;
-  role: 'user' | 'admin';
-  created_at: string;
+  role?: string;
+  created_at?: string;
   email?: string;
   phone?: string;
 }
 
 export interface ContactRequest {
-  id: string;
+  id?: string;
   value: string;
   type: 'email' | 'phone';
-  status: 'new' | 'contacted';
-  created_at: string;
+  status?: 'new' | 'contacted';
+  created_at?: string;
 }
 
 export type BookLevel = 'beginner' | 'intermediate' | 'advanced';
@@ -60,7 +61,7 @@ export interface Book {
 
 export const siteConfig = {
   name: 'Şahmat Məktəbi',
-  tagline: 'Uşaqlar və yeni başlayanlar üçün əyləncəli və sadə şahmat dərsləri',
+  tagline: 'Uşaqlar və yeni başlayanlar üçün aydın və sadə şahmat dərsləri',
   socialLinks: [
     { platform: 'Instagram', name: '@sahmat.mektebi', url: 'https://instagram.com/sahmat.mektebi', icon: 'instagram' },
     { platform: 'Facebook', name: 'Şahmat Məktəbi', url: 'https://facebook.com/sahmatmektebi', icon: 'facebook' },
@@ -70,49 +71,14 @@ export const siteConfig = {
   ],
 };
 
-export const teachersData: Teacher[] = [
-  {
-    id: 't-1',
-    firstName: 'Leyla',
-    lastName: 'Əliyeva',
-    role: 'Baş Təlimçi & WIM',
-    bio: 'Beynəlxalq dərəcəli usta. 7 ildən çoxdur ki, uşaqlara şahmatın sirlərini sevgi və səbirlə öyrədir.',
-    photoUrl: '/images/teacher_leyla_alieva_1792527781686.jpg',
-  },
-  {
-    id: 't-2',
-    firstName: 'Fərid',
-    lastName: 'Məmmədov',
-    role: 'Qrossmeyster & Məşqçi',
-    bio: 'Respublika çempionatlarının qalibi. Uşaqlarda strateji düşünmə və dərin analiz qabiliyyətini inkişaf etdirir.',
-    photoUrl: '/images/teacher_farid_mammadov_1792527794770.jpg',
-  },
-  {
-    id: 't-3',
-    firstName: 'Nigar',
-    lastName: 'Quliyeva',
-    role: 'İbtidai Qruplar Üzrə Müəllim',
-    bio: 'Məktəbəqədər və kiçik yaşlı uşaqlar üçün nağılvari və interaktiv oyun metodikasının müəllifidir.',
-    photoUrl: '/images/teacher_nigar_guliyeva_1792527795069.jpg',
-  },
-  {
-    id: 't-4',
-    firstName: 'Rəşad',
-    lastName: 'Həsənov',
-    role: 'Taktika və Turnir Mentoru',
-    bio: '20 illik pedaqoji təcrübəyə malik məşqçi. Onlarla Respublika dərəcəli gənc istedad yetişdirmişdir.',
-    photoUrl: '/images/teacher_rashad_hasanov_1792527796101.jpg',
-  },
-];
-
 export const piecesData: PieceInfo[] = [
   {
     id: 'king',
     name: 'Şah',
     type: 'k',
-    value: 'Qiymətsiz (Oyunu təyin edir)',
-    summary: 'İstənilən tərəfə yalnız 1 xana hərəkət edir.',
-    description: 'Şah şahmat ordusunun ən vacib fiqurudur. Əgər şah tələyə düşərsə və qurtula bilməzsə (mat olarsa), oyun bitir. Şah istənilən istiqamətə (şaquli, üfüqi və ya diaqonal) yalnız 1 addım ata bilər, lakin təhlükəli xanaya gedə bilməz.',
+    value: 'Oyunu təyin edir',
+    summary: 'İstənilən istiqamətə yalnız 1 xana hərəkət edir.',
+    description: 'Şah lövhənin ən vacib fiqurudur. Əgər şah hücumdan qurtula bilmirsə (mat olursa), oyun başa çatır. Şah istənilən istiqamətə bir addım ata bilər, lakin rəqibin vurduğu xanaya gedə bilməz.',
     demoPosition: {
       pieceSquare: 'e4',
       validMoves: ['d5', 'e5', 'f5', 'd4', 'f4', 'd3', 'e3', 'f3'],
@@ -123,8 +89,8 @@ export const piecesData: PieceInfo[] = [
     name: 'Vəzir',
     type: 'q',
     value: '9 xal',
-    summary: 'İstənilən istiqamətə istədiyi qədər xana gedir.',
-    description: 'Vəzir şahmatın ən güclü və çevik fiqurudur! O, həm Top kimi düz (üfüqi və şaquli), həm də Fil kimi çəpinə (diaqonal) istədiyi qədər boş xana irəliləyə bilir.',
+    summary: 'Şaquli, üfüqi və diaqonal istiqamətdə istədiyi qədər boş xana gedir.',
+    description: 'Vəzir ən güclü fiqurdur. Həm Top kimi düz xətlərlə, həm də Fil kimi diaqonal xətlərlə istədiyi qədər boş xana irəliləyə bilir.',
     demoPosition: {
       pieceSquare: 'd4',
       validMoves: [
@@ -140,8 +106,8 @@ export const piecesData: PieceInfo[] = [
     name: 'Top',
     type: 'r',
     value: '5 xal',
-    summary: 'Düz xətt üzrə (şaquli və üfüqi) irəliləyir.',
-    description: 'Top uzaq məsafəli ağır fiqurdur. Yalnız düz xətlərlə — yuxarı, aşağı, sağa və sola istədiyi qədər boş xanaya gedə bilər. Digər fiqurların üstündən tullana bilməz.',
+    summary: 'Yalnız düz xətlərlə (şaquli və üfüqi) hərəkət edir.',
+    description: 'Top uzaq məsafəli ağır fiqurdur. Yalnız şaquli və üfüqi düz xətlər boyunca istədiyi qədər boş xanaya irəliləyə bilər. Digər fiqurların üstündən atlaya bilməz.',
     demoPosition: {
       pieceSquare: 'd4',
       validMoves: [
@@ -155,8 +121,8 @@ export const piecesData: PieceInfo[] = [
     name: 'Fil',
     type: 'b',
     value: '3 xal',
-    summary: 'Yalnız diaqonal (çəpinə) xətlərlə irəliləyir.',
-    description: 'Hər oyunçunun iki Fili var: biri həmişə açıq xanalarda, digəri isə tünd xanalarda gəzir. Fil heç vaxt öz rəngini dəyişmir və diaqonal boyunca istədiyi qədər boş xana gedir.',
+    summary: 'Yalnız diaqonal (çəp) xətlərlə hərəkət edir.',
+    description: 'Hər tərəfin iki Fili var: biri ağ xanalarda, digəri qara xanalarda hərəkət edir. Fil öz rəngini heç vaxt dəyişmir və diaqonal boyunca boş xanalarla irəliləyir.',
     demoPosition: {
       pieceSquare: 'd4',
       validMoves: [
@@ -170,8 +136,8 @@ export const piecesData: PieceInfo[] = [
     name: 'At',
     type: 'n',
     value: '3 xal',
-    summary: '«L» hərfi şəklində gəzir və fiqurların üstündən tullanır.',
-    description: 'At şahmatın ən hiyləgər və sevimli fiqurudur! Yalnız o, digər fiqurların üstündən tullana bilir. At iki xana bir tərəfə, sonra bir xana yana gedərək "L" hərfi yaradır və hər gedişdə rəngini dəyişir.',
+    summary: 'Sıçrayan fiqur: L hərfi şəklində hərəkət edir və fiqurların üstündən tullanır.',
+    description: 'At lövhədəki yeganə sıçrayan fiqurdur. Başqa fiqurların üstündən atlaya bilir. İki xana bir tərəfə, sonra bir xana yana gedərək "L" forması cızır və hər gedişdə xananın rəngini dəyişir.',
     demoPosition: {
       pieceSquare: 'e4',
       validMoves: ['d6', 'f6', 'c5', 'g5', 'c3', 'g3', 'd2', 'f2'],
@@ -182,8 +148,8 @@ export const piecesData: PieceInfo[] = [
     name: 'Piyada',
     type: 'p',
     value: '1 xal',
-    summary: 'İrəli 1 xana gedir, rəqibi isə 1 xana çəpinə vurur.',
-    description: 'Piyadalar ordunun cəsur əsgərləridir. Yalnız irəli doğru addımlayırlar və geriyə gedə bilməzlər. İlk gedişində piyada istəsə 2 xana birdən ata bilər. Rəqib fiquru isə bir xana diaqonal üzrə vurur. Əgər piyada lövhənin sonuna çatarsa, Vəzirə çevrilir!',
+    summary: 'Cəsur piyada: yalnız irəli gedir, rəqibi isə 1 xana çəpinə vurur.',
+    description: 'Piyada yalnız irəli doğru addımlayır və geriyə qayıda bilməz. İlk gedişində istəsə 2 xana birdən ata bilər. Rəqib fiquru isə bir xana diaqonal üzrə vurur. Əgər qarşı tərəfin sonuncu xəttinə çatarsa, Vəzirə və ya başqa fiqura çevrilir.',
     demoPosition: {
       pieceSquare: 'e2',
       validMoves: ['e3', 'e4'],
@@ -195,8 +161,8 @@ export const gameGoalsData = [
   {
     id: 'shah',
     title: 'Şah (Hücum)',
-    simpleExplain: 'Şaha birbaşa hücum edildikdə «Şah!» deyilir.',
-    detail: 'Rəqibin hər hansı fiquru sizin Şahınızı vurmaqla hədələyirsə, bu Şah elan olunmasıdır. Şahı dərhal xilas etməlisiniz: ya təhlükəsiz yerə qaçmalı, ya araya başqa fiqur qoymalı, ya da hücum edən fiquru vurmalısınız.',
+    simpleExplain: 'Şaha birbaşa hücum edildikdə Şah elan olunur.',
+    detail: 'Rəqibin hər hansı fiquru sizin Şahınızı vurmaqla hədələyirsə, bu Şah elanıdır. Şahı dərhal xilas etmək lazımdır: təhlükəsiz xanaya qaçmaq, araya başqa fiqur qoymaq və ya hücum edən fiquru vurmaqla.',
     boardFen: '4k3/8/8/8/8/8/4R3/4K3 b - - 0 1',
     highlightSquare: 'e8',
     attackerSquare: 'e2',
@@ -204,29 +170,26 @@ export const gameGoalsData = [
   {
     id: 'mat',
     title: 'Mat (Qələbə)',
-    simpleExplain: 'Şaha hücum olunub və onun xilas olmağa heç bir yolu yoxdur.',
-    detail: 'Mat şahmat oyununun əsas hədəfidir! Şaha hücum edilib və o: 1) qaça bilmir, 2) araya sipər çəkə bilmir, 3) hücum edən fiquru vura bilmir. Mat edən tərəf dərhal qələbə qazanır!',
-    boardFen: '6k1/5ppp/8/8/8/8/8/1R4K1 w - - 0 1',
-    highlightSquare: 'g8',
-    attackerSquare: 'b8',
+    simpleExplain: 'Şah hücum altındadır və heç bir xilas yolu yoxdur.',
+    detail: 'Mat şahmat oyununun məqsədidir. Şah hücum altındadırsa və qaçacaq xana, araya qoyulacaq fiqur və ya hücum edəni vurmaq imkanı yoxdursa, oyun dərhal bitir və hücum edən tərəf qalib gəlir.',
+    boardFen: 'R3k3/8/4K3/8/8/8/8/8 b - - 0 1',
+    highlightSquare: 'e8',
+    attackerSquare: 'a8',
   },
   {
     id: 'pat',
-    title: 'Pat (Heç-heçə çıxılmaz vəziyyət)',
-    simpleExplain: 'Şah təhlükədə deyil, amma heç bir fiqurun qaydalı gedişi qalmayıb.',
-    detail: 'Növbə gələn oyunçunun heç bir qaydalı gedişi yoxdur və Şahı da təhlükədə deyil. Belə halda oyun dərhal Heç-heçə hesab olunur. Qələbəyə gedən oyunçu Pat vəziyyətinə düşməməyə diqqət etməlidir!',
+    title: 'Pat (Heç-heçə)',
+    simpleExplain: 'Şaha hücum yoxdur, lakin heç bir qaydalı gediş qalmayıb.',
+    detail: 'Növbə kimdədirsə, onun heç bir fiquru ilə qaydalı gediş etmək mümkün deyilsə və Şahı da hücum altında deyilsə, bu Pat adlanır. Pat vəziyyətində oyun heç-heçə (bərabərə) başa çatır.',
     boardFen: 'k7/2Q5/1K6/8/8/8/8/8 b - - 0 1',
     highlightSquare: 'a8',
-    attackerSquare: '',
   },
   {
     id: 'draw',
-    title: 'Heç-heçə (Bərabərlik)',
-    simpleExplain: 'Hər iki tərəf üçün bərabər nəticə (0.5 – 0.5).',
-    detail: 'Oyunda qalib olmadıqda heç-heçə qeydə alınır: qarşılıqlı razılıq, mat etmək üçün fiqurların kifayət etməməsi (məsələn, yalnız iki Şah qaldıqda) və ya eyni vəziyyətin ardıcıl 3 dəfə təkrarlanması.',
-    boardFen: '8/8/4k3/8/8/4K3/8/8 w - - 0 1',
-    highlightSquare: '',
-    attackerSquare: '',
+    title: 'Digər Heç-heçələr',
+    simpleExplain: 'Yetərsiz material və ya qarşılıqlı razılıq.',
+    detail: 'Lövhədə hər iki tərəfin mat etməyə yetərli fiquru qalmadıqda (məsələn, yalnız Şah Şaha qarşı və ya Şah və Fil Şaha qarşı), oyun avtomatik bərabərə bitir. Eyni mövqe 3 dəfə təkrarlandıqda da heç-heçə elan olunur.',
+    boardFen: '4k3/8/8/8/8/8/8/4K3 w - - 0 1',
   },
 ];
 
@@ -234,150 +197,119 @@ export const specialMovesData = [
   {
     id: 'castling',
     title: 'Rokirovka',
-    subtitle: 'Şah və Topun unikal birgə gedişi',
-    description: 'Şahınızı mərkəzdəki təhlükələrdən küncə qaçırmaq və eyni zamanda Topu oyuna daxil etmək üçün edilən xüsusi gedişdir. Şah iki xana sağa (qısa rokirovka) və ya iki xana sola (uzun rokirovka) gedir, Top isə Şahın üstündən aşaraq dərhal yanına keçir.',
+    subtitle: 'Müdafiə və Hücum Hərəkatı',
+    description: 'Şahı qorumaq və küncdəki Topu mərkəzə çıxarmaq üçün eyni anda edilən yeganə ikiqat gedişdir.',
+    condition: 'Şah və Top arasında fiqur olmamalı və heç biri hələ oynamamış olmalıdır.',
+    explain: 'Şah iki xana sağa və ya sola gedir, Top isə onun üstündən keçərək dərhal yanındakı xanada dayanır. Şah hücum altındaykən rokirovka edilə bilməz.',
     rules: [
-      'Şah və həmin Top oyunda hələ heç bir gediş etməmiş olmalıdır.',
-      'Aralarındakı bütün xanalar tamamilə boş olmalıdır.',
-      'Şah hücum altında olmamalı və keçdiyi xanalar da vurulmamalıdır.',
+      'Şah və rokirovka ediləcək Top əvvəl heç vaxt hərəkət etməmiş olmalıdır.',
+      'Şah ilə Topun arasında heç bir fiqur olmamalıdır.',
+      'Şah təhlükə (şah) altında olmamalı və keçdiyi xanalar rəqib tərəfindən vurulmamalıdır.',
     ],
   },
   {
     id: 'promotion',
-    title: 'Piyadanın Vəzirə Çevrilməsi',
-    subtitle: 'Cəsur piyadanın böyük mükafatı',
-    description: 'Piyada bütün çətinlikləri aşaraq qarşı tərəfin sonuncu xəttinə (ağ piyada 8-ci, qara piyada 1-ci xəttə) çatdıqda möcüzə baş verir! O an piyada lövhədən götürülür və yerinə Vəzir, Top, Fil və ya At qoyulur.',
+    title: 'Piyadanın Çevrilməsi',
+    subtitle: 'Piyadanın Zirvəyə Çatması',
+    description: 'Piyada lövhənin ən sonuncu xəttinə çatdıqda dərhal daha güclü bir fiqura çevrilmək hüququ qazanır.',
+    condition: 'Piyada lövhənin ən sonuncu xəttinə (ağlar üçün 8-ci, qaralar üçün 1-ci xəttə) çatdıqda.',
+    explain: 'Son xanaya çatan piyada dərhal oyunçunun istəyi ilə Vəzir, Top, Fil və ya Ata çevrilir (adətən ən güclü fiqur olan Vəzir seçilir). Bir oyunda bir neçə Vəzir ola bilər.',
     rules: [
-      'Piyada son xanaya çatan kimi dərhal çevrilməlidir.',
-      'Lövhədə artıq başqa vəzirin olub-olmaması fərq etmir (bir neçə vəzir ola bilər).',
+      'Piyada son xəttə çatan kimi həmin gedişdə çevrilməlidir.',
+      'Ən çox Vəzir seçilir, lakin bəzi taktikalarda At çevrilməsi də istifadə olunur.',
+      'Vurulan fiqurlardan asılı olmayaraq eyni anda lövhədə birdən çox Vəzir ola bilər.',
     ],
   },
   {
     id: 'enpassant',
     title: 'Keçiddə Götürmə (An Passan)',
-    subtitle: 'Piyadanın xüsusi vurma qaydası',
-    description: 'Rəqibin piyadası başlanğıc yerindən iki xana irəli sıçrayaraq sizin piyadanızın yanına düşdükdə, sizin piyada onu sanki yalnız bir xana getmiş kimi çəpinə vurub lövhədən çıxara bilər. Bu gediş dərhal növbəti gedişdə edilməlidir!',
+    subtitle: 'Xüsusi Piyada Zərbəsi',
+    description: 'Rəqib piyada ilk addımında iki xana tullanaraq sizin piyadanızla yanaşı dayandıqda tətbiq olunur.',
+    condition: 'Rəqib piyada ilk addımında 2 xana birdən irəliləyib sizin piyadanızın yanına düşdükdə.',
+    explain: 'Yalnız dərhal növbəti gedişdə istifadə edilə bilən xüsusi qaydadır. Sizin piyadanız sanki rəqib piyada cəmi 1 xana irəliləmiş kimi onu çəpinə vurub rəqibin keçdiyi xanaya yerləşə bilər.',
     rules: [
-      'Yalnız piyadalar tərəfindən və yalnız iki xana sıçrayan piyadaya qarşı edilə bilər.',
-      'Qərar dərhal verilməlidir — növbəti gedişdə bu hüquq itirilir.',
+      'Yalnız rəqib piyada 2 xana birdən irəliləyərək sizin piyadanın yanına gəldikdə keçərlidir.',
+      'Zərbə yalnız dərhal növbəti gedişdə edilməlidir, sonrakı gedişlərdə bu hüquq itir.',
+      'Vurulan piyada lövhədən çıxarılır, sizin piyadanız isə onun keçdiyi xanaya yerləşir.',
     ],
   },
 ];
 
-export const beginnerTipsData = [
+export const tipsData = [
   {
     number: '01',
-    title: 'Mərkəzə Nəzarət Edin',
-    text: 'Şahmat lövhəsinin mərkəzindəki d4, e4, d5, e5 xanaları ən həlledici yerlərdir. Mərkəzdə dayanan fiqurlar bütün lövhəyə asanlıqla hökm edə bilər.',
+    title: 'Mərkəzi Nəzarətdə Saxlayın',
+    text: 'Lövhənin mərkəzindəki 4 vacib xana (e4, d4, e5, d5) oyunu idarə etməyin açarıdır. İlk gedişlərdə piyadalarınızı mərkəzə yönəldin.',
+    desc: 'Lövhənin mərkəzindəki 4 vacib xana (e4, d4, e5, d5) oyunu idarə etməyin açarıdır. İlk gedişlərdə piyadalarınızı mərkəzə yönəldin.',
   },
   {
     number: '02',
-    title: 'Bütün Fiqurları Oyuna Çıxarın',
-    text: 'Oyuna başlayan kimi ilk olaraq yüngül fiqurları — Atları və Filləri oyuna daxil edin. Bir fiqurla dəfələrlə oynamaq yerinə, bütün ordunuzu səfərbər edin.',
+    title: 'Fiqurlarınızı Tez İnkişaf Etdirin',
+    text: 'At və filləri ilk gedişlərdə oyuna daxil edin. Eyni fiqurla arxa-arxaya məqsədsiz bir neçə dəfə oynamayın.',
+    desc: 'At və filləri ilk gedişlərdə oyuna daxil edin. Eyni fiqurla arxa-arxaya məqsədsiz bir neçə dəfə oynamayın.',
   },
   {
     number: '03',
-    title: 'Şahınızı Tez Qoruyun',
-    text: 'Debütdə tez bir zamanda Rokirovka edin. Şah mərkəzdə qaldıqda rəqibin hücumuna tuş gəlmək riski çox yüksək olur.',
+    title: 'Şahınızın Təhlükəsizliyini Təmin Edin',
+    text: 'Erkən rokirovka edərək şahınızı mərkəzdəki hücumlardan qoruyun və topunuzu açıq xətlərə yaxınlaşdırın.',
+    desc: 'Erkən rokirovka edərək şahınızı mərkəzdəki hücumlardan qoruyun və topunuzu açıq xətlərə yaxınlaşdırın.',
   },
   {
     number: '04',
-    title: 'Fiqurları Havayı Verməyin',
-    text: 'Hər bir gediş etməzdən əvvəl özünüzdən soruşun: "Gedəcəyim xananı rəqib qoruyurmu? Fiqurum təhlükəsizdirmi?"',
+    title: 'Vəziri Oyuna Çox Tez Salmayın',
+    text: 'Vəzir ən güclü fiqurdur. Onu çox tez qabağa çıxardıqda rəqibin zəif fiqurları vəzirinizi qovaraq inkişafda üstünlük qazanır.',
+    desc: 'Vəzir ən güclü fiqurdur. Onu çox tez qabağa çıxardıqda rəqibin zəif fiqurları vəzirinizi qovaraq inkişafda üstünlük qazanır.',
   },
   {
     number: '05',
-    title: 'Tələsmədən Düşünün',
-    text: 'Şahmat səbir və diqqət oyunudur. Əlinizi dərhal fiqura uzatmayın, əvvəlcə beyninizdə rəqibin cavabını hesablayın.',
+    title: 'Hər Gedişdən Əvvəl Düşünün',
+    text: 'Rəqibin sonuncu gedişinin məqsədini anlamağa çalışın: "O mənim hansı fiqurumu hədələyir?" sualını özünüzə verin.',
+    desc: 'Rəqibin sonuncu gedişinin məqsədini anlamağa çalışın: "O mənim hansı fiqurumu hədələyir?" sualını özünüzə verin.',
   },
   {
     number: '06',
-    title: 'Lövhənin Dilini Öyrənin',
-    text: 'Xanaların adlarını (a1, e4, h8 və s.) əzbərləyin. Bu sizin şahmat kitablarını oxumağınıza və qrossmeysterlərin oyunlarını anlamağınıza kömək edəcək.',
+    title: 'Məğlubiyyətlərdən Nəticə Çıxarın',
+    text: 'Hər uduzulan oyun ən yaxşı dərsdir. Partiyanı təhlil edin və hansı gedişdə diqqətsizlik etdiyinizi araşdırın.',
+    desc: 'Hər uduzulan oyun ən yaxşı dərsdir. Partiyanı təhlil edin və hansı gedişdə diqqətsizlik etdiyinizi araşdırın.',
   },
 ];
+
+export const beginnerTipsData = tipsData;
 
 export const faqData = [
   {
     question: 'Uşaqlar neçə yaşından şahmat öyrənməyə başlaya bilər?',
-    answer: 'Uşaqlar üçün ən ideal başlanğıc yaşı 4-6 yaş arasıdır. Bu yaşda uşaqlar şahmatı nağıl və əyləncəli obrazlar vasitəsilə çox tez və sevərək mənimsəyirlər.',
+    answer: 'Adətən 5-6 yaş şahmat öyrənmək üçün əlverişli dövrdür. Fiqurların hərəkətini və sadə qaydaları bu yaşda rahat mənimsəmək mümkündür.',
   },
   {
-    question: 'Dərslər üçün hər hansı ilkin hazırlıq lazımdırmı?',
-    answer: 'Xeyr, heç bir ilkin bilik tələb olunmur! Dərslərimiz lövhənin xanalarından və fiqurların adlarından başlayaraq addım-addım ən sadə dillə izah edilir.',
+    question: 'Dərslərə başlamaq üçün ilkin bilik lazımdırmı?',
+    answer: 'Xeyr, heç bir ilkin bilik tələb olunmur. Dərslər lövhənin xanalarından və fiqurların adlarından başlayaraq ən sadə dildə izah edilir.',
   },
   {
-    question: 'Şahmat uşağın məktəb dərslərinə və inkişafına necə təsir edir?',
-    answer: 'Şahmat uşaqlarda məntiqi təfəkkürü, riyazi qavrayışı, konsentrasiyanı, səbri və qərar qəbul etmə cəsarətini sürətlə gücləndirir.',
+    question: 'Şahmat uşağın inkişafına necə kömək edir?',
+    answer: 'Şahmat məntiqi təfəkkürü, konsentrasiyanı, səbirlə düşünməyi və qərar qəbul etmə bacarığını gücləndirir.',
   },
   {
-    question: 'Şahmat Məktəbinə qeydiyyat necə həyata keçirilir?',
-    answer: 'Yuxarıdakı "Bizə qoşul" düyməsinə klikləyərək və ya əlaqə formasında telefon/email qeyd edərək dərslərimizə asanlıqla yazıla bilərsiniz.',
+    question: 'Dərslərə qeydiyyat necə aparılır?',
+    answer: 'Saytın yuxarısındakı "Qoşul" düyməsinə klikləyərək və ya əlaqə formasında nömrənizi qeyd edərək dərslərə yazıla bilərsiniz.',
   },
   {
-    question: 'Öyrənmə prosesində rəqiblə oyun oynamaq məcburidirmi?',
-    answer: 'Xeyr. Başlanğıcda yalnız qaydaları, fiqurların hərəkətini və maraqlı şahmat tapmacalarını dərindən öyrənmək ən düzgün və stressiz yanaşmadır.',
+    question: 'Öyrənmə mərhələsində rəqiblə oynamaq şərtdirmi?',
+    answer: 'Xeyr. Başlanğıcda qaydaları, fiqurların hərəkətini və sadə tapmacaları öyrənmək daha vacibdir.',
   },
 ];
 
 export const historyData = {
-  title: 'Azərbaycanda Şahmat və Zəngin Tarixi',
-  lead: 'Şahmat min ildən artıqdır ki, Şərqin ən böyük zəka sənəti kimi sevilir və inkişaf edir.',
+  title: 'Azərbaycanda Şahmat Ənənəsi',
+  lead: 'Azərbaycan zəngin şahmat ənənələrinə və beynəlxalq arenada tanınan məktəbə malikdir.',
   paragraphs: [
-    'Şahmat Şərqdə «Şatranj» adı ilə məşhur olmuş, dahi Azərbaycan şairi Nizami Gəncəvinin əsərlərində şahmatın fəlsəfəsi və gözəlliyi vəsf edilmişdir.',
-    'Müasir dövrdə Azərbaycan dünyanın ən güclü şahmat ölkələrindən biridir. Azərbaycan Milli Komandası üç dəfə Avropa Çempionu olmuşdur.',
-    'Ölkəmiz Şəhriyar Məmmədyarov, Teymur Rəcəbov və unudulmaz Vüqar Həşimov kimi dünya səviyyəli əfsanəvi qrossmeysterlər yetişdirmişdir. İndi isə növbə sizin uşaqlarınızındır!',
+    'Şahmat Şərqdə əsrlər boyu zəka oyunu kimi qəbul edilmiş, dahi şair Nizami Gəncəvinin əsərlərində də şahmat terminləri və lövhə fəlsəfəsi yer almışdır.',
+    'Müasir dövrdə Azərbaycan şahmat komandaları Avropa Çempionatlarında yüksək nəticələr göstərmiş, ölkəmizdə çoxlu istedadlı qrossmeysterlər yetişmişdir.',
+    'Gənc nəslin şahmata marağı hər il artır və məktəbimiz uşaqlara bu möhkəm təməli aşılamağı hədəfləyir.',
   ],
   grandmasters: [
-    { name: 'Şəhriyar Məmmədyarov', title: 'Qrossmeyster, Dünya Reytinqində 2-ci pillə, 3 qat Avropa Çempionu' },
-    { name: 'Teymur Rəcəbov', title: 'Qrossmeyster, Dünya Kubokunun qalibi, şahmat vunderkindi' },
-    { name: 'Vüqar Həşimov', title: 'Unudulmaz Qrossmeyster, dahi taktika ustası və Avropa Çempionu' },
+    { name: 'Şəhriyar Məmmədyarov', title: 'Qrossmeyster, Dünya Çempionatı iddiaçısı, komanda üzrə Avropa Çempionu' },
+    { name: 'Teymur Rəcəbov', title: 'Qrossmeyster, FIDE Dünya Kubokunun qalibi' },
+    { name: 'Vüqar Həşimov', title: 'Mərhum Qrossmeyster, güclü taktika ustası və komanda çempionu' },
   ],
 };
-
-export const initialDemoBooks: Book[] = [
-  {
-    id: 'book-1',
-    title: 'Şahmatın İlk Əlifbası',
-    author: 'Teymur Qasımov',
-    description: 'Uşaqlar və ən kiçik yaşlı şahmat həvəskarları üçün nağılvari dildə yazılmış şahmat dərslik vəsaiti. Fiqurların hərəkəti, xanaların adları və ilk qələbələr.',
-    level: 'beginner',
-    cover_url: null,
-    file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-    file_name: 'sahmatin_ilk_elifbasi.pdf',
-    created_at: new Date(Date.now() - 3600000 * 24 * 3).toISOString(),
-  },
-  {
-    id: 'book-2',
-    title: 'Gənc Şahmatçının 100 Taktiki Zərbəsi',
-    author: 'Fərid Məmmədov',
-    description: 'Bir və iki gedişlik mat tapmacaları, fiqurların qəfil çəngəl və bağlama fəndləri ilə rəqibləri təəccübləndirmək üçün zəngin praktiki məşq toplusu.',
-    level: 'beginner',
-    cover_url: null,
-    file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-    file_name: 'genc_sahmatcinin_100_zerbesi.pdf',
-    created_at: new Date(Date.now() - 3600000 * 24 * 7).toISOString(),
-  },
-  {
-    id: 'book-3',
-    title: 'Debütdə Qələbə Sirrləri',
-    author: 'Leyla Əliyeva',
-    description: 'İtalyan partiyası, İspan partiyası və Şotlandiya müdafiəsi kimi klassik başlanğıcların sirləri. Açılışda tələlərə düşməmək və mərkəzə hökm etmək qaydaları.',
-    level: 'intermediate',
-    cover_url: null,
-    file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-    file_name: 'debutde_qelebe_sirrleri.pdf',
-    created_at: new Date(Date.now() - 3600000 * 24 * 12).toISOString(),
-  },
-  {
-    id: 'book-4',
-    title: 'Müasir Şahmat Strategiyası və Endşpil',
-    author: 'Rəşad Həsənov',
-    description: 'Piyada sonluqları, top və fil əməkdaşlığı, mövqe üstünlüyünün dəqiq qələbəyə çevrilməsi metodları. Turnir şahmatçıları üçün əvəzolunmaz stolüstü bələdçi.',
-    level: 'advanced',
-    cover_url: null,
-    file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-    file_name: 'muasir_sahmat_strategiyasi.pdf',
-    created_at: new Date(Date.now() - 3600000 * 24 * 20).toISOString(),
-  },
-];

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { submitContactRequest } from '@/lib/supabase/actions';
-import { Mail, Phone, Send, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
+import { Mail, Phone, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export function ContactSection() {
   const [value, setValue] = useState('');
@@ -17,21 +17,20 @@ export function ContactSection() {
 
     const trimmed = value.trim();
     if (!trimmed) {
-      setErrorMessage('Zəhmət olmasa, əlaqə vasitənizi qeyd edin.');
+      setErrorMessage('Zəhmət olmasa əlaqə vasitənizi daxil edin.');
       return;
     }
 
     if (contactType === 'email') {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(trimmed)) {
-        setErrorMessage('Düzgün bir e-poçt ünvanı daxil edin (məs: ad@example.com).');
+        setErrorMessage('Düzgün e-poçt ünvanı daxil edin (nümunə: ad@example.com).');
         return;
       }
     } else {
-      // Basic phone check
       const digitsOnly = trimmed.replace(/\D/g, '');
       if (digitsOnly.length < 7) {
-        setErrorMessage('Zəhmət olmasa, düzgün telefon nömrəsi daxil edin (məs: 050 123 45 67).');
+        setErrorMessage('Düzgün telefon nömrəsi daxil edin (nümunə: 050 123 45 67).');
         return;
       }
     }
@@ -44,68 +43,61 @@ export function ContactSection() {
       setIsSuccess(true);
       setValue('');
     } else {
-      setErrorMessage(result.error || 'Xəta baş verdi. Zəhmət olmasa bir az sonra yenidən cəhd edin.');
+      setErrorMessage(result.error || 'Müraciət göndərilərkən xəta baş verdi. Zəhmət olmasa bir qədər sonra yenidən yoxlayın.');
     }
   };
 
   return (
-    <section id="contact" className="py-20 relative bg-[#121024] border-t border-[#2d2750]/50 overflow-hidden">
-      {/* Decorative background glow */}
-      <div className="absolute -bottom-20 right-1/4 w-96 h-96 bg-[#7c5cff]/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#7c5cff]/10 border border-[#7c5cff]/20 text-[#9a82ff] text-xs font-semibold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Bizə Qoşulun
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#ecebf5] tracking-tight">
-            Şahmat Dərslərinə İndi Yazılın
+    <section id="contact" className="py-16 lg:py-24 bg-[#121024] border-b border-[#2d2750]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <h2 className="text-[clamp(1.75rem,3vw,2.25rem)] font-bold text-[#ecebf5] tracking-tight">
+            Şahmat Dərslərinə Qeydiyyat
           </h2>
-          <p className="mt-3 text-[#9893b8] text-base sm:text-lg">
-            Telefon nömrənizi və ya e-poçtunuzu qeyd edin, müəllimlərimiz ən qısa zamanda sizinlə əlaqə saxlasın.
+          <p className="text-sm sm:text-base text-[#9893b8] mt-2">
+            Telefon nömrənizi və ya e-poçtunuzu qeyd edin, məşqçilərimiz sizinlə əlaqə saxlasın.
           </p>
         </div>
 
-        <div className="bg-[#171428] border border-[#2d2750] rounded-3xl p-6 sm:p-10 shadow-2xl relative">
+        <div className="card-flat p-6 sm:p-8 max-w-xl mx-auto">
           {isSuccess ? (
-            <div className="text-center py-10 space-y-4 animate-fadeIn">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="text-center py-6 space-y-3">
+              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+                <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="text-2xl font-bold text-[#ecebf5]">Təşəkkür edirik!</h3>
-              <p className="text-[#9893b8] max-w-md mx-auto text-sm sm:text-base">
-                Müraciətiniz uğurla qəbul edildi. Tezliklə təlimçilərimiz sizinlə əlaqə saxlayacaq.
+              <h3 className="text-lg font-bold text-[#ecebf5]">Müraciətiniz qəbul edildi</h3>
+              <p className="text-xs sm:text-sm text-[#9893b8] max-w-sm mx-auto leading-relaxed">
+                Təlimçilərimiz ən qısa zamanda sizinlə əlaqə saxlayacaq.
               </p>
               <button
                 onClick={() => setIsSuccess(false)}
-                className="mt-4 px-6 py-2.5 rounded-xl bg-[#211c3a] text-[#ecebf5] hover:bg-[#2d2750] text-sm font-medium transition-colors cursor-pointer"
+                className="btn-secondary px-4 py-2 text-xs mt-2"
               >
                 Yeni müraciət göndər
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Type Switcher */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-3">
-                  Əlaqə Növünü Seçin
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-2">
+                  Əlaqə növü
                 </label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => {
                       setContactType('phone');
                       setErrorMessage(null);
                     }}
-                    className={`flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                    className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-[10px] text-xs font-semibold transition-colors cursor-pointer ${
                       contactType === 'phone'
-                        ? 'bg-[#7c5cff] text-white shadow-lg shadow-[#7c5cff]/20 border border-[#9a82ff]/50'
+                        ? 'bg-[#7c5cff] text-white'
                         : 'bg-[#211c3a] text-[#9893b8] hover:text-[#ecebf5] border border-[#2d2750]'
                     }`}
                   >
-                    <Phone className="w-4 h-4" />
-                    <span>Telefon ilə</span>
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>Telefon</span>
                   </button>
 
                   <button
@@ -114,51 +106,42 @@ export function ContactSection() {
                       setContactType('email');
                       setErrorMessage(null);
                     }}
-                    className={`flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                    className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-[10px] text-xs font-semibold transition-colors cursor-pointer ${
                       contactType === 'email'
-                        ? 'bg-[#7c5cff] text-white shadow-lg shadow-[#7c5cff]/20 border border-[#9a82ff]/50'
+                        ? 'bg-[#7c5cff] text-white'
                         : 'bg-[#211c3a] text-[#9893b8] hover:text-[#ecebf5] border border-[#2d2750]'
                     }`}
                   >
-                    <Mail className="w-4 h-4" />
-                    <span>E-poçt ilə</span>
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>E-poçt</span>
                   </button>
                 </div>
               </div>
 
-              {/* Input Field */}
+              {/* Input */}
               <div>
-                <label htmlFor="contact-input" className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-2">
-                  {contactType === 'phone' ? 'Telefon Nömrəniz' : 'E-poçt Ünvanınız'}
+                <label htmlFor="contact-input" className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-1.5">
+                  {contactType === 'phone' ? 'Telefon nömrəsi' : 'E-poçt ünvanı'}
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#9893b8]">
-                    {contactType === 'phone' ? (
-                      <Phone className="w-4 h-4" />
-                    ) : (
-                      <Mail className="w-4 h-4" />
-                    )}
-                  </div>
-                  <input
-                    id="contact-input"
-                    type={contactType === 'phone' ? 'tel' : 'email'}
-                    value={value}
-                    onChange={(e) => {
-                      setValue(e.target.value);
-                      if (errorMessage) setErrorMessage(null);
-                    }}
-                    placeholder={
-                      contactType === 'phone'
-                        ? '+994 50 123 45 67'
-                        : 'numune@domain.com'
-                    }
-                    className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#0d0b17] border border-[#2d2750] text-[#ecebf5] placeholder-[#9893b8]/50 focus:outline-none focus:border-[#7c5cff] focus:ring-2 focus:ring-[#7c5cff]/30 text-sm transition-all"
-                  />
-                </div>
+                <input
+                  id="contact-input"
+                  type={contactType === 'phone' ? 'tel' : 'email'}
+                  value={value}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                    if (errorMessage) setErrorMessage(null);
+                  }}
+                  placeholder={
+                    contactType === 'phone'
+                      ? '050 123 45 67'
+                      : 'ad@example.com'
+                  }
+                  className="w-full px-3.5 py-2.5 rounded-[10px] bg-[#0d0b17] border border-[#2d2750] text-[#ecebf5] placeholder-[#9893b8]/50 focus:outline-hidden focus:border-[#7c5cff] text-sm"
+                />
 
                 {errorMessage && (
-                  <div className="mt-2.5 flex items-center gap-2 text-rose-400 text-xs animate-shake">
-                    <AlertCircle className="w-4 h-4 shrink-0" />
+                  <div className="mt-2 flex items-center gap-1.5 text-rose-400 text-xs">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
                 )}
@@ -168,23 +151,13 @@ export function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#7c5cff] to-[#6340f0] hover:from-[#9a82ff] hover:to-[#7c5cff] text-white font-bold text-base shadow-lg shadow-[#7c5cff]/25 hover:shadow-xl hover:shadow-[#7c5cff]/35 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="btn-primary w-full py-3 text-sm cursor-pointer disabled:opacity-50"
               >
-                {isSubmitting ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Göndərilir...
-                  </span>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>Müraciət Göndər</span>
-                  </>
-                )}
+                {isSubmitting ? 'Göndərilir...' : 'Müraciəti göndər'}
               </button>
 
-              <p className="text-center text-xs text-[#9893b8]/80">
-                Məlumatlarınız tamamilə məxfi saxlanılır və üçüncü şəxslərə ötürülmür.
+              <p className="text-center text-[11px] text-[#9893b8]">
+                Məlumatlarınız məxfi saxlanılır və yalnız dərslərlə bağlı əlaqə üçün istifadə olunur.
               </p>
             </form>
           )}

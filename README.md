@@ -2,19 +2,20 @@
 
 Uşaqlar və yeni başlayanlar üçün hazırlanmış müasir və interaktiv şahmat təhsil portalı.
 
-Platformanın bütün istifadəçi interfeysi tamamilə **Azərbaycan dilindədir**. Kod və struktur isə təmiz **Next.js (App Router) + TypeScript + Tailwind CSS** və **Supabase** texnologiyaları əsasında qurulmuşdur.
+Platformanın bütün istifadəçi interfeysi tamamilə **Azərbaycan dilindədir**. Bütün dinamik məlumatlar (müəllimlər, kitablar, əlaqə müraciətləri və profillər) birbaşa **Supabase** üzərindən idarə olunur.
+
+> **Qeyd:** Bu sayt yalnız ictimai istifadəçilər üçündür (User-Facing). Saytın məzmununu idarə etmək (müəllimlərin və kitabların əlavə edilməsi, əlaqə müraciətlərinin cavablandırılması) üçün gələcəkdə eyni Supabase layihəsinə qoşulan **ayrıca İnzibatçı (Admin) saytı** qurulacaqdır.
 
 ---
 
-## 🎨 Dizayn Xüsusiyyətləri (Lichess İlə İlhamlanmış Qaranlıq Tema)
+## 🎨 Dizayn Xüsusiyyətləri
 
 - **Əsas Fon:** Dərin bənövşəyi / qara (`#0d0b17`)
-- **Kart və Səthlər:** `#171428`, qaldırılmış səth `#211c3a`
+- **Kart və Səthlər:** `#171428`, yüksəldilmiş səth `#211c3a`
 - **İncə Haşiyələr:** `#2d2750`
-- **Əsas Vurğu:** Elektrik bənövşəyi (`#7c5cff`) və hover rəngi (`#9a82ff`)
-- **İkinci dərəcəli:** Dərin göy (`#3b5bdb`)
-- **Şahmat Lövhəsi:** Açıq xanalar `#b9b0d9`, tünd xanalar `#5b4b9a`, son gediş/seçim bənövşəyi şəffaf işıqlanma
-- **Hamar Animasiyalar:** Kartlarda yumşaq qaldırma effekti, toxunuşa həssas SVG fiqurlar
+- **Əsas Vurğu:** Bənövşəyi (`#7c5cff`) və hover rəngi (`#9a82ff`)
+- **Şahmat Lövhəsi:** Açıq xanalar `#b9b0d9`, tünd xanalar `#5b4b9a`
+- **Tipoqrafiya:** Azərbaycan dilinin xüsusi hərflərini (ə, Ə, ı, İ, ğ, Ğ, ş, Ş, ç, Ç, ö, Ö, ü, Ü) tam dəstəkləyən `latin-ext` şrifti.
 
 ---
 
@@ -22,10 +23,10 @@ Platformanın bütün istifadəçi interfeysi tamamilə **Azərbaycan dilindədi
 
 - **Freymvork:** Next.js (App Router, Server və Client komponentlər)
 - **Dil:** TypeScript
-- **Stil:** Tailwind CSS + PostCSS
+- **Stil:** Tailwind CSS
 - **İkonlar:** Lucide React
 - **Backend & Autentifikasiya:** Supabase (`@supabase/supabase-js`, `@supabase/ssr`)
-- **Məlumat Bazası:** PostgreSQL (Row Level Security - RLS siyasətləri ilə qorunan)
+- **Məlumat Bazası:** PostgreSQL (Row Level Security - RLS siyasətləri ilə)
 - **Fayl Saxlama:** Supabase Storage (`book-files`, `book-covers`)
 
 ---
@@ -35,41 +36,41 @@ Platformanın bütün istifadəçi interfeysi tamamilə **Azərbaycan dilindədi
 ```
 ├── app/
 │   ├── layout.tsx             # Root layout (Metadata, Azərbaycan dili, Tailwind)
-│   ├── page.tsx               # Ana səhifə (1-dən 11-ə qədər olan bütün bölmələr)
+│   ├── page.tsx               # Ana səhifə (Dinamik müəllimlər və interaktiv bölmələr)
 │   ├── auth/
 │   │   ├── page.tsx           # Giriş və Qeydiyyat səhifəsi (Google OAuth + Email/Telefon)
 │   │   └── callback/route.ts  # Supabase OAuth yönləndirmə emalçısı
 │   ├── books/
-│   │   └── page.tsx           # Şahmat kitabxanası (Axtarış, səviyyə filtri, PDF baxış/yükləmə)
-│   ├── admin/
-│   │   └── page.tsx           # İnzibatçı paneli (Müraciətlərin və Kitabların idarəsi)
-│   └── globals.css            # Tailwind CSS qlobal tənzimləmələri və dəyişənlər
+│   │   └── page.tsx           # Şahmat kitabxanası (Axtarış, səviyyə filtri, baxış və yükləmə)
+│   └── globals.css            # Tailwind CSS qlobal tənzimləmələri
 ├── components/
-│   ├── Navbar.tsx             # Yapışqan naviqasiya və hesab vəziyyəti
-│   ├── Footer.tsx             # Qaranlıq altlıq və sosial şəbəkələr
-│   ├── HeroSection.tsx        # Bölmə 1: Başlıq və "Bizə qoşul" düyməsi
-│   ├── TeachersSlider.tsx     # Bölmə 2: Təlimçilər karuseli
-│   ├── StartingBoard.tsx      # Bölmə 3: Başlanğıc vəziyyət lövhəsi (çevirmə imkanı ilə)
-│   ├── PiecesSection.tsx      # Bölmə 4: Fiqurlar və interaktiv hərəkət nümayişi
-│   ├── GameGoalsSection.tsx   # Bölmə 5: Şah, Mat, Pat və Heç-heçə izahı
-│   ├── SpecialMovesSection.tsx# Bölmə 6: Rokirovka, Vəzirə çevrilmə, Keçiddə götürmə
-│   ├── BeginnerTipsSection.tsx# Bölmə 7: Yeni başlayanlara 6 qızıl qayda
-│   ├── FaqSection.tsx         # Bölmə 8: Tez-tez verilən suallar (akordeon)
-│   ├── HistorySection.tsx     # Bölmə 9: Azərbaycan şahmat tarixi və qrossmeysterlərimiz
-│   ├── ContactSection.tsx     # Bölmə 10: Əlaqə forması (Telefon və ya E-poçt)
-│   ├── PositionSetupBoard.tsx # Bölmə 11: Fiqur palitralı sərbəst mövqe qurucusu və FEN generatoru
+│   ├── Navbar.tsx             # İstifadəçi avatarı və menyu
+│   ├── Footer.tsx             # Altlıq və sosial şəbəkə keçidləri
+│   ├── HeroSection.tsx        # Başlıq və şahmat lövhəsi
+│   ├── TeachersSlider.tsx     # public.teachers cədvəlindən oxunan müəllimlər karuseli
+│   ├── StartingBoard.tsx      # Başlanğıc vəziyyət lövhəsi
+│   ├── PiecesSection.tsx      # Fiqurlar və hərəkət qaydaları
+│   ├── GameGoalsSection.tsx   # Şah, Mat, Pat və Heç-heçə qaydaları
+│   ├── SpecialMovesSection.tsx# Rokirovka, Vəzirə çevrilmə, Keçiddə götürmə
+│   ├── BeginnerTipsSection.tsx# Yeni başlayanlara 6 qızıl qayda
+│   ├── FaqSection.tsx         # Tez-tez verilən suallar
+│   ├── HistorySection.tsx     # Azərbaycan şahmat tarixi və qrossmeysterlərimiz
+│   ├── ContactSection.tsx     # public.contact_requests cədvəlinə yazan əlaqə forması
+│   ├── PositionSetupBoard.tsx # Mövqe qurucusu və FEN generatoru
+│   ├── BooksClient.tsx        # Kitabların axtarışı və səviyyə üzrə filtri
 │   └── ChessPieceSvg.tsx      # Vektorlu (SVG) şahmat fiqurları
 ├── lib/
-│   ├── siteData.ts            # Azərbaycan dilində bütün statik mətnlər və ilkin məlumatlar
-│   ├── types.ts               # TypeScript interfeysləri
+│   ├── siteData.ts            # Statik maarifləndirici mətnlər və TypeScript tipləri
+│   ├── types.ts               # Tip ixracları
 │   └── supabase/
-│       ├── client.ts          # Brauzer üçün Supabase müştərisi (SSR uyğun)
-│       ├── server.ts          # Server üçün Supabase müştərisi
-│       └── actions.ts         # Müraciətlər və Kitablar üçün server və ehtiyat metodları
-├── middleware.ts              # Sessiya yeniləməsi və /admin səhifəsinin server-tərəfli qorunması
-├── schema.sql                 # Supabase SQL Editor üçün tam sxem, trigger və RLS qaydaları
+│       ├── client.ts          # Brauzer Supabase müştərisi (SSR)
+│       ├── server.ts          # Server Supabase müştərisi
+│       ├── actions.ts         # Server əməliyyatları (Müraciət göndərmə, kitablar, müəllimlər)
+│       └── config.ts          # Supabase URL və konfiqurasiya yoxlayıcısı
+├── middleware.ts              # Supabase istifadəçi sessiyasının avtomatik yenilənməsi
+├── schema.sql                 # Supabase cədvəllərinin sənədləşdirməsi
 ├── .env.example               # Mühit dəyişənləri nümunəsi
-└── package.json               # Next.js asılılıqları və skriptləri
+└── package.json               # Asılılıqlar və skriptlər
 ```
 
 ---
@@ -82,31 +83,29 @@ npm install
 ```
 
 ### 2. Mühit dəyişənlərinin tənzimlənməsi:
-`.env.example` faylını `.env.local` adı ilə kopyalayın və Supabase məlumatlarınızı daxil edin:
+`.env.example` faylını `.env.local` adı ilə kopyalayın və Supabase layihənizin məlumatlarını daxil edin:
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://sizin-lahiyeniz.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sizin-anonim-acarınız
+NEXT_PUBLIC_SUPABASE_URL="https://sizin-lahiyeniz.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="sizin-anonim-acarınız"
 ```
 
-### 3. Supabase Məlumat Bazasının Yaradılması:
-`schema.sql` faylının tərkibini kopyalayıb Supabase Dashboard-dakı **SQL Editor** bölməsində icra edin. Bu skript:
-- `profiles`, `contact_requests`, `books` cədvəllərini yaradır;
-- Qeydiyyatdan keçən istifadəçilərə avtomatik profil yaradan triggeri quraşdırır;
-- `book-files` və `book-covers` storage qovluqlarını yaradır;
-- Bütün cədvəllər və yaddaş üzrə ciddi Row Level Security (RLS) təhlükəsizlik qaydalarını aktivləşdirir.
+### 3. Supabase Məlumat Bazası Cədvəlləri:
+Sayt aşağıdakı cədvəllərdən istifadə edir:
+- `public.teachers`: Müəllimlər siyahısı (`first_name`, `last_name`, `role_title`, `description`, `photo_url`, `sort_order`).
+- `public.books`: Şahmat kitabları (`title`, `author`, `description`, `level`, `cover_url`, `file_url`, `file_name`, `created_at`).
+- `public.contact_requests`: Əlaqə formasından göndərilən müraciətlər (`value`, `type`, `status`).
+- `public.profiles`: Qeydiyyatdan keçmiş istifadəçi məlumatları (`full_name`, `role`).
 
-### 4. İlk İnzibatçının (Admin) Təyin Olunması:
-Qeydiyyatdan keçdikdən sonra həmin istifadəçini inzibatçı etmək üçün Supabase SQL Editor-da yazın:
-```sql
-UPDATE public.profiles
-SET role = 'admin'
-WHERE id = (SELECT id FROM auth.users WHERE email = 'sizin-emailiniz@example.com');
-```
+Tam cədvəl strukturu və nümunələr üçün `schema.sql` sənədinə baxa bilərsiniz.
 
-*(Qeyd: Təqdimat və ya sınaq məqsədilə autentifikasiya səhifəsində birbaşa "👑 İnzibatçı" sınaq düyməsi də təqdim olunmuşdur).*
-
-### 5. İnkişaf serverinin işə salınması:
+### 4. İnkişaf serverinin işə salınması:
 ```bash
 npm run dev
 ```
-Sayt avtomatik olaraq `http://localhost:3000` ünvanında açılacaq.
+Sayt `http://localhost:3000` ünvanında açılacaq.
+
+---
+
+## ♟️ Şahmat Vektorları (Attribution)
+
+Bu layihədə istifadə olunan vektor (SVG) şahmat fiqurları **Colin M.L. Burnett (Cburnett)** tərəfindən hazırlanmış və [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces) vasitəsilə **Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)** lisenziyası ilə təqdim olunmuşdur. Fiqurlar `/public/pieces/` qovluğunda saxlanılır.

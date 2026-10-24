@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { specialMovesData } from '@/lib/siteData';
 import { ChessPieceSvg } from './ChessPieceSvg';
-import { Shield, Sparkles, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface MoveDemo {
   id: string;
@@ -31,7 +30,7 @@ const moveDemos: Record<string, MoveDemo> = {
     },
     highlightFrom: 'e1',
     highlightTo: 'g1',
-    description: 'Qısa rokirovka: Şah e1-dən g1-ə keçir, Top h1-dən f1-ə sıçrayır!',
+    description: 'Qısa rokirovka: Şah e1 xanasından g1 xanasına keçir, Top isə f1 xanasına yerləşir.',
   },
   promotion: {
     id: 'promotion',
@@ -47,7 +46,7 @@ const moveDemos: Record<string, MoveDemo> = {
     },
     highlightFrom: 'e7',
     highlightTo: 'e8',
-    description: 'Ağ piyada 8-ci xəttə çataraq ən güclü fiqura — Vəzirə çevrilir!',
+    description: 'Ağ piyada 8-ci xəttə çataraq Vəzirə çevrilir.',
   },
   enpassant: {
     id: 'enpassant',
@@ -64,7 +63,7 @@ const moveDemos: Record<string, MoveDemo> = {
     },
     highlightFrom: 'e5',
     highlightTo: 'd6',
-    description: 'Qara piyada d5-ə sıçrayır, ağ piyada isə onu d6-da keçiddə vurur!',
+    description: 'Qara piyada iki xana irəlilədikdə, ağ piyada onu keçiddə vuraraq d6 xanasına keçir.',
   },
 };
 
@@ -79,41 +78,20 @@ export function SpecialMovesSection() {
   const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
   const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
-  const getIcon = (id: string) => {
-    switch (id) {
-      case 'castling':
-        return <Shield className="w-5 h-5 text-[#7c5cff]" />;
-      case 'promotion':
-        return <Sparkles className="w-5 h-5 text-amber-400" />;
-      case 'enpassant':
-        return <Zap className="w-5 h-5 text-cyan-400" />;
-      default:
-        return <Shield className="w-5 h-5 text-[#7c5cff]" />;
-    }
-  };
-
   return (
-    <section id="special-moves" className="py-20 relative bg-[#121024] border-t border-b border-[#2d2750]/50 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute -top-32 right-10 w-96 h-96 bg-[#7c5cff]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 left-10 w-96 h-96 bg-[#3b5bdb]/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#7c5cff]/10 border border-[#7c5cff]/20 text-[#9a82ff] text-xs font-semibold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Xüsusi Şahmat Qaydaları
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#ecebf5] tracking-tight">
-            Şahmatın Sehrli Gedişləri
+    <section id="rules" className="py-16 lg:py-24 bg-[#121024] border-b border-[#2d2750]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <h2 className="text-[clamp(1.75rem,3vw,2.25rem)] font-bold text-[#ecebf5] tracking-tight">
+            Xüsusi Şahmat Gedişləri
           </h2>
-          <p className="mt-3 text-[#9893b8] text-base sm:text-lg">
-            Bu xüsusi qaydalar oyunu daha da maraqlı edir və rəqibləri təəccübləndirməyə kömək edir!
+          <p className="text-sm sm:text-base text-[#9893b8] mt-2">
+            Rokirovka, piyadanın çevrilməsi və keçiddə götürmə qaydaları ilə tanış olun.
           </p>
         </div>
 
-        {/* Tab Selection */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        {/* Tab Selection (Functional Segmented Buttons) */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {specialMovesData.map((item) => {
             const isSelected = item.id === selectedId;
             return (
@@ -123,63 +101,60 @@ export function SpecialMovesSection() {
                   setSelectedId(item.id);
                   setStep('after');
                 }}
-                className={`flex items-center gap-2.5 px-6 py-3 rounded-xl font-medium text-sm transition-all duration-200 cursor-pointer ${
+                className={`px-4 py-2 rounded-[10px] text-xs sm:text-sm font-semibold transition-colors cursor-pointer ${
                   isSelected
-                    ? 'bg-[#7c5cff] text-white shadow-lg shadow-[#7c5cff]/25 border border-[#9a82ff]/50'
+                    ? 'bg-[#7c5cff] text-white'
                     : 'bg-[#171428] text-[#9893b8] hover:text-[#ecebf5] hover:bg-[#211c3a] border border-[#2d2750]'
                 }`}
               >
-                {getIcon(item.id)}
-                <span>{item.title}</span>
+                {item.title}
               </button>
             );
           })}
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-4xl mx-auto">
           {/* Left: Explanation & Rules */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="bg-[#171428] border border-[#2d2750] rounded-2xl p-6 sm:p-8 relative">
-              <div className="flex items-center gap-3 mb-3">
-                {getIcon(currentMove.id)}
-                <span className="text-xs uppercase font-bold tracking-wider text-[#9a82ff]">
-                  {currentMove.subtitle}
-                </span>
-              </div>
-              <h3 className="text-2xl font-bold text-[#ecebf5] mb-4">{currentMove.title}</h3>
-              <p className="text-[#9893b8] leading-relaxed text-base mb-6">
+          <div className="lg:col-span-7 space-y-4">
+            <div className="card-flat p-6 sm:p-7 space-y-3">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#7c5cff]">
+                {currentMove.subtitle}
+              </span>
+              <h3 className="text-2xl font-bold text-[#ecebf5]">{currentMove.title}</h3>
+              <p className="text-sm text-[#9893b8] leading-relaxed">
                 {currentMove.description}
               </p>
 
-              <div className="space-y-3 pt-4 border-t border-[#2d2750]">
-                <h4 className="text-xs uppercase font-bold text-[#ecebf5] tracking-wider mb-2">
-                  Əsas Qaydalar:
-                </h4>
-                {currentMove.rules.map((rule, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-[#7c5cff] shrink-0 mt-1" />
-                    <span className="text-sm text-[#ecebf5] leading-relaxed">{rule}</span>
-                  </div>
-                ))}
+              <div className="pt-3 border-t border-[#2d2750] space-y-2">
+                <span className="text-xs font-bold text-[#ecebf5] block">
+                  Əsas şərtlər:
+                </span>
+                <ul className="space-y-1.5 text-xs text-[#9893b8]">
+                  {currentMove.rules.map((rule, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-[#7c5cff] font-bold">·</span>
+                      <span className="leading-relaxed">{rule}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
 
           {/* Right: Interactive Mini Board */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="bg-[#171428] border border-[#2d2750] p-4 rounded-2xl shadow-xl w-full max-w-md">
+            <div className="card-flat p-4 w-full max-w-sm">
               <div className="flex items-center justify-between mb-3 px-1">
-                <span className="text-xs font-semibold text-[#9893b8] flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#7c5cff] animate-pulse" />
-                  İnteraktiv Nümayiş
+                <span className="text-xs font-semibold text-[#ecebf5]">
+                  Nümayiş
                 </span>
-                <div className="inline-flex rounded-lg bg-[#0d0b17] p-1 border border-[#2d2750]">
+                <div className="inline-flex rounded-[8px] bg-[#0d0b17] p-1 border border-[#2d2750]">
                   <button
                     onClick={() => setStep('before')}
-                    className={`px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 text-xs font-medium rounded-[6px] transition-colors cursor-pointer ${
                       step === 'before'
-                        ? 'bg-[#7c5cff] text-white shadow-sm'
+                        ? 'bg-[#7c5cff] text-white'
                         : 'text-[#9893b8] hover:text-[#ecebf5]'
                     }`}
                   >
@@ -187,9 +162,9 @@ export function SpecialMovesSection() {
                   </button>
                   <button
                     onClick={() => setStep('after')}
-                    className={`px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 text-xs font-medium rounded-[6px] transition-colors cursor-pointer ${
                       step === 'after'
-                        ? 'bg-[#7c5cff] text-white shadow-sm'
+                        ? 'bg-[#7c5cff] text-white'
                         : 'text-[#9893b8] hover:text-[#ecebf5]'
                     }`}
                   >
@@ -199,7 +174,7 @@ export function SpecialMovesSection() {
               </div>
 
               {/* Board */}
-              <div className="aspect-square w-full rounded-xl overflow-hidden border border-[#2d2750] grid grid-cols-8 grid-rows-8 shadow-inner">
+              <div className="aspect-square w-full rounded-[8px] overflow-hidden border border-[#2d2750] grid grid-cols-8 grid-rows-8">
                 {ranks.map((rank, rankIdx) =>
                   files.map((file, fileIdx) => {
                     const square = `${file}${rank}`;
@@ -212,29 +187,14 @@ export function SpecialMovesSection() {
                     return (
                       <div
                         key={square}
-                        className={`relative flex items-center justify-center transition-colors duration-200 ${
+                        className={`relative flex items-center justify-center ${
                           isLight ? 'bg-[#b9b0d9]' : 'bg-[#5b4b9a]'
-                        } ${isHighlighted ? 'ring-2 ring-inset ring-[#7c5cff] bg-[#7c5cff]/30' : ''}`}
+                        } ${isHighlighted ? 'ring-2 ring-inset ring-[#7c5cff]' : ''}`}
                       >
                         {piece && (
-                          <div className="w-[85%] h-[85%] transition-transform duration-300 transform scale-100">
+                          <div className="w-[84%] h-[84%]">
                             <ChessPieceSvg type={piece.type} color={piece.color} />
                           </div>
-                        )}
-                        {/* Coordinate labels on corners */}
-                        {fileIdx === 0 && (
-                          <span className={`absolute top-0.5 left-0.5 text-[9px] font-bold ${
-                            isLight ? 'text-[#5b4b9a]/60' : 'text-[#b9b0d9]/60'
-                          }`}>
-                            {rank}
-                          </span>
-                        )}
-                        {rankIdx === 7 && (
-                          <span className={`absolute bottom-0.5 right-0.5 text-[9px] font-bold ${
-                            isLight ? 'text-[#5b4b9a]/60' : 'text-[#b9b0d9]/60'
-                          }`}>
-                            {file}
-                          </span>
                         )}
                       </div>
                     );
@@ -243,12 +203,9 @@ export function SpecialMovesSection() {
               </div>
 
               {/* Step indicator caption */}
-              <div className="mt-3.5 p-3 rounded-xl bg-[#0d0b17] border border-[#2d2750] flex items-center gap-2">
-                <ArrowRight className="w-4 h-4 text-[#7c5cff] shrink-0" />
-                <p className="text-xs text-[#9893b8]">
-                  {demo.description}
-                </p>
-              </div>
+              <p className="mt-3 text-xs text-[#9893b8] px-1">
+                {demo.description}
+              </p>
             </div>
           </div>
         </div>

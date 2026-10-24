@@ -1,17 +1,20 @@
 import { createBrowserClient } from '@supabase/ssr';
+import { getSupabaseConfig } from './config';
 
-export const isSupabaseConfigured = Boolean(
-  process.env.NEXT_PUBLIC_SUPABASE_URL &&
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
-  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('your-project') &&
-  !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.includes('your-anon-key')
-);
+export function isSupabaseConfigured(): boolean {
+  return getSupabaseConfig().isConfigured;
+}
 
 export function createClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mock-instance.supabase.co';
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock-anon-key';
+  const { url, anonKey, isConfigured } = getSupabaseConfig();
 
-  return createBrowserClient(url, key);
+  if (!isConfigured) {
+    throw new Error(
+      'Supabase konfiqurasiyası tapılmadı. Zəhmət olmasa NEXT_PUBLIC_SUPABASE_URL və NEXT_PUBLIC_SUPABASE_ANON_KEY mühit dəyişənlərini təyin edin.'
+    );
+  }
+
+  return createBrowserClient(url, anonKey);
 }
 
 export const getSupabaseClient = createClient;

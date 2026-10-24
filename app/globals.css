@@ -4,6 +4,7 @@
   :root {
     --bg-page: #0d0b17;
     --bg-surface: #171428;
+    --bg-surface-alt: #121024;
     --bg-raised: #211c3a;
     --border-subtle: #2d2750;
     --primary: #7c5cff;
@@ -20,43 +21,73 @@
     background-color: #0d0b17;
     color: #ecebf5;
     color-scheme: dark;
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ecebf5;
+  }
+
+  /* Headings typography constraint */
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: #ecebf5;
   }
 }
 
-/* Subtle checkerboard pattern */
-.bg-chess-pattern {
-  background-image: 
-    linear-gradient(45deg, rgba(45, 39, 80, 0.08) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(45, 39, 80, 0.08) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(45, 39, 80, 0.08) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(45, 39, 80, 0.08) 75%);
-  background-size: 40px 40px;
-  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+/* Primary Button: solid violet, no gradient, no glow, 10px radius */
+.btn-primary {
+  background-color: #7c5cff;
+  color: #ffffff;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-primary:hover {
+  background-color: #9a82ff;
+}
+.btn-primary:active {
+  transform: translateY(1px);
 }
 
-/* Violet glowing card hover effect */
-.card-hover-glow {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+/* Secondary Button: outlined, 10px radius */
+.btn-secondary {
+  background-color: transparent;
+  color: #ecebf5;
+  border: 1px solid #2d2750;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), border-color 160ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.card-hover-glow:hover {
-  transform: translateY(-2px);
-  border-color: rgba(124, 92, 255, 0.4);
-  box-shadow: 0 8px 24px -4px rgba(124, 92, 255, 0.15), 0 2px 6px -1px rgba(0, 0, 0, 0.4);
+.btn-secondary:hover {
+  background-color: #211c3a;
+  border-color: rgba(124, 92, 255, 0.5);
 }
 
-/* Primary violet button glow */
-.btn-violet-glow {
-  background: linear-gradient(135deg, #7c5cff 0%, #6344f5 100%);
-  box-shadow: 0 4px 14px 0 rgba(124, 92, 255, 0.3);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* Cards: flat dark surface, 1px border, 12px radius, simple hover border */
+.card-flat {
+  background-color: #171428;
+  border: 1px solid #2d2750;
+  border-radius: 12px;
+  transition: border-color 180ms ease;
 }
-.btn-violet-glow:hover {
-  background: linear-gradient(135deg, #9a82ff 0%, #7c5cff 100%);
-  box-shadow: 0 6px 20px 0 rgba(124, 92, 255, 0.45);
-  transform: translateY(-1px);
+.card-flat:hover {
+  border-color: rgba(124, 92, 255, 0.5);
 }
-.btn-violet-glow:active {
-  transform: translateY(0);
+
+/* Focus styles for accessibility */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #7c5cff;
+  outline-offset: 2px;
 }
 
 /* Custom sleek dark scrollbar */
@@ -76,4 +107,13 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #7c5cff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

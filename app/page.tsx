@@ -12,8 +12,33 @@ import { HistorySection } from '@/components/HistorySection';
 import { ContactSection } from '@/components/ContactSection';
 import { PositionSetupBoard } from '@/components/PositionSetupBoard';
 import { Footer } from '@/components/Footer';
+import { createClient } from '@/lib/supabase/server';
+import { Teacher } from '@/lib/siteData';
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic';
+
+async function getTeachersData(): Promise<Teacher[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('teachers')
+      .select('id, first_name, last_name, role_title, description, photo_url, sort_order')
+      .order('sort_order', { ascending: true });
+
+    if (error) {
+      console.warn('Failed to load teachers from Supabase:', error.message);
+      return [];
+    }
+    return (data as Teacher[]) || [];
+  } catch (err) {
+    console.warn('Teachers fetch exception:', err);
+    return [];
+  }
+}
+
+export default async function HomePage() {
+  const teachers = await getTeachersData();
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0d0b17] text-[#ecebf5]">
       {/* Sticky Navigation */}
@@ -23,8 +48,8 @@ export default function HomePage() {
         {/* Section 1: Hero */}
         <HeroSection />
 
-        {/* Section 2: Teachers Slider */}
-        <TeachersSlider />
+        {/* Section 2: Teachers Slider (Dynamic from Supabase; hides if table is empty) */}
+        <TeachersSlider teachers={teachers} />
 
         {/* Section 3: Starting Position Board */}
         <StartingBoard />

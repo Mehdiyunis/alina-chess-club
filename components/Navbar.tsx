@@ -1,26 +1,22 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
 import { UserProfile } from '@/lib/types';
-import { Menu, X, Shield, LogOut, BookOpen } from 'lucide-react';
+import { Menu, X, LogOut, ChevronDown, BookOpen } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [user, setUser] = useState<UserProfile | null>(null);
   const pathname = usePathname();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function loadUser() {
-      if (!isSupabaseConfigured) {
-        if (typeof window !== 'undefined') {
-          try {
-            const raw = localStorage.getItem('sahmat_auth_session_demo');
-            if (raw) setUser(JSON.parse(raw));
-          } catch {}
-        }
+      if (!isSupabaseConfigured()) {
         return;
       }
 
@@ -30,77 +26,95 @@ export const Navbar: React.FC = () => {
         if (session?.user) {
           const { data: profile } = await supabase
             .from('profiles')
-            .select('*')
+            .select('full_name, role')
             .eq('id', session.user.id)
             .single();
 
           setUser({
             id: session.user.id,
-            full_name: profile?.full_name || session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'Şahmatçı',
+            full_name:
+              profile?.full_name ||
+              session.user.user_metadata?.full_name ||
+              session.user.email?.split('@')[0] ||
+              'İstifadəçi',
             role: profile?.role || 'user',
             created_at: session.user.created_at,
             email: session.user.email,
             phone: session.user.phone,
           });
+        } else {
+          setUser(null);
         }
       } catch (err) {
-        console.warn('Navbar user load error:', err);
+        console.warn('Navbar loadUser error:', err);
       }
     }
 
     loadUser();
   }, [pathname]);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleLogout = async () => {
-    if (isSupabaseConfigured) {
-      const supabase = createClient();
-      await supabase.auth.signOut();
-    } else {
-      localStorage.removeItem('sahmat_auth_session_demo');
+    if (isSupabaseConfigured()) {
+      try {
+        const supabase = createClient();
+        await supabase.auth.signOut();
+      } catch {}
     }
     setUser(null);
+    setUserMenuOpen(false);
     window.location.href = '/';
   };
 
   const navLinks = [
-    { label: 'Müəllimlər', href: '/#teachers' },
-    { label: 'Şahmat Lövhəsi', href: '/#board' },
-    { label: 'Fiqurlar', href: '/#pieces' },
-    { label: 'Oyunun Məqsədi', href: '/#goals' },
-    { label: 'Xüsusi Gedişlər', href: '/#rules' },
-    { label: 'Məsləhətlər', href: '/#tips' },
     { label: 'Kitablar', href: '/books', isRoute: true },
-    { label: 'Tarix', href: '/#history' },
-    { label: 'Mövqe Qurucusu', href: '/#setup-board' },
+    { label: 'Təlimçilər', href: '/#teachers' },
+    { label: 'Fiqurlar', href: '/#pieces' },
+    { label: 'Qaydalar', href: '/#rules' },
+    { label: 'Tövsiyələr', href: '/#tips' },
+    { label: 'Əlaqə', href: '/#contact' },
+    { label: 'Lövhə Qurucusu', href: '/#setup-board' },
   ];
 
+  // Clean first name: remove any "(Google)" or provider tags, and extract first word
+  const getFirstName = (fullName?: string) => {
+    if (!fullName) return 'İstifadəçi';
+    const cleaned = fullName.replace(/\(.*?\)/g, '').trim();
+    const firstPart = cleaned.split(/\s+/)[0] || 'İstifadəçi';
+    return firstPart.charAt(0).toUpperCase() + firstPart.slice(1);
+  };
+
+  const firstName = getFirstName(user?.full_name);
+  const userInitial = (firstName || 'İ').charAt(0).toUpperCase();
+
   return (
-    <header className="sticky top-0 z-40 bg-[#0d0b17]/85 backdrop-blur-md border-b border-[#2d2750] shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-6">
-        {/* Brand / Logo */}
+    <header className="sticky top-0 z-40 bg-[#0d0b17]/90 backdrop-blur-md border-b border-[#2d2750]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
+        {/* Brand */}
         <Link
           href="/"
-          className="flex items-center gap-3 text-left group focus-visible:outline-hidden"
+          className="flex items-center gap-2.5 text-left focus-visible:outline-hidden group shrink-0"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7c5cff] to-[#5136d8] text-white flex items-center justify-center shadow-md shadow-[#7c5cff]/20 group-hover:scale-105 transition-transform border border-[#9a82ff]/30">
-            <svg viewBox="0 0 45 45" className="w-6 h-6 fill-white drop-shadow-sm">
-              <path d="M22.5 11.63V6M20 8h5" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
-              <path d="M22.5 25c0 0 4.5-7.5 3-10.5-1.5-3-6-3-6 0-1.5 3 3 10.5 3 10.5z" />
-              <path d="M11.5 37c5.5 3.5 15.5 3.5 21 0v-7s9-4.5 6-10.5c-4-1-6 2-6 2s1-4-3-5.5c-4-1.5-7 1.5-7 1.5s-3-3-7-1.5c-4 1.5-3 5.5-3 5.5s-2-3-6-2c-3 6 6 10.5 6 10.5v7z" />
-            </svg>
+          <div className="w-8 h-8 rounded-[8px] bg-[#211c3a] border border-[#2d2750] text-[#7c5cff] flex items-center justify-center font-bold text-sm">
+            <span className="text-base select-none leading-none">♚</span>
           </div>
-          <div>
-            <span className="font-bold text-lg sm:text-xl tracking-tight text-[#ecebf5] block leading-tight group-hover:text-white transition-colors">
-              Şahmat Məktəbi
-            </span>
-            <span className="text-[11px] font-medium text-[#9a82ff] block leading-none">
-              Uşaqlar və Başlayanlar Üçün
-            </span>
-          </div>
+          <span className="font-bold text-base sm:text-lg text-[#ecebf5] tracking-tight group-hover:text-white transition-colors">
+            Şahmat Məktəbi
+          </span>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-5 text-sm font-medium text-[#9893b8]">
+        {/* Desktop Navigation (visible on lg and above) */}
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#9893b8]">
           {navLinks.map((link) => {
             const isActive = link.isRoute && pathname === link.href;
             return (
@@ -111,131 +125,120 @@ export const Navbar: React.FC = () => {
                   isActive
                     ? 'text-[#ecebf5] font-semibold border-b-2 border-[#7c5cff]'
                     : 'hover:text-[#ecebf5]'
-                } ${link.label === 'Kitablar' ? 'text-[#9a82ff] font-semibold' : ''}`}
+                }`}
               >
-                {link.label === 'Kitablar' ? (
-                  <span className="flex items-center gap-1.5">
-                    <BookOpen className="w-3.5 h-3.5 text-[#7c5cff]" />
-                    <span>{link.label}</span>
-                  </span>
-                ) : (
-                  link.label
-                )}
+                {link.label}
               </Link>
             );
           })}
         </nav>
 
-        {/* Right Action Zone */}
+        {/* Right Zone: User Avatar or Auth CTA */}
         <div className="flex items-center gap-3">
-          <Link
-            href="/books"
-            className={`hidden sm:inline-flex xl:hidden items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
-              pathname === '/books'
-                ? 'bg-[#7c5cff] text-white shadow-sm'
-                : 'bg-[#171428] text-[#9a82ff] hover:bg-[#211c3a] border border-[#2d2750]'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Kitablar</span>
-          </Link>
-
           {user ? (
-            <div className="flex items-center gap-2">
-              {user.role === 'admin' && (
-                <Link
-                  href="/admin"
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
-                    pathname === '/admin'
-                      ? 'bg-[#7c5cff] text-white shadow-sm'
-                      : 'bg-[#171428] text-[#9a82ff] hover:bg-[#211c3a] border border-[#2d2750]'
-                  }`}
-                  title="Admin Paneli"
-                >
-                  <Shield className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Admin</span>
-                </Link>
-              )}
-              <div className="hidden sm:flex flex-col text-right">
-                <span className="text-xs font-semibold text-[#ecebf5] truncate max-w-[120px]">
-                  {user.full_name || 'İstifadəçi'}
-                </span>
-                <span className="text-[10px] text-[#9893b8] uppercase tracking-wider">
-                  {user.role === 'admin' ? 'Administrator' : 'Şagird'}
-                </span>
-              </div>
+            <div className="relative" ref={dropdownRef}>
               <button
-                onClick={handleLogout}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#9893b8] hover:text-[#ecebf5] bg-[#171428] hover:bg-[#211c3a] border border-[#2d2750] rounded-xl transition-colors cursor-pointer"
-                title="Çıxış"
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-[#211c3a] transition-colors cursor-pointer focus-visible:outline-hidden"
+                aria-label="İstifadəçi menyusu"
+                aria-expanded={userMenuOpen}
               >
-                <LogOut className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Çıxış</span>
+                <div className="w-9 h-9 rounded-full bg-[#7c5cff] text-white flex items-center justify-center font-bold text-sm shadow-sm select-none">
+                  {userInitial}
+                </div>
+                <ChevronDown className="w-3.5 h-3.5 text-[#9893b8] hidden sm:block" />
               </button>
+
+              {/* User Dropdown: Shows first name only, student/role status, books link, and Çıxış */}
+              {userMenuOpen && (
+                <div className="absolute right-0 mt-2 w-52 card-flat bg-[#171428] border border-[#2d2750] shadow-xl py-2 z-50 animate-in fade-in duration-100">
+                  <div className="px-4 py-2 border-b border-[#2d2750]/70">
+                    <p className="text-sm font-semibold text-[#ecebf5] truncate max-w-[170px]" title={firstName}>
+                      {firstName}
+                    </p>
+                    <p className="text-xs text-[#9893b8] mt-0.5">
+                      Tələbə
+                    </p>
+                  </div>
+
+                  <Link
+                    href="/books"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-xs text-[#ecebf5] hover:bg-[#211c3a] transition-colors"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-[#9893b8]" />
+                    <span>Şahmat Kitabları</span>
+                  </Link>
+
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-xs text-rose-400 hover:bg-[#211c3a] transition-colors cursor-pointer border-t border-[#2d2750]/50"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Çıxış</span>
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <Link
               href="/auth"
-              className="inline-flex items-center justify-center px-5 py-2 text-sm font-semibold text-white btn-violet-glow rounded-xl transition-all cursor-pointer"
+              className="btn-primary px-4 py-2 text-xs sm:text-sm whitespace-nowrap"
             >
               Qoşul
             </Link>
           )}
 
-          {/* Mobile hamburger toggle */}
+          {/* Hamburger button (shown only below lg breakpoint) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 text-[#9893b8] hover:text-[#ecebf5] focus-visible:outline-hidden cursor-pointer"
-            aria-label="Menyu"
+            className="lg:hidden p-2 text-[#9893b8] hover:text-[#ecebf5] cursor-pointer"
+            aria-label="Menyunu aç"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (visible only when mobileMenuOpen is true on small screens) */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#171428] border-b border-[#2d2750] px-4 pt-3 pb-6 space-y-1 shadow-2xl animate-in fade-in duration-150">
+        <div className="lg:hidden bg-[#171428] border-b border-[#2d2750] px-4 py-4 space-y-1">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-left py-2.5 px-3 text-sm font-medium text-[#ecebf5] hover:bg-[#211c3a] hover:text-[#9a82ff] rounded-xl transition-colors flex items-center justify-between"
+              className="block py-2.5 px-3 text-sm font-medium text-[#ecebf5] hover:bg-[#211c3a] rounded-[8px] transition-colors"
             >
-              <span>{link.label}</span>
-              {link.label === 'Kitablar' && (
-                <BookOpen className="w-4 h-4 text-[#7c5cff]" />
-              )}
+              {link.label}
             </Link>
           ))}
-          <div className="pt-3 border-t border-[#2d2750] flex flex-col gap-2">
+
+          <div className="pt-3 border-t border-[#2d2750]">
             {user ? (
-              <>
+              <div className="space-y-1">
                 <div className="px-3 py-1.5 text-xs text-[#9893b8]">
-                  Daxil olub: <strong className="text-[#ecebf5]">{user.full_name}</strong> ({user.role})
+                  Giriş edilib: <span className="text-[#ecebf5] font-semibold">{firstName}</span>
                 </div>
-                {user.role === 'admin' && (
-                  <Link
-                    href="/admin"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="w-full text-left py-2 px-3 text-sm font-semibold text-[#9a82ff] bg-[#211c3a] rounded-xl"
-                  >
-                    Admin Paneli
-                  </Link>
-                )}
+                <Link
+                  href="/books"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 px-3 text-sm text-[#ecebf5] hover:bg-[#211c3a] rounded-[8px]"
+                >
+                  Şahmat Kitabları
+                </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left py-2 px-3 text-sm font-medium text-rose-400 hover:bg-rose-950/30 rounded-xl"
+                  className="w-full text-left py-2 px-3 text-sm font-medium text-rose-400 hover:bg-[#211c3a] rounded-[8px] cursor-pointer"
                 >
                   Çıxış
                 </button>
-              </>
+              </div>
             ) : (
               <Link
                 href="/auth"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 text-center text-sm font-semibold text-white btn-violet-glow rounded-xl"
+                className="btn-primary w-full py-2.5 text-sm block text-center"
               >
                 Bizə qoşul
               </Link>
