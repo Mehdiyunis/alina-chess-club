@@ -1,0 +1,6 @@
+Chess piece set "Cburnett" by Colin M.L. Burnett (Wikimedia Commons).
+Obtained from the Lichess repository: lichess-org/lila, public/piece/cburnett.
+The set is published under open licenses (GFDL / BSD / GPL). Please verify the current license
+terms yourself and keep this credit in your README and site footer.
+
+File names: w = white, b = black; K King, Q Queen, R Rook, B Bishop, N Knight, P Pawn.

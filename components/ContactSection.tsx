@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { submitContactRequest } from '@/lib/supabase/actions';
 import { Mail, Phone, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 export function ContactSection() {
   const [value, setValue] = useState('');
@@ -48,30 +49,30 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-16 lg:py-24 bg-[#121024] border-b border-[#2d2750]">
+    <section id="contact" className="py-16 lg:py-24 bg-[#efe9e0] border-b border-[rgba(26,19,12,0.10)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-[clamp(1.75rem,3vw,2.25rem)] font-bold text-[#ecebf5] tracking-tight">
+        <ScrollReveal direction="left" className="text-center max-w-2xl mx-auto mb-10">
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1a130c] tracking-tight leading-[1.1]">
             Şahmat Dərslərinə Qeydiyyat
           </h2>
-          <p className="text-sm sm:text-base text-[#9893b8] mt-2">
+          <p className="text-sm sm:text-base text-[#7a736b] mt-2">
             Telefon nömrənizi və ya e-poçtunuzu qeyd edin, məşqçilərimiz sizinlə əlaqə saxlasın.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="card-flat p-6 sm:p-8 max-w-xl mx-auto">
+        <ScrollReveal direction="right" className="bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] p-6 sm:p-8 max-w-xl mx-auto shadow-md">
           {isSuccess ? (
             <div className="text-center py-6 space-y-3">
-              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-bold text-[#ecebf5]">Müraciətiniz qəbul edildi</h3>
-              <p className="text-xs sm:text-sm text-[#9893b8] max-w-sm mx-auto leading-relaxed">
+              <h3 className="font-serif text-xl font-normal text-[#1a130c]">Müraciətiniz qəbul edildi</h3>
+              <p className="text-xs sm:text-sm text-[#7a736b] max-w-sm mx-auto leading-relaxed">
                 Təlimçilərimiz ən qısa zamanda sizinlə əlaqə saxlayacaq.
               </p>
               <button
                 onClick={() => setIsSuccess(false)}
-                className="btn-secondary px-4 py-2 text-xs mt-2"
+                className="btn-secondary-cream px-5 py-2 text-xs mt-2"
               >
                 Yeni müraciət göndər
               </button>
@@ -80,7 +81,7 @@ export function ContactSection() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Type Switcher */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#7a736b] mb-2">
                   Əlaqə növü
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -90,10 +91,10 @@ export function ContactSection() {
                       setContactType('phone');
                       setErrorMessage(null);
                     }}
-                    className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-[10px] text-xs font-semibold transition-colors cursor-pointer ${
+                    className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                       contactType === 'phone'
-                        ? 'bg-[#7c5cff] text-white'
-                        : 'bg-[#211c3a] text-[#9893b8] hover:text-[#ecebf5] border border-[#2d2750]'
+                        ? 'bg-[#8c6747] text-white shadow-xs'
+                        : 'bg-[#f4efe6] text-[#7a736b] hover:text-[#1a130c] border border-[rgba(26,19,12,0.08)]'
                     }`}
                   >
                     <Phone className="w-3.5 h-3.5" />
@@ -106,10 +107,10 @@ export function ContactSection() {
                       setContactType('email');
                       setErrorMessage(null);
                     }}
-                    className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-[10px] text-xs font-semibold transition-colors cursor-pointer ${
+                    className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                       contactType === 'email'
-                        ? 'bg-[#7c5cff] text-white'
-                        : 'bg-[#211c3a] text-[#9893b8] hover:text-[#ecebf5] border border-[#2d2750]'
+                        ? 'bg-[#8c6747] text-white shadow-xs'
+                        : 'bg-[#f4efe6] text-[#7a736b] hover:text-[#1a130c] border border-[rgba(26,19,12,0.08)]'
                     }`}
                   >
                     <Mail className="w-3.5 h-3.5" />
@@ -118,9 +119,9 @@ export function ContactSection() {
                 </div>
               </div>
 
-              {/* Input */}
+              {/* Input: radius 12px */}
               <div>
-                <label htmlFor="contact-input" className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-1.5">
+                <label htmlFor="contact-input" className="block text-xs font-semibold uppercase tracking-wider text-[#7a736b] mb-1.5">
                   {contactType === 'phone' ? 'Telefon nömrəsi' : 'E-poçt ünvanı'}
                 </label>
                 <input
@@ -136,32 +137,32 @@ export function ContactSection() {
                       ? '050 123 45 67'
                       : 'ad@example.com'
                   }
-                  className="w-full px-3.5 py-2.5 rounded-[10px] bg-[#0d0b17] border border-[#2d2750] text-[#ecebf5] placeholder-[#9893b8]/50 focus:outline-hidden focus:border-[#7c5cff] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-[12px] bg-[#fbf9f5] border border-[rgba(26,19,12,0.15)] text-[#1a130c] placeholder-[#7a736b]/60 focus:outline-hidden focus:border-[#8c6747] text-sm"
                 />
 
                 {errorMessage && (
-                  <div className="mt-2 flex items-center gap-1.5 text-rose-400 text-xs">
+                  <div className="mt-2 flex items-center gap-1.5 text-rose-600 text-xs">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
                 )}
               </div>
 
-              {/* Submit Button */}
+              {/* Submit Button: Sand accent, fully rounded pill */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-primary w-full py-3 text-sm cursor-pointer disabled:opacity-50"
+                className="btn-primary w-full py-3 text-sm cursor-pointer disabled:opacity-50 font-semibold shadow-md shadow-[#e9cfa0]/10"
               >
                 {isSubmitting ? 'Göndərilir...' : 'Müraciəti göndər'}
               </button>
 
-              <p className="text-center text-[11px] text-[#9893b8]">
+              <p className="text-center text-[11px] text-[#7a736b]">
                 Məlumatlarınız məxfi saxlanılır və yalnız dərslərlə bağlı əlaqə üçün istifadə olunur.
               </p>
             </form>
           )}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

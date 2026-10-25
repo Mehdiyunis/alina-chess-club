@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client';
 import { Navbar } from '@/components/Navbar';
@@ -106,18 +107,27 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d0b17] text-[#ecebf5]">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#100c08] to-[#2b1e10] text-[#f3ece1]">
       <Navbar />
 
       <main className="flex-1 flex items-center justify-center py-16 px-4">
         <div className="w-full max-w-md">
-          <div className="card-flat p-6 sm:p-8">
+          <div className="bg-[#24170a] border border-[rgba(243,236,225,0.12)] rounded-[18px] p-6 sm:p-8 shadow-2xl shadow-black/50">
             {/* Header */}
             <div className="text-center mb-6">
-              <h1 className="text-xl sm:text-2xl font-bold text-[#ecebf5]">
+              <div className="relative w-14 h-14 mx-auto mb-3.5 rounded-[14px] overflow-hidden bg-[#100c08] border border-[#e9cfa0]/30 shadow-md flex items-center justify-center">
+                <Image
+                  src="/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png"
+                  alt="Şahmat Məktəbi Loqosu"
+                  width={56}
+                  height={56}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h1 className="font-serif text-2xl sm:text-3xl font-normal text-[#f3ece1]">
                 {isSignUp ? 'Hesab Yarat' : 'Daxil Ol'}
               </h1>
-              <p className="text-xs text-[#9893b8] mt-1.5">
+              <p className="text-xs text-[#d9c7a6] mt-1.5">
                 {isSignUp
                   ? 'Şahmat dərslərinə başlamaq üçün qeydiyyatdan keçin'
                   : 'Şəxsi kabinetinizə daxil olun'}
@@ -126,14 +136,14 @@ export default function AuthPage() {
 
             {/* Error & Success Messages */}
             {errorMsg && (
-              <div className="mb-4 p-3 rounded-[8px] bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
+              <div className="mb-4 p-3 rounded-[12px] bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
                 <span>{errorMsg}</span>
               </div>
             )}
 
             {successMsg && (
-              <div className="mb-4 p-3 rounded-[8px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2">
+              <div className="mb-4 p-3 rounded-[12px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
                 <span>{successMsg}</span>
               </div>
@@ -143,7 +153,7 @@ export default function AuthPage() {
             <button
               onClick={handleGoogleSignIn}
               type="button"
-              className="btn-secondary w-full py-2.5 px-3 text-xs mb-5 flex items-center justify-center gap-2.5"
+              className="btn-secondary-dark w-full py-2.5 px-3 text-xs mb-5 flex items-center justify-center gap-2.5 rounded-full"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -167,22 +177,22 @@ export default function AuthPage() {
             </button>
 
             <div className="relative flex py-2 items-center mb-5">
-              <div className="flex-grow border-t border-[#2d2750]" />
-              <span className="shrink-0 px-2.5 text-[11px] text-[#9893b8] uppercase font-semibold">
+              <div className="flex-grow border-t border-[rgba(243,236,225,0.10)]" />
+              <span className="shrink-0 px-2.5 text-[11px] text-[#d9c7a6] uppercase font-semibold">
                 və ya e-poçt / telefon
               </span>
-              <div className="flex-grow border-t border-[#2d2750]" />
+              <div className="flex-grow border-t border-[rgba(243,236,225,0.10)]" />
             </div>
 
             {/* Email/Phone Form */}
             <form onSubmit={handleEmailAuth} className="space-y-3.5">
               {isSignUp && (
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#d9c7a6] mb-1">
                     Ad və Soyad
                   </label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#9893b8]">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#d9c7a6]">
                       <User className="w-3.5 h-3.5" />
                     </div>
                     <input
@@ -190,18 +200,18 @@ export default function AuthPage() {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Əli Məmmədov"
-                      className="w-full pl-9 pr-3.5 py-2.5 rounded-[8px] bg-[#0d0b17] border border-[#2d2750] text-[#ecebf5] placeholder-[#9893b8]/50 focus:outline-hidden focus:border-[#7c5cff] text-xs sm:text-sm"
+                      className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#1a1107] border border-[rgba(243,236,225,0.12)] text-[#f3ece1] placeholder-[#d9c7a6]/50 focus:outline-hidden focus:border-[#e9cfa0] text-xs sm:text-sm"
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-1">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#d9c7a6] mb-1">
                   E-poçt və ya Telefon
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#9893b8]">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#d9c7a6]">
                     <Mail className="w-3.5 h-3.5" />
                   </div>
                   <input
@@ -209,17 +219,17 @@ export default function AuthPage() {
                     value={emailOrPhone}
                     onChange={(e) => setEmailOrPhone(e.target.value)}
                     placeholder="ad@example.com və ya 0501234567"
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[8px] bg-[#0d0b17] border border-[#2d2750] text-[#ecebf5] placeholder-[#9893b8]/50 focus:outline-hidden focus:border-[#7c5cff] text-xs sm:text-sm"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#1a1107] border border-[rgba(243,236,225,0.12)] text-[#f3ece1] placeholder-[#d9c7a6]/50 focus:outline-hidden focus:border-[#e9cfa0] text-xs sm:text-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#9893b8] mb-1">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#d9c7a6] mb-1">
                   Şifrə
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#9893b8]">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#d9c7a6]">
                     <Lock className="w-3.5 h-3.5" />
                   </div>
                   <input
@@ -227,7 +237,7 @@ export default function AuthPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[8px] bg-[#0d0b17] border border-[#2d2750] text-[#ecebf5] placeholder-[#9893b8]/50 focus:outline-hidden focus:border-[#7c5cff] text-xs sm:text-sm"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#1a1107] border border-[rgba(243,236,225,0.12)] text-[#f3ece1] placeholder-[#d9c7a6]/50 focus:outline-hidden focus:border-[#e9cfa0] text-xs sm:text-sm"
                   />
                 </div>
               </div>
@@ -235,14 +245,14 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full py-2.5 text-xs sm:text-sm cursor-pointer disabled:opacity-50 mt-1"
+                className="btn-primary w-full py-3 text-xs sm:text-sm cursor-pointer disabled:opacity-50 mt-1 font-semibold rounded-full shadow-md shadow-[#e9cfa0]/10"
               >
                 {loading ? 'Gözləyin...' : isSignUp ? 'Qeydiyyatdan Keç' : 'Daxil Ol'}
               </button>
             </form>
 
             {/* Toggle */}
-            <div className="mt-5 text-center text-xs text-[#9893b8]">
+            <div className="mt-5 text-center text-xs text-[#d9c7a6]">
               {isSignUp ? (
                 <>
                   Artıq hesabınız var?{' '}
@@ -251,7 +261,7 @@ export default function AuthPage() {
                       setIsSignUp(false);
                       setErrorMsg(null);
                     }}
-                    className="text-[#7c5cff] hover:text-[#9a82ff] font-semibold cursor-pointer underline"
+                    className="text-[#e9cfa0] hover:text-[#f1dcb4] font-semibold cursor-pointer underline"
                   >
                     Daxil olun
                   </button>
@@ -264,7 +274,7 @@ export default function AuthPage() {
                       setIsSignUp(true);
                       setErrorMsg(null);
                     }}
-                    className="text-[#7c5cff] hover:text-[#9a82ff] font-semibold cursor-pointer underline"
+                    className="text-[#e9cfa0] hover:text-[#f1dcb4] font-semibold cursor-pointer underline"
                   >
                     Qeydiyyatdan keçin
                   </button>

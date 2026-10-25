@@ -34,7 +34,7 @@ export default async function BooksPage() {
   const { books, error } = await getBooksData();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d0b17] text-[#ecebf5]">
+    <div className="min-h-screen flex flex-col bg-[#efe9e0] text-[#1a130c]">
       <Navbar />
 
       <main className="flex-1 py-14 px-4 sm:px-6">

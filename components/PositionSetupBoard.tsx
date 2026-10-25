@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { ChessPieceSvg } from './ChessPieceSvg';
 import { RotateCw, Trash2, Copy, Check, RefreshCw } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 type PieceType = 'p' | 'n' | 'b' | 'r' | 'q' | 'k';
 type PieceColor = 'w' | 'b';
@@ -98,45 +99,45 @@ export function PositionSetupBoard() {
   };
 
   return (
-    <section id="setup-board" className="py-16 lg:py-24 bg-[#0d0b17]">
+    <section id="setup-board" className="py-16 lg:py-24 bg-[#2b1d0e] border-b border-[rgba(243,236,225,0.10)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-[clamp(1.75rem,3vw,2.25rem)] font-bold text-[#ecebf5] tracking-tight">
+        <ScrollReveal direction="up" className="text-center max-w-2xl mx-auto mb-10">
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#f3ece1] tracking-tight leading-[1.1]">
             Şahmat Mövqe Qurucusu
           </h2>
-          <p className="text-sm sm:text-base text-[#9893b8] mt-2">
+          <p className="text-sm sm:text-base text-[#d9c7a6] mt-2">
             Palitradan fiqur seçin və lövhədə istədiyiniz xanaya yerləşdirin. Mövqeyin FEN kodunu asanlıqla əldə edin.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-5xl mx-auto">
           {/* Main Board */}
-          <div className="lg:col-span-7 flex flex-col items-center">
-            <div className="w-full max-w-[440px] card-flat p-4 sm:p-5">
+          <ScrollReveal direction="left" className="lg:col-span-7 flex flex-col items-center">
+            <div className="w-full max-w-[440px] bg-[#24170a] border border-[rgba(243,236,225,0.12)] rounded-[18px] p-4 sm:p-5 shadow-2xl shadow-black/40">
               {/* Controls bar */}
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#2d2750]">
-                <span className="text-xs font-semibold text-[#ecebf5]">
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-[rgba(243,236,225,0.10)]">
+                <span className="font-serif text-sm font-normal text-[#f3ece1]">
                   {isFlipped ? 'Qara tərəfdən baxış' : 'Ağ tərəfdən baxış'}
                 </span>
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => setIsFlipped(!isFlipped)}
                     title="Lövhəni çevir"
-                    className="p-1.5 rounded-[8px] bg-[#211c3a] border border-[#2d2750] text-[#9893b8] hover:text-[#ecebf5] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-full bg-[#362513] border border-[rgba(243,236,225,0.10)] text-[#d9c7a6] hover:text-[#f3ece1] transition-colors cursor-pointer"
                   >
                     <RotateCw className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={handleReset}
                     title="Başlanğıc vəziyyəti bərpa et"
-                    className="p-1.5 rounded-[8px] bg-[#211c3a] border border-[#2d2750] text-[#9893b8] hover:text-[#ecebf5] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-full bg-[#362513] border border-[rgba(243,236,225,0.10)] text-[#d9c7a6] hover:text-[#f3ece1] transition-colors cursor-pointer"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={handleClear}
                     title="Lövhəni təmizlə"
-                    className="p-1.5 rounded-[8px] bg-[#211c3a] border border-[#2d2750] text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                    className="p-1.5 rounded-full bg-[#362513] border border-[rgba(243,236,225,0.10)] text-rose-300 hover:bg-rose-500/20 transition-colors cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -144,7 +145,7 @@ export function PositionSetupBoard() {
               </div>
 
               {/* 8x8 Grid */}
-              <div className="aspect-square w-full rounded-[8px] overflow-hidden border border-[#2d2750] grid grid-cols-8 grid-rows-8 select-none">
+              <div className="aspect-square w-full rounded-[12px] overflow-hidden border border-[rgba(243,236,225,0.10)] grid grid-cols-8 grid-rows-8 select-none shadow-inner">
                 {ranks.map((rank, rankIdx) =>
                   files.map((file, fileIdx) => {
                     const square = `${file}${rank}`;
@@ -156,11 +157,11 @@ export function PositionSetupBoard() {
                         key={square}
                         onClick={() => handleSquareClick(square)}
                         className={`relative flex items-center justify-center cursor-pointer transition-colors ${
-                          isLight ? 'bg-[#b9b0d9]' : 'bg-[#5b4b9a]'
+                          isLight ? 'bg-[#efe7d8]' : 'bg-[#8c6747]'
                         }`}
                       >
                         {piece && (
-                          <div className="w-[84%] h-[84%] pointer-events-none">
+                          <div className="w-[84%] h-[84%] pointer-events-none drop-shadow-xs">
                             <ChessPieceSvg type={piece.type} color={piece.color} />
                           </div>
                         )}
@@ -168,7 +169,7 @@ export function PositionSetupBoard() {
                         {fileIdx === 0 && (
                           <span
                             className={`absolute top-0.5 left-1 text-[9px] font-bold pointer-events-none ${
-                              isLight ? 'text-[#5b4b9a]/80' : 'text-[#b9b0d9]/80'
+                              isLight ? 'text-[#8c6747]/80' : 'text-[#efe7d8]/80'
                             }`}
                           >
                             {rank}
@@ -177,7 +178,7 @@ export function PositionSetupBoard() {
                         {rankIdx === 7 && (
                           <span
                             className={`absolute bottom-0.5 right-1 text-[9px] font-bold pointer-events-none ${
-                              isLight ? 'text-[#5b4b9a]/80' : 'text-[#b9b0d9]/80'
+                              isLight ? 'text-[#8c6747]/80' : 'text-[#efe7d8]/80'
                             }`}
                           >
                             {file}
@@ -189,23 +190,23 @@ export function PositionSetupBoard() {
                 )}
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right: Piece Palette & Tools */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="card-flat p-5 space-y-5">
+          <ScrollReveal direction="right" className="lg:col-span-5 space-y-4">
+            <div className="bg-[#362513] rounded-[18px] border border-[rgba(243,236,225,0.10)] p-5 space-y-5 shadow-sm">
               <div>
-                <h3 className="text-sm font-bold text-[#ecebf5]">
+                <h3 className="font-serif text-lg font-normal text-[#f3ece1]">
                   Fiqur Palitrası
                 </h3>
-                <p className="text-xs text-[#9893b8] mt-0.5">
+                <p className="text-xs text-[#d9c7a6] mt-0.5">
                   Fiquru seçin və lövhədəki xanaya klikləyin.
                 </p>
               </div>
 
               {/* White Pieces */}
               <div>
-                <span className="text-xs font-semibold text-[#9893b8] block mb-2">
+                <span className="text-xs font-semibold text-[#d9c7a6] block mb-2">
                   Ağ fiqurlar:
                 </span>
                 <div className="grid grid-cols-6 gap-1.5">
@@ -220,10 +221,10 @@ export function PositionSetupBoard() {
                       <button
                         key={`w-${type}`}
                         onClick={() => setSelectedPalette({ type, color: 'w' })}
-                        className={`h-11 rounded-[8px] flex items-center justify-center p-1.5 transition-colors cursor-pointer ${
+                        className={`h-11 rounded-[10px] flex items-center justify-center p-1.5 transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-[#7c5cff]'
-                            : 'bg-[#211c3a] border border-[#2d2750] hover:bg-[#2d2750]'
+                            ? 'bg-[#e9cfa0] ring-2 ring-[#e9cfa0] shadow-sm'
+                            : 'bg-[#24170a] border border-[rgba(243,236,225,0.10)] hover:bg-[#432d18]'
                         }`}
                       >
                         <div className="w-7 h-7">
@@ -237,7 +238,7 @@ export function PositionSetupBoard() {
 
               {/* Black Pieces */}
               <div>
-                <span className="text-xs font-semibold text-[#9893b8] block mb-2">
+                <span className="text-xs font-semibold text-[#d9c7a6] block mb-2">
                   Qara fiqurlar:
                 </span>
                 <div className="grid grid-cols-6 gap-1.5">
@@ -252,10 +253,10 @@ export function PositionSetupBoard() {
                       <button
                         key={`b-${type}`}
                         onClick={() => setSelectedPalette({ type, color: 'b' })}
-                        className={`h-11 rounded-[8px] flex items-center justify-center p-1.5 transition-colors cursor-pointer ${
+                        className={`h-11 rounded-[10px] flex items-center justify-center p-1.5 transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-[#7c5cff]'
-                            : 'bg-[#211c3a] border border-[#2d2750] hover:bg-[#2d2750]'
+                            ? 'bg-[#e9cfa0] ring-2 ring-[#e9cfa0] shadow-sm'
+                            : 'bg-[#24170a] border border-[rgba(243,236,225,0.10)] hover:bg-[#432d18]'
                         }`}
                       >
                         <div className="w-7 h-7">
@@ -268,13 +269,13 @@ export function PositionSetupBoard() {
               </div>
 
               {/* Tools: Trash & Clear */}
-              <div className="pt-3 border-t border-[#2d2750] grid grid-cols-2 gap-2">
+              <div className="pt-3 border-t border-[rgba(243,236,225,0.10)] grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setSelectedPalette('trash')}
-                  className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-[8px] text-xs font-semibold transition-colors cursor-pointer ${
+                  className={`flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     selectedPalette === 'trash'
-                      ? 'bg-rose-600 text-white'
-                      : 'bg-[#211c3a] text-rose-400 border border-[#2d2750] hover:bg-rose-500/10'
+                      ? 'bg-rose-600 text-white shadow-xs'
+                      : 'bg-[#24170a] text-rose-300 border border-[rgba(243,236,225,0.10)] hover:bg-rose-500/10'
                   }`}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -283,7 +284,7 @@ export function PositionSetupBoard() {
 
                 <button
                   onClick={handleClear}
-                  className="btn-secondary py-2 px-3 text-xs"
+                  className="btn-secondary-dark py-2.5 px-3 text-xs"
                 >
                   <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
                   <span>Təmizlə</span>
@@ -291,19 +292,19 @@ export function PositionSetupBoard() {
               </div>
 
               {/* FEN Output */}
-              <div className="pt-3 border-t border-[#2d2750] space-y-1.5">
+              <div className="pt-3 border-t border-[rgba(243,236,225,0.10)] space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#9893b8]">
+                  <span className="text-xs font-semibold text-[#d9c7a6]">
                     FEN Kodu
                   </span>
                   <button
                     onClick={copyFen}
-                    className="btn-secondary px-2.5 py-1 text-xs"
+                    className="btn-secondary-dark px-3 py-1 text-xs"
                   >
                     {copied ? (
                       <>
-                        <Check className="w-3 h-3 text-emerald-400 mr-1" />
-                        <span className="text-emerald-400">Kopyalandı</span>
+                        <Check className="w-3 h-3 text-[#e9cfa0] mr-1" />
+                        <span className="text-[#e9cfa0]">Kopyalandı</span>
                       </>
                     ) : (
                       <>
@@ -313,12 +314,12 @@ export function PositionSetupBoard() {
                     )}
                   </button>
                 </div>
-                <div className="p-2.5 rounded-[8px] bg-[#0d0b17] border border-[#2d2750] font-mono text-[11px] text-[#ecebf5] break-all select-all">
+                <div className="p-3 rounded-[12px] bg-[#1a1107] border border-[rgba(243,236,225,0.10)] font-mono text-[11px] text-[#f3ece1] break-all select-all">
                   {fenString}
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

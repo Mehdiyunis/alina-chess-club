@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
 import { UserProfile } from '@/lib/types';
@@ -98,23 +99,27 @@ export const Navbar: React.FC = () => {
   const userInitial = (firstName || 'İ').charAt(0).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0d0b17]/90 backdrop-blur-md border-b border-[#2d2750]">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-40 bg-[#100c08]/92 backdrop-blur-md">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-18 flex items-center justify-between gap-6">
         {/* Brand */}
         <Link
           href="/"
           className="flex items-center gap-2.5 text-left focus-visible:outline-hidden group shrink-0"
         >
-          <div className="w-8 h-8 rounded-[8px] bg-[#211c3a] border border-[#2d2750] text-[#7c5cff] flex items-center justify-center font-bold text-sm">
-            <span className="text-base select-none leading-none">♚</span>
+          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] overflow-hidden bg-[#24170a] border border-[#e9cfa0]/30 shadow-md transition-transform group-hover:scale-105 shrink-0 flex items-center justify-center">
+            <Image
+              src="/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png"
+              alt="Şahmat Məktəbi Loqosu"
+              width={40}
+              height={40}
+              className="w-full h-full object-cover"
+              priority
+            />
           </div>
-          <span className="font-bold text-base sm:text-lg text-[#ecebf5] tracking-tight group-hover:text-white transition-colors">
-            Şahmat Məktəbi
-          </span>
         </Link>
 
         {/* Desktop Navigation (visible on lg and above) */}
-        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#9893b8]">
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#d9c7a6]">
           {navLinks.map((link) => {
             const isActive = link.isRoute && pathname === link.href;
             return (
@@ -123,8 +128,8 @@ export const Navbar: React.FC = () => {
                 href={link.href}
                 className={`transition-colors whitespace-nowrap py-1 ${
                   isActive
-                    ? 'text-[#ecebf5] font-semibold border-b-2 border-[#7c5cff]'
-                    : 'hover:text-[#ecebf5]'
+                    ? 'text-[#f3ece1] font-semibold border-b-2 border-[#e9cfa0]'
+                    : 'hover:text-[#f3ece1]'
                 }`}
               >
                 {link.label}
@@ -139,24 +144,24 @@ export const Navbar: React.FC = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 p-1 rounded-full hover:bg-[#211c3a] transition-colors cursor-pointer focus-visible:outline-hidden"
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-[#2b1d0e] transition-colors cursor-pointer focus-visible:outline-hidden"
                 aria-label="İstifadəçi menyusu"
                 aria-expanded={userMenuOpen}
               >
-                <div className="w-9 h-9 rounded-full bg-[#7c5cff] text-white flex items-center justify-center font-bold text-sm shadow-sm select-none">
+                <div className="w-9 h-9 rounded-full bg-[#e9cfa0] text-[#1a130c] flex items-center justify-center font-bold text-sm shadow-sm select-none">
                   {userInitial}
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 text-[#9893b8] hidden sm:block" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#d9c7a6] hidden sm:block" />
               </button>
 
-              {/* User Dropdown: Shows first name only, student/role status, books link, and Çıxış */}
+              {/* User Dropdown */}
               {userMenuOpen && (
-                <div className="absolute right-0 mt-2 w-52 card-flat bg-[#171428] border border-[#2d2750] shadow-xl py-2 z-50 animate-in fade-in duration-100">
-                  <div className="px-4 py-2 border-b border-[#2d2750]/70">
-                    <p className="text-sm font-semibold text-[#ecebf5] truncate max-w-[170px]" title={firstName}>
+                <div className="absolute right-0 mt-2 w-52 rounded-[16px] bg-[#24170a] border border-[rgba(243,236,225,0.12)] shadow-2xl py-2 z-50 animate-in fade-in duration-100">
+                  <div className="px-4 py-2 border-b border-[rgba(243,236,225,0.10)]">
+                    <p className="text-sm font-semibold text-[#f3ece1] truncate max-w-[170px]" title={firstName}>
                       {firstName}
                     </p>
-                    <p className="text-xs text-[#9893b8] mt-0.5">
+                    <p className="text-xs text-[#d9c7a6] mt-0.5">
                       Tələbə
                     </p>
                   </div>
@@ -164,15 +169,15 @@ export const Navbar: React.FC = () => {
                   <Link
                     href="/books"
                     onClick={() => setUserMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-2.5 text-xs text-[#ecebf5] hover:bg-[#211c3a] transition-colors"
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-xs text-[#f3ece1] hover:bg-[#332212] transition-colors"
                   >
-                    <BookOpen className="w-3.5 h-3.5 text-[#9893b8]" />
+                    <BookOpen className="w-3.5 h-3.5 text-[#e9cfa0]" />
                     <span>Şahmat Kitabları</span>
                   </Link>
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-xs text-rose-400 hover:bg-[#211c3a] transition-colors cursor-pointer border-t border-[#2d2750]/50"
+                    className="w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-xs text-rose-300 hover:bg-[#332212] transition-colors cursor-pointer border-t border-[rgba(243,236,225,0.10)]"
                   >
                     <LogOut className="w-3.5 h-3.5" />
                     <span>Çıxış</span>
@@ -183,16 +188,16 @@ export const Navbar: React.FC = () => {
           ) : (
             <Link
               href="/auth"
-              className="btn-primary px-4 py-2 text-xs sm:text-sm whitespace-nowrap"
+              className="btn-primary px-5 py-2 text-xs sm:text-sm whitespace-nowrap shadow-sm"
             >
               Qoşul
             </Link>
           )}
 
-          {/* Hamburger button (shown only below lg breakpoint) */}
+          {/* Hamburger button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-[#9893b8] hover:text-[#ecebf5] cursor-pointer"
+            className="lg:hidden p-2 text-[#d9c7a6] hover:text-[#f3ece1] cursor-pointer"
             aria-label="Menyunu aç"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -200,36 +205,36 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer (visible only when mobileMenuOpen is true on small screens) */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#171428] border-b border-[#2d2750] px-4 py-4 space-y-1">
+        <div className="lg:hidden bg-[#181009] border-b border-[rgba(243,236,225,0.10)] px-4 py-4 space-y-1">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="block py-2.5 px-3 text-sm font-medium text-[#ecebf5] hover:bg-[#211c3a] rounded-[8px] transition-colors"
+              className="block py-2.5 px-3 text-sm font-medium text-[#f3ece1] hover:bg-[#2b1d0e] rounded-[10px] transition-colors"
             >
               {link.label}
             </Link>
           ))}
 
-          <div className="pt-3 border-t border-[#2d2750]">
+          <div className="pt-3 border-t border-[rgba(243,236,225,0.10)]">
             {user ? (
               <div className="space-y-1">
-                <div className="px-3 py-1.5 text-xs text-[#9893b8]">
-                  Giriş edilib: <span className="text-[#ecebf5] font-semibold">{firstName}</span>
+                <div className="px-3 py-1.5 text-xs text-[#d9c7a6]">
+                  Giriş edilib: <span className="text-[#f3ece1] font-semibold">{firstName}</span>
                 </div>
                 <Link
                   href="/books"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 px-3 text-sm text-[#ecebf5] hover:bg-[#211c3a] rounded-[8px]"
+                  className="block py-2 px-3 text-sm text-[#f3ece1] hover:bg-[#2b1d0e] rounded-[10px]"
                 >
                   Şahmat Kitabları
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left py-2 px-3 text-sm font-medium text-rose-400 hover:bg-[#211c3a] rounded-[8px] cursor-pointer"
+                  className="w-full text-left py-2 px-3 text-sm font-medium text-rose-300 hover:bg-[#2b1d0e] rounded-[10px] cursor-pointer"
                 >
                   Çıxış
                 </button>

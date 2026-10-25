@@ -43,30 +43,30 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
     <div className="max-w-[1200px] mx-auto">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <h1 className="text-[clamp(1.85rem,3.5vw,2.5rem)] font-bold text-[#ecebf5] tracking-tight">
+        <h1 className="font-serif text-[clamp(2.2rem,4vw,3rem)] font-normal text-[#1a130c] tracking-tight leading-[1.1]">
           Şahmat Kitabları və Dərsliklər
         </h1>
-        <p className="mt-2 text-[#9893b8] text-sm sm:text-base leading-relaxed">
+        <p className="mt-2 text-[#7a736b] text-sm sm:text-base leading-relaxed">
           Uşaqlar və şahmat həvəskarları üçün seçilmiş tədris vəsaitlərini onlayn oxuyun və ya endirin.
         </p>
       </div>
 
       {/* Error state if Supabase unconfigured or query failed */}
       {initialError && (
-        <div className="mb-8 p-4 rounded-[12px] bg-rose-500/10 border border-rose-500/20 text-rose-300 text-sm flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />
+        <div className="mb-8 p-4 rounded-[16px] bg-rose-500/10 border border-rose-500/20 text-rose-800 text-sm flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0 text-rose-600 mt-0.5" />
           <div className="space-y-1">
-            <p className="font-semibold text-rose-200">Məlumat yüklənərkən xəta baş verdi</p>
-            <p className="text-xs text-rose-300/90">{initialError}</p>
+            <p className="font-semibold text-rose-900">Məlumat yüklənərkən xəta baş verdi</p>
+            <p className="text-xs text-rose-800/90">{initialError}</p>
           </div>
         </div>
       )}
 
       {/* Search and Filter Bar */}
-      <div className="card-flat p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div className="bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] p-4 sm:p-5 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between shadow-sm">
         {/* Search Input */}
         <div className="relative w-full md:w-80">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#9893b8]">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#7a736b]">
             <Search className="w-4 h-4" />
           </div>
           <input
@@ -74,11 +74,11 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Kitab və ya müəllif axtarın..."
-            className="w-full pl-9 pr-3.5 py-2 rounded-[8px] bg-[#0d0b17] border border-[#2d2750] text-[#ecebf5] placeholder-[#9893b8]/50 focus:outline-hidden focus:border-[#7c5cff] text-xs sm:text-sm"
+            className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#fbf9f5] border border-[rgba(26,19,12,0.15)] text-[#1a130c] placeholder-[#7a736b]/60 focus:outline-hidden focus:border-[#8c6747] text-xs sm:text-sm"
           />
         </div>
 
-        {/* Level Filters */}
+        {/* Level Filters: fully rounded pills */}
         <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
           {[
             { id: 'all', label: 'Hamısı' },
@@ -91,10 +91,10 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
               <button
                 key={item.id}
                 onClick={() => setSelectedLevel(item.id)}
-                className={`px-3 py-1.5 rounded-[8px] text-xs font-semibold transition-colors cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-[#7c5cff] text-white'
-                    : 'bg-[#211c3a] text-[#9893b8] hover:text-[#ecebf5] border border-[#2d2750]'
+                    ? 'bg-[#8c6747] text-white shadow-xs'
+                    : 'bg-[#f4efe6] text-[#7a736b] hover:text-[#1a130c] border border-[rgba(26,19,12,0.08)]'
                 }`}
               >
                 {item.label}
@@ -106,16 +106,16 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
 
       {/* Book Cards Grid */}
       {filteredBooks.length === 0 ? (
-        <div className="py-16 text-center card-flat p-8">
-          <div className="w-12 h-12 rounded-full bg-[#211c3a] border border-[#2d2750] text-[#7c5cff] flex items-center justify-center mx-auto mb-3">
+        <div className="py-16 text-center bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] p-8 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-[#f4efe6] border border-[rgba(26,19,12,0.10)] text-[#8c6747] flex items-center justify-center mx-auto mb-3">
             <BookOpen className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-[#ecebf5]">
+          <h3 className="font-serif text-lg font-normal text-[#1a130c]">
             {initialBooks.length === 0
               ? 'Hazırda kitabxanada kitab mövcud deyil'
               : 'Axtarışa uyğun kitab tapılmadı'}
           </h3>
-          <p className="text-[#9893b8] text-xs mt-1 max-w-sm mx-auto">
+          <p className="text-[#7a736b] text-xs mt-1 max-w-sm mx-auto">
             {initialBooks.length === 0
               ? 'Tezliklə yeni şahmat vəsaitləri və kitabları əlavə olunacaq.'
               : 'Axtarış sözünü dəyişdirin və ya seçilmiş filtri sıfırlayın.'}
@@ -126,7 +126,7 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
                 setSearchQuery('');
                 setSelectedLevel('all');
               }}
-              className="btn-secondary px-3.5 py-1.5 text-xs mt-4 cursor-pointer"
+              className="btn-secondary-cream px-4 py-2 text-xs mt-4 cursor-pointer"
             >
               Filtri sıfırla
             </button>
@@ -137,7 +137,7 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
           {filteredBooks.map((book) => (
             <div
               key={book.id}
-              className="card-flat p-5 flex flex-col justify-between"
+              className="bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-all"
             >
               <div>
                 {/* Book Cover or Dark Placeholder */}
@@ -145,46 +145,46 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
                   <img
                     src={book.cover_url}
                     alt={book.title}
-                    className="w-full h-44 object-cover rounded-[8px] mb-4 border border-[#2d2750]"
+                    className="w-full h-44 object-cover rounded-[14px] mb-4 border border-[rgba(26,19,12,0.08)] shadow-xs"
                   />
                 ) : (
-                  <div className="w-full h-44 rounded-[8px] mb-4 bg-[#171428] border border-[#2d2750] flex flex-col items-center justify-center p-4 text-center select-none relative overflow-hidden group">
-                    <div className="w-12 h-12 rounded-full bg-[#211c3a] border border-[#2d2750] text-[#7c5cff] flex items-center justify-center font-bold text-xl mb-2">
+                  <div className="w-full h-44 rounded-[14px] mb-4 bg-[#24170a] border border-[rgba(243,236,225,0.10)] flex flex-col items-center justify-center p-4 text-center select-none relative overflow-hidden group shadow-xs">
+                    <div className="w-12 h-12 rounded-full bg-[#362513] border border-[#e9cfa0]/30 text-[#e9cfa0] flex items-center justify-center font-bold text-xl mb-2">
                       ♚
                     </div>
-                    <p className="text-xs font-semibold text-[#ecebf5] line-clamp-1">{book.title}</p>
-                    <p className="text-[11px] text-[#9893b8] mt-0.5">{book.author}</p>
+                    <p className="font-serif text-xs font-normal text-[#f3ece1] line-clamp-1">{book.title}</p>
+                    <p className="text-[11px] text-[#d9c7a6] mt-0.5">{book.author}</p>
                   </div>
                 )}
 
                 {/* Level and Format Badge */}
-                <div className="flex items-center gap-2 text-xs text-[#9893b8] mb-2.5">
-                  <span className="text-[#7c5cff] font-medium">{getLevelLabel(book.level)}</span>
+                <div className="flex items-center gap-2 text-xs text-[#7a736b] mb-2.5">
+                  <span className="text-[#8c6747] font-semibold">{getLevelLabel(book.level)}</span>
                   <span aria-hidden="true">·</span>
                   <span>PDF dərslik</span>
                 </div>
 
-                <h3 className="text-base font-bold text-[#ecebf5] mb-1 leading-snug">
+                <h3 className="font-serif text-lg font-normal text-[#1a130c] mb-1 leading-snug">
                   {book.title}
                 </h3>
-                <p className="text-xs text-[#9893b8] font-medium mb-3">
+                <p className="text-xs text-[#7a736b] font-medium mb-3">
                   Müəllif: {book.author}
                 </p>
 
                 {book.description && (
-                  <p className="text-xs text-[#9893b8] leading-relaxed line-clamp-3 mb-5">
+                  <p className="text-xs text-[#7a736b] leading-relaxed line-clamp-3 mb-5">
                     {book.description}
                   </p>
                 )}
               </div>
 
               {/* Read & Download Actions */}
-              <div className="pt-3 border-t border-[#2d2750] flex items-center gap-2 mt-auto">
+              <div className="pt-3 border-t border-[rgba(26,19,12,0.08)] flex items-center gap-2 mt-auto">
                 <a
                   href={book.file_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary flex-1 py-2 px-3 text-xs flex items-center justify-center gap-1.5"
+                  className="btn-secondary-cream flex-1 py-2 px-3 text-xs flex items-center justify-center gap-1.5"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   <span>Bax</span>
@@ -192,7 +192,7 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
                 <a
                   href={book.file_url}
                   download={book.file_name || `${book.title.replace(/\s+/g, '_')}.pdf`}
-                  className="btn-secondary py-2 px-3 text-xs flex items-center justify-center gap-1.5"
+                  className="btn-primary flex-1 py-2 px-3 text-xs flex items-center justify-center gap-1.5 font-semibold"
                   title="Faylı yüklə"
                 >
                   <Download className="w-3.5 h-3.5" />

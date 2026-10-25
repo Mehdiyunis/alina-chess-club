@@ -1,97 +1,11 @@
 {
   "version": 4,
-  "routes": {
-    "/_global-error": {
-      "routeType": "page",
-      "response": "complete",
-      "compute": "static",
-      "htmlSize": 9171,
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/_global-error",
-      "dataRoute": "/_global-error.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/_not-found": {
-      "initialStatus": 404,
-      "routeType": "page",
-      "response": "complete",
-      "compute": "static",
-      "htmlSize": 9611,
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/_not-found",
-      "dataRoute": "/_not-found.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/auth": {
-      "routeType": "page",
-      "response": "complete",
-      "compute": "static",
-      "htmlSize": 20498,
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/auth",
-      "dataRoute": "/auth.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    }
-  },
+  "routes": {},
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "5b47e6ae1304faeaf2ad577745fca328",
-    "previewModeSigningKey": "7fa7eaff3771ebc07846d4ff821426313d1d22986e9f9ab9e9ab6143499d776d",
-    "previewModeEncryptionKey": "5ba1c5492f7c3921383b41357805ee72bb77459ff96f2a9023677c5318127632"
+    "previewModeId": "d5305e662fc16081f5622a83bcfa90d6",
+    "previewModeSigningKey": "4c04d9377a41b5d61135e52aaabd8b8785e8fc35d8c3c0751dbf50642aec1935",
+    "previewModeEncryptionKey": "9a2c0dffaa7c9bebf165ade3fb69e15c13c898eb93b6c26c423f04752c393cc7"
   }
 }

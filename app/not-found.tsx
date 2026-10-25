@@ -1,18 +1,27 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-[#0d0b17] text-[#ecebf5] flex flex-col items-center justify-center p-6 text-center">
-      <div className="w-16 h-16 rounded-[12px] bg-[#211c3a] border border-[#2d2750] text-[#7c5cff] flex items-center justify-center font-bold text-3xl mb-6 shadow-lg shadow-[#7c5cff]/10">
-        ♚
+    <div className="min-h-screen bg-gradient-to-b from-[#100c08] to-[#2b1e10] text-[#f3ece1] flex flex-col items-center justify-center p-6 text-center">
+      <div className="relative w-18 h-18 rounded-[18px] overflow-hidden bg-[#24170a] border border-[#f3ece1]/10 mb-6 shadow-xl shadow-black/40 flex items-center justify-center">
+        <Image
+          src="/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png"
+          alt="Loqo"
+          width={72}
+          height={72}
+          className="w-full h-full object-cover"
+        />
       </div>
-      <h1 className="text-4xl font-extrabold tracking-tight mb-3">404 - Səhifə Tapılmadı</h1>
-      <p className="text-sm text-[#9893b8] max-w-md mb-8">
+      <h1 className="font-serif text-3xl sm:text-4xl font-normal tracking-tight mb-3 text-[#f3ece1]">
+        404 - Səhifə Tapılmadı
+      </h1>
+      <p className="text-sm text-[#d9c7a6] max-w-md mb-8 leading-relaxed">
         Axtardığınız səhifə mövcud deyil və ya ünvan dəyişdirilmişdir.
       </p>
       <Link
         href="/"
-        className="px-6 py-3 rounded-[10px] bg-[#7c5cff] hover:bg-[#6845f5] text-white text-sm font-semibold transition-colors shadow-lg shadow-[#7c5cff]/20"
+        className="px-6 py-3 rounded-full bg-[#e9cfa0] hover:bg-[#f1dcb4] text-[#1a130c] text-sm font-semibold transition-all shadow-lg active:scale-95"
       >
         Ana Səhifəyə Qayıt
       </Link>

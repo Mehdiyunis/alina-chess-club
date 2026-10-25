@@ -2,111 +2,141 @@
 
 @layer base {
   :root {
-    --bg-page: #0d0b17;
-    --bg-surface: #171428;
-    --bg-surface-alt: #121024;
-    --bg-raised: #211c3a;
-    --border-subtle: #2d2750;
-    --primary: #7c5cff;
-    --primary-hover: #9a82ff;
-    --secondary: #3b5bdb;
-    --text-main: #ecebf5;
-    --text-muted: #9893b8;
-    --board-light: #b9b0d9;
-    --board-dark: #5b4b9a;
+    --bg-dark-hero-top: #100c08;
+    --bg-dark-hero-bottom: #2b1e10;
+    --bg-dark: #2b1d0e;
+    --bg-dark-card: #362513;
+    --bg-cream: #efe9e0;
+    --bg-cream-card: #ffffff;
+    --accent-sand: #e9cfa0;
+    --accent-sand-hover: #f1dcb4;
+    --text-dark: #f3ece1;
+    --text-dark-muted: #d9c7a6;
+    --text-cream: #1a130c;
+    --text-cream-muted: #7a736b;
+    --divider-dark: rgba(243, 236, 225, 0.10);
+    --divider-cream: rgba(26, 19, 12, 0.10);
+    --board-light: #efe7d8;
+    --board-dark: #8c6747;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: #0d0b17;
-    color: #ecebf5;
-    color-scheme: dark;
+    background-color: #100c08;
+    color: #f3ece1;
     font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   body {
     font-size: 1rem;
     line-height: 1.6;
-    color: #ecebf5;
+    color: #f3ece1;
   }
 
-  /* Headings typography constraint */
+  /* Headings Didone / Bodoni serif style with high contrast and tight line-height */
   h1, h2, h3, h4 {
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    color: #ecebf5;
+    font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    font-weight: 400;
   }
 }
 
-/* Primary Button: solid violet, no gradient, no glow, 10px radius */
+.font-serif {
+  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Primary Button: Sand accent, fully rounded pill, dark text, subtle lift */
 .btn-primary {
-  background-color: #7c5cff;
-  color: #ffffff;
-  border-radius: 10px;
+  background-color: #e9cfa0;
+  color: #1a130c;
+  border-radius: 9999px;
   font-weight: 600;
-  transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms ease;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 .btn-primary:hover {
-  background-color: #9a82ff;
+  background-color: #f1dcb4;
+  transform: translateY(-1px);
 }
 .btn-primary:active {
   transform: translateY(1px);
 }
 
-/* Secondary Button: outlined, 10px radius */
-.btn-secondary {
+/* Secondary Button on Dark: Outlined sand border, fully rounded */
+.btn-secondary-dark {
   background-color: transparent;
-  color: #ecebf5;
-  border: 1px solid #2d2750;
-  border-radius: 10px;
-  font-weight: 600;
-  transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), border-color 160ms ease;
+  color: #f3ece1;
+  border: 1px solid rgba(233, 207, 160, 0.35);
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.btn-secondary:hover {
-  background-color: #211c3a;
-  border-color: rgba(124, 92, 255, 0.5);
+.btn-secondary-dark:hover {
+  background-color: rgba(233, 207, 160, 0.10);
+  border-color: #e9cfa0;
+  color: #f3ece1;
 }
 
-/* Cards: flat dark surface, 1px border, 12px radius, simple hover border */
-.card-flat {
-  background-color: #171428;
-  border: 1px solid #2d2750;
-  border-radius: 12px;
-  transition: border-color 180ms ease;
+/* Secondary Button on Cream: Outlined warm brown border, fully rounded */
+.btn-secondary-cream {
+  background-color: #ffffff;
+  color: #1a130c;
+  border: 1px solid rgba(26, 19, 12, 0.15);
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.card-flat:hover {
-  border-color: rgba(124, 92, 255, 0.5);
+.btn-secondary-cream:hover {
+  background-color: #efe9e0;
+  border-color: rgba(26, 19, 12, 0.3);
 }
 
-/* Focus styles for accessibility */
+/* Backward compatibility class */
+.btn-secondary {
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 160ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Focus styles */
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 2px solid #7c5cff;
+  outline: 2px solid #e9cfa0;
   outline-offset: 2px;
 }
 
-/* Custom sleek dark scrollbar */
+/* Sleek warm scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0b17;
+  background: #100c08;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d2750;
+  background: #362513;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7c5cff;
+  background: #e9cfa0;
 }
 
 @media (prefers-reduced-motion: reduce) {

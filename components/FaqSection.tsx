@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { faqData } from '@/lib/siteData';
 import { ChevronDown } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -12,46 +13,51 @@ export function FaqSection() {
   };
 
   return (
-    <section id="faq" className="py-16 lg:py-24 bg-[#121024] border-b border-[#2d2750]">
+    <section id="faq" className="py-16 lg:py-24 bg-[#efe9e0] border-b border-[rgba(26,19,12,0.10)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-[clamp(1.75rem,3vw,2.25rem)] font-bold text-[#ecebf5] tracking-tight">
+        <ScrollReveal direction="up" className="text-center max-w-2xl mx-auto mb-10">
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1a130c] tracking-tight leading-[1.1]">
             Tez-tez Verilən Suallar
           </h2>
-          <p className="text-sm sm:text-base text-[#9893b8] mt-2">
+          <p className="text-sm sm:text-base text-[#7a736b] mt-2">
             Valideynləri və yeni başlayanları ən çox maraqlandıran suallara qısa cavablar.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="max-w-3xl mx-auto space-y-3">
           {faqData.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div
+              <ScrollReveal
                 key={idx}
-                className="card-flat overflow-hidden"
+                direction={idx % 2 === 0 ? 'left' : 'right'}
+                delay={idx * 0.06}
               >
-                <button
-                  onClick={() => toggle(idx)}
-                  className="w-full py-4 px-5 text-left flex items-center justify-between gap-4 cursor-pointer focus-visible:outline-hidden"
-                  aria-expanded={isOpen}
+                <div
+                  className="bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] overflow-hidden shadow-xs transition-all"
                 >
-                  <span className="text-sm sm:text-base font-semibold text-[#ecebf5]">
-                    {item.question}
-                  </span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-[#9893b8] shrink-0 transition-transform duration-150 ${
-                      isOpen ? 'rotate-180 text-[#7c5cff]' : ''
-                    }`}
-                  />
-                </button>
+                  <button
+                    onClick={() => toggle(idx)}
+                    className="w-full py-4.5 px-6 text-left flex items-center justify-between gap-4 cursor-pointer focus-visible:outline-hidden"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-sm sm:text-base font-medium text-[#1a130c]">
+                      {item.question}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-[#7a736b] shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 text-[#8c6747]' : ''
+                      }`}
+                    />
+                  </button>
 
-                {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-[#9893b8] text-sm leading-relaxed border-t border-[#2d2750]/60">
-                    {item.answer}
-                  </div>
-                )}
-              </div>
+                  {isOpen && (
+                    <div className="px-6 pb-5 pt-1 text-[#7a736b] text-sm leading-relaxed border-t border-[rgba(26,19,12,0.08)] bg-[#fdfbf7]">
+                      {item.answer}
+                    </div>
+                  )}
+                </div>
+              </ScrollReveal>
             );
           })}
         </div>

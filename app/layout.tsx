@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
+import { Manrope, Playfair_Display } from 'next/font/google';
 import './globals.css';
 
 const manrope = Manrope({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
   variable: '--font-sans',
+  weight: ['400', '500', '600', '700'],
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+  variable: '--font-serif',
   weight: ['400', '500', '600', '700'],
 });
 
@@ -23,10 +30,14 @@ export const metadata: Metadata = {
     title: 'Şahmat Məktəbi',
     description: 'Uşaqlar və yeni başlayanlar üçün sadə və aydın şahmat dərsləri.',
   },
+  icons: {
+    icon: '/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png',
+    apple: '/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png',
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0d0b17',
+  themeColor: '#100c08',
   width: 'device-width',
   initialScale: 1,
 };
@@ -37,9 +48,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="az" className={`${manrope.variable} scroll-smooth`} suppressHydrationWarning>
+    <html
+      lang="az"
+      className={`${manrope.variable} ${playfair.variable} scroll-smooth`}
+      suppressHydrationWarning
+    >
       <body
-        className="min-h-screen bg-[#0d0b17] text-[#ecebf5] font-sans antialiased selection:bg-[#7c5cff]/30 selection:text-white"
+        className="min-h-screen bg-[#100c08] text-[#f3ece1] font-sans antialiased selection:bg-[#e9cfa0]/30 selection:text-white"
         suppressHydrationWarning
       >
         {children}
