@@ -1,45 +1,52 @@
-import React from 'react';
-import { historyData } from '@/lib/siteData';
+'use client';
+
 import { ScrollReveal } from './ScrollReveal';
+import { useLanguage } from './LanguageProvider';
 
 export function HistorySection() {
+  const { t, dict } = useLanguage();
+
+  const paragraphs: string[] = dict.history?.paragraphs || [];
+  const grandmasters: Array<{ name: string; title: string }> =
+    dict.history?.grandmasters || [];
+
   return (
-    <section id="history" className="py-16 lg:py-24 bg-[#2b1d0e] border-b border-[rgba(243,236,225,0.10)]">
+    <section id="history" className="py-16 lg:py-24 bg-[#F7F3EA] border-b border-[#E3DCCB]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Narrative */}
           <ScrollReveal direction="left" className="lg:col-span-7 space-y-5">
-            <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#f3ece1] tracking-tight leading-[1.1]">
-              {historyData.title}
+            <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1E2A22] tracking-tight leading-[1.1]">
+              {t('history.title')}
             </h2>
 
-            <p className="font-serif text-base sm:text-lg text-[#e9cfa0] font-normal leading-relaxed">
-              {historyData.lead}
+            <p className="font-serif text-base sm:text-lg text-[#B4532A] font-normal leading-relaxed">
+              {t('history.lead')}
             </p>
 
-            <div className="space-y-3.5 text-[#d9c7a6] text-sm leading-relaxed">
-              {historyData.paragraphs.map((para, idx) => (
+            <div className="space-y-3.5 text-[#5E6B62] text-sm leading-relaxed">
+              {paragraphs.map((para, idx) => (
                 <p key={idx}>{para}</p>
               ))}
             </div>
 
             {/* Factual Information Strip */}
-            <div className="pt-4 border-t border-[rgba(243,236,225,0.10)] grid grid-cols-2 gap-4">
-              <div className="bg-[#362513] rounded-[18px] border border-[rgba(243,236,225,0.10)] p-4 sm:p-5 shadow-sm">
-                <span className="font-serif text-2xl font-normal text-[#f3ece1] block">
-                  3 Dəfə
+            <div className="pt-4 border-t border-[#E3DCCB] grid grid-cols-2 gap-4">
+              <div className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-4 sm:p-5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+                <span className="font-serif text-2xl font-normal text-[#1E2A22] block">
+                  {t('history.stat1Value')}
                 </span>
-                <span className="text-xs text-[#d9c7a6] mt-1 block leading-relaxed">
-                  Kişilərdən ibarət milli komanda: Avropa Çempionu (2009, 2013, 2017)
+                <span className="text-xs text-[#5E6B62] mt-1 block leading-relaxed">
+                  {t('history.stat1Desc')}
                 </span>
               </div>
 
-              <div className="bg-[#362513] rounded-[18px] border border-[rgba(243,236,225,0.10)] p-4 sm:p-5 shadow-sm">
-                <span className="font-serif text-xl sm:text-2xl font-normal text-[#f3ece1] block">
-                  Top Reytinq
+              <div className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-4 sm:p-5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+                <span className="font-serif text-xl sm:text-2xl font-normal text-[#1E2A22] block">
+                  {t('history.stat2Value')}
                 </span>
-                <span className="text-xs text-[#d9c7a6] mt-1 block leading-relaxed">
-                  FIDE reytinqinə əsasən dünya üzrə aparıcı mövqelər
+                <span className="text-xs text-[#5E6B62] mt-1 block leading-relaxed">
+                  {t('history.stat2Desc')}
                 </span>
               </div>
             </div>
@@ -47,21 +54,21 @@ export function HistorySection() {
 
           {/* Right: Grandmasters List */}
           <ScrollReveal direction="right" className="lg:col-span-5 space-y-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#e9cfa0] block mb-2">
-              Tanınmış Azərbaycan Qrossmeysterləri
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#B4532A] block mb-2">
+              {t('history.gmTitle')}
             </span>
 
-            {historyData.grandmasters.map((gm, idx) => (
+            {grandmasters.map((gm, idx) => (
               <div
                 key={idx}
-                className="bg-[#362513] rounded-[18px] border border-[rgba(243,236,225,0.10)] p-4.5 flex items-start gap-4 shadow-sm"
+                className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-4.5 flex items-start gap-4 shadow-[0_1px_2px_rgba(30,42,34,0.06)]"
               >
-                <span className="w-8 h-8 rounded-full bg-[#24170a] border border-[#e9cfa0]/30 text-[#e9cfa0] font-bold text-xs flex items-center justify-center shrink-0 font-mono">
+                <span className="w-8 h-8 rounded-full bg-[#E4EBD9] border border-[#E3DCCB] text-[#2F5D46] font-bold text-xs flex items-center justify-center shrink-0 font-mono">
                   0{idx + 1}
                 </span>
                 <div>
-                  <h3 className="font-serif text-base font-normal text-[#f3ece1]">{gm.name}</h3>
-                  <p className="text-xs text-[#d9c7a6] mt-0.5 leading-relaxed">{gm.title}</p>
+                  <h3 className="font-serif text-base font-normal text-[#1E2A22]">{gm.name}</h3>
+                  <p className="text-xs text-[#5E6B62] mt-0.5 leading-relaxed">{gm.title}</p>
                 </div>
               </div>
             ))}

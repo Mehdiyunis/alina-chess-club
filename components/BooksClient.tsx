@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Book, BookLevel } from '@/lib/siteData';
-import { Search, Download, ExternalLink, BookOpen, AlertCircle, RefreshCw } from 'lucide-react';
+import { Search, Download, ExternalLink, BookOpen, AlertCircle } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 interface BooksClientProps {
   initialBooks: Book[];
@@ -10,6 +11,7 @@ interface BooksClientProps {
 }
 
 export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
 
@@ -17,9 +19,9 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
     const q = searchQuery.toLowerCase().trim();
     const matchesSearch =
       !q ||
-      book.title.toLowerCase().includes(q) ||
-      book.author.toLowerCase().includes(q) ||
-      (book.description && book.description.toLowerCase().includes(q));
+      (book.title ?? '').toLowerCase().includes(q) ||
+      (book.author ?? '').toLowerCase().includes(q) ||
+      (book.description ?? '').toLowerCase().includes(q);
 
     const matchesLevel = selectedLevel === 'all' || book.level === selectedLevel;
 
@@ -29,63 +31,88 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
   const getLevelLabel = (level: BookLevel) => {
     switch (level) {
       case 'beginner':
-        return 'Başlayan';
+        return t('books.filterBeginner');
       case 'intermediate':
-        return 'Orta';
+        return t('books.filterIntermediate');
       case 'advanced':
-        return 'İrəli';
+        return t('books.filterAdvanced');
       default:
-        return 'Ümumi';
+        return t('books.filterAll');
     }
   };
+
+  const getLevelBadgeClass = (level: BookLevel) => {
+    switch (level) {
+      case 'beginner':
+        return 'bg-[#DCE6D0] text-[#1E2A22]'; // --sage-200
+      case 'intermediate':
+        return 'bg-[#F6E7B4] text-[#1E2A22]'; // --butter
+      case 'advanced':
+        return 'bg-[#F4D9C6] text-[#1E2A22]'; // --peach
+      default:
+        return 'bg-[#E4EBD9] text-[#1E2A22]';
+    }
+  };
+
+  const getDownloadUrl = (fileUrl: string, rawFileName?: string | null) => {
+    if (!fileUrl) return '#';
+    let fileName = (rawFileName || 'book').trim();
+    if (!fileName.toLowerCase().endsWith('.pdf')) {
+      fileName = `${fileName}.pdf`;
+    }
+    const separator = fileUrl.includes('?') ? '&download=' : '?download=';
+    return `${fileUrl}${separator}${encodeURIComponent(fileName)}`;
+  };
+
+  const filterOptions = [
+    { id: 'all', label: t('books.filterAll') },
+    { id: 'beginner', label: t('books.filterBeginner') },
+    { id: 'intermediate', label: t('books.filterIntermediate') },
+    { id: 'advanced', label: t('books.filterAdvanced') },
+  ];
 
   return (
     <div className="max-w-[1200px] mx-auto">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <h1 className="font-serif text-[clamp(2.2rem,4vw,3rem)] font-normal text-[#1a130c] tracking-tight leading-[1.1]">
-          Şahmat Kitabları və Dərsliklər
+        <h1 className="font-serif text-[clamp(2.2rem,4vw,3rem)] font-normal text-[#1E2A22] tracking-tight leading-[1.1]">
+          {t('books.title')}
         </h1>
-        <p className="mt-2 text-[#7a736b] text-sm sm:text-base leading-relaxed">
-          Uşaqlar və şahmat həvəskarları üçün seçilmiş tədris vəsaitlərini onlayn oxuyun və ya endirin.
+        <p className="mt-2 text-[#5E6B62] text-sm sm:text-base leading-relaxed">
+          {t('books.subtitle')}
         </p>
       </div>
 
       {/* Error state if Supabase unconfigured or query failed */}
       {initialError && (
-        <div className="mb-8 p-4 rounded-[16px] bg-rose-500/10 border border-rose-500/20 text-rose-800 text-sm flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 shrink-0 text-rose-600 mt-0.5" />
+        <div className="mb-8 p-4 rounded-[16px] bg-rose-500/10 border border-rose-500/20 text-[#B3261E] text-sm flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0 text-[#B3261E] mt-0.5" />
           <div className="space-y-1">
-            <p className="font-semibold text-rose-900">Məlumat yüklənərkən xəta baş verdi</p>
-            <p className="text-xs text-rose-800/90">{initialError}</p>
+            <p className="font-semibold text-[#B3261E]">{t('books.errorLoading')}</p>
+            <p className="text-xs text-[#B3261E]/90">{initialError}</p>
           </div>
         </div>
       )}
 
       {/* Search and Filter Bar */}
-      <div className="bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] p-4 sm:p-5 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between shadow-sm">
+      <div className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-4 sm:p-5 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
         {/* Search Input */}
         <div className="relative w-full md:w-80">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#7a736b]">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#5E6B62]">
             <Search className="w-4 h-4" />
           </div>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Kitab və ya müəllif axtarın..."
-            className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#fbf9f5] border border-[rgba(26,19,12,0.15)] text-[#1a130c] placeholder-[#7a736b]/60 focus:outline-hidden focus:border-[#8c6747] text-xs sm:text-sm"
+            placeholder={t('books.searchPlaceholder')}
+            className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#FFFFFF] border border-[#E3DCCB] text-[#1E2A22] placeholder-[#5E6B62]/60 focus:outline-hidden focus:border-[#2F5D46] focus:ring-2 focus:ring-[#2F5D46]/35 text-xs sm:text-sm"
           />
         </div>
 
         {/* Level Filters: fully rounded pills */}
         <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
-          {[
-            { id: 'all', label: 'Hamısı' },
-            { id: 'beginner', label: 'Başlayan' },
-            { id: 'intermediate', label: 'Orta' },
-            { id: 'advanced', label: 'İrəli' },
-          ].map((item) => {
+          {filterOptions.map((item) => {
             const isActive = selectedLevel === item.id;
             return (
               <button
@@ -93,8 +120,8 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
                 onClick={() => setSelectedLevel(item.id)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-[#8c6747] text-white shadow-xs'
-                    : 'bg-[#f4efe6] text-[#7a736b] hover:text-[#1a130c] border border-[rgba(26,19,12,0.08)]'
+                    ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
+                    : 'bg-[#EFE9DB] text-[#5E6B62] hover:text-[#1E2A22] border border-[#E3DCCB]'
                 }`}
               >
                 {item.label}
@@ -106,19 +133,19 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
 
       {/* Book Cards Grid */}
       {filteredBooks.length === 0 ? (
-        <div className="py-16 text-center bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] p-8 shadow-sm">
-          <div className="w-12 h-12 rounded-full bg-[#f4efe6] border border-[rgba(26,19,12,0.10)] text-[#8c6747] flex items-center justify-center mx-auto mb-3">
+        <div className="py-16 text-center bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-8 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+          <div className="w-12 h-12 rounded-full bg-[#E4EBD9] border border-[#E3DCCB] text-[#2F5D46] flex items-center justify-center mx-auto mb-3">
             <BookOpen className="w-6 h-6" />
           </div>
-          <h3 className="font-serif text-lg font-normal text-[#1a130c]">
+          <h3 className="font-serif text-lg font-normal text-[#1E2A22]">
             {initialBooks.length === 0
-              ? 'Hazırda kitabxanada kitab mövcud deyil'
-              : 'Axtarışa uyğun kitab tapılmadı'}
+              ? t('books.emptyLibrary')
+              : t('books.emptySearch')}
           </h3>
-          <p className="text-[#7a736b] text-xs mt-1 max-w-sm mx-auto">
+          <p className="text-[#5E6B62] text-xs mt-1 max-w-sm mx-auto">
             {initialBooks.length === 0
-              ? 'Tezliklə yeni şahmat vəsaitləri və kitabları əlavə olunacaq.'
-              : 'Axtarış sözünü dəyişdirin və ya seçilmiş filtri sıfırlayın.'}
+              ? t('books.emptyLibraryDesc')
+              : t('books.emptySearchDesc')}
           </p>
           {(searchQuery || selectedLevel !== 'all') && (
             <button
@@ -126,9 +153,9 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
                 setSearchQuery('');
                 setSelectedLevel('all');
               }}
-              className="btn-secondary-cream px-4 py-2 text-xs mt-4 cursor-pointer"
+              className="btn-secondary px-4 py-2 text-xs mt-4 cursor-pointer"
             >
-              Filtri sıfırla
+              {t('books.resetFilter')}
             </button>
           )}
         </div>
@@ -137,66 +164,67 @@ export function BooksClient({ initialBooks, initialError }: BooksClientProps) {
           {filteredBooks.map((book) => (
             <div
               key={book.id}
-              className="bg-[#ffffff] rounded-[18px] border border-[rgba(26,19,12,0.10)] p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-all"
+              className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-5 flex flex-col justify-between shadow-[0_1px_2px_rgba(30,42,34,0.06)] hover:shadow-md transition-all"
             >
               <div>
-                {/* Book Cover or Dark Placeholder */}
+                {/* Book Cover or Placeholder */}
                 {book.cover_url ? (
                   <img
                     src={book.cover_url}
                     alt={book.title}
-                    className="w-full h-44 object-cover rounded-[14px] mb-4 border border-[rgba(26,19,12,0.08)] shadow-xs"
+                    className="w-full h-44 object-cover rounded-[14px] mb-4 border border-[#E3DCCB] shadow-xs"
                   />
                 ) : (
-                  <div className="w-full h-44 rounded-[14px] mb-4 bg-[#24170a] border border-[rgba(243,236,225,0.10)] flex flex-col items-center justify-center p-4 text-center select-none relative overflow-hidden group shadow-xs">
-                    <div className="w-12 h-12 rounded-full bg-[#362513] border border-[#e9cfa0]/30 text-[#e9cfa0] flex items-center justify-center font-bold text-xl mb-2">
+                  <div className="w-full h-44 rounded-[14px] mb-4 bg-[#E4EBD9] border border-[#E3DCCB] flex flex-col items-center justify-center p-4 text-center select-none relative overflow-hidden group shadow-xs">
+                    <div className="w-12 h-12 rounded-full bg-[#FFFFFF] border border-[#E3DCCB] text-[#2F5D46] flex items-center justify-center font-bold text-xl mb-2 shadow-xs">
                       ♚
                     </div>
-                    <p className="font-serif text-xs font-normal text-[#f3ece1] line-clamp-1">{book.title}</p>
-                    <p className="text-[11px] text-[#d9c7a6] mt-0.5">{book.author}</p>
+                    <p className="font-serif text-xs font-normal text-[#1E2A22] line-clamp-1">{book.title}</p>
+                    <p className="text-[11px] text-[#5E6B62] mt-0.5">{book.author}</p>
                   </div>
                 )}
 
                 {/* Level and Format Badge */}
-                <div className="flex items-center gap-2 text-xs text-[#7a736b] mb-2.5">
-                  <span className="text-[#8c6747] font-semibold">{getLevelLabel(book.level)}</span>
+                <div className="flex items-center gap-2 text-xs text-[#5E6B62] mb-2.5">
+                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getLevelBadgeClass(book.level)}`}>
+                    {getLevelLabel(book.level)}
+                  </span>
                   <span aria-hidden="true">·</span>
-                  <span>PDF dərslik</span>
+                  <span>{t('books.pdfBadge')}</span>
                 </div>
 
-                <h3 className="font-serif text-lg font-normal text-[#1a130c] mb-1 leading-snug">
+                <h3 className="font-serif text-lg font-normal text-[#1E2A22] mb-1 leading-snug">
                   {book.title}
                 </h3>
-                <p className="text-xs text-[#7a736b] font-medium mb-3">
-                  Müəllif: {book.author}
+                <p className="text-xs text-[#5E6B62] font-medium mb-3">
+                  {t('books.author', { author: book.author })}
                 </p>
 
                 {book.description && (
-                  <p className="text-xs text-[#7a736b] leading-relaxed line-clamp-3 mb-5">
+                  <p className="text-xs text-[#5E6B62] leading-relaxed line-clamp-3 mb-5">
                     {book.description}
                   </p>
                 )}
               </div>
 
               {/* Read & Download Actions */}
-              <div className="pt-3 border-t border-[rgba(26,19,12,0.08)] flex items-center gap-2 mt-auto">
+              <div className="pt-3 border-t border-[#E3DCCB] flex items-center gap-2 mt-auto">
                 <a
                   href={book.file_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary-cream flex-1 py-2 px-3 text-xs flex items-center justify-center gap-1.5"
+                  className="btn-secondary flex-1 py-2 px-3 text-xs flex items-center justify-center gap-1.5"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Bax</span>
+                  <span>{t('books.viewBtn')}</span>
                 </a>
                 <a
-                  href={book.file_url}
-                  download={book.file_name || `${book.title.replace(/\s+/g, '_')}.pdf`}
+                  href={getDownloadUrl(book.file_url, book.file_name || book.title)}
                   className="btn-primary flex-1 py-2 px-3 text-xs flex items-center justify-center gap-1.5 font-semibold"
-                  title="Faylı yüklə"
+                  title={t('books.downloadTitle')}
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Yüklə</span>
+                  <span>{t('books.downloadBtn')}</span>
                 </a>
               </div>
             </div>

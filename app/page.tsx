@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { TeachersSlider } from '@/components/TeachersSlider';
@@ -10,7 +9,6 @@ import { BeginnerTipsSection } from '@/components/BeginnerTipsSection';
 import { FaqSection } from '@/components/FaqSection';
 import { HistorySection } from '@/components/HistorySection';
 import { ContactSection } from '@/components/ContactSection';
-import { PositionSetupBoard } from '@/components/PositionSetupBoard';
 import { Footer } from '@/components/Footer';
 import { createClient } from '@/lib/supabase/server';
 import { Teacher } from '@/lib/siteData';
@@ -40,7 +38,7 @@ export default async function HomePage() {
   const teachers = await getTeachersData();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#100c08] text-[#f3ece1]">
+    <div className="min-h-screen flex flex-col bg-[#F7F3EA] text-[#1E2A22]">
       {/* Sticky Navigation */}
       <Navbar />
 
@@ -74,9 +72,6 @@ export default async function HomePage() {
 
         {/* Section 10: Contact Form */}
         <ContactSection />
-
-        {/* Section 11: Position-Setup Sandbox Chessboard */}
-        <PositionSetupBoard />
       </main>
 
       {/* Footer */}

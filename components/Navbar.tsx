@@ -7,8 +7,11 @@ import { usePathname } from 'next/navigation';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
 import { UserProfile } from '@/lib/types';
 import { Menu, X, LogOut, ChevronDown, BookOpen } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const Navbar: React.FC = () => {
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -27,7 +30,7 @@ export const Navbar: React.FC = () => {
         if (session?.user) {
           const { data: profile } = await supabase
             .from('profiles')
-            .select('full_name, role')
+            .select('full_name')
             .eq('id', session.user.id)
             .single();
 
@@ -37,8 +40,7 @@ export const Navbar: React.FC = () => {
               profile?.full_name ||
               session.user.user_metadata?.full_name ||
               session.user.email?.split('@')[0] ||
-              'İstifadəçi',
-            role: profile?.role || 'user',
+              t('navbar.student'),
             created_at: session.user.created_at,
             email: session.user.email,
             phone: session.user.phone,
@@ -52,7 +54,7 @@ export const Navbar: React.FC = () => {
     }
 
     loadUser();
-  }, [pathname]);
+  }, [pathname, t]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -78,35 +80,32 @@ export const Navbar: React.FC = () => {
   };
 
   const navLinks = [
-    { label: 'Kitablar', href: '/books', isRoute: true },
-    { label: 'Təlimçilər', href: '/#teachers' },
-    { label: 'Fiqurlar', href: '/#pieces' },
-    { label: 'Qaydalar', href: '/#rules' },
-    { label: 'Tövsiyələr', href: '/#tips' },
-    { label: 'Əlaqə', href: '/#contact' },
-    { label: 'Lövhə Qurucusu', href: '/#setup-board' },
+    { label: t('navbar.home'), href: '/' },
+    { label: t('navbar.play'), href: '/play' },
+    { label: t('navbar.analysis'), href: '/analysis' },
+    { label: t('navbar.books'), href: '/books' },
   ];
 
   // Clean first name: remove any "(Google)" or provider tags, and extract first word
   const getFirstName = (fullName?: string) => {
-    if (!fullName) return 'İstifadəçi';
+    if (!fullName) return t('navbar.student');
     const cleaned = fullName.replace(/\(.*?\)/g, '').trim();
-    const firstPart = cleaned.split(/\s+/)[0] || 'İstifadəçi';
+    const firstPart = cleaned.split(/\s+/)[0] || t('navbar.student');
     return firstPart.charAt(0).toUpperCase() + firstPart.slice(1);
   };
 
   const firstName = getFirstName(user?.full_name);
-  const userInitial = (firstName || 'İ').charAt(0).toUpperCase();
+  const userInitial = (firstName || 'U').charAt(0).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-40 bg-[#100c08]/92 backdrop-blur-md">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-18 flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-40 bg-[rgba(247,243,234,0.85)] backdrop-blur-md border-b border-[#E3DCCB]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-18 flex items-center justify-between gap-4 sm:gap-6">
         {/* Brand */}
         <Link
           href="/"
           className="flex items-center gap-2.5 text-left focus-visible:outline-hidden group shrink-0"
         >
-          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] overflow-hidden bg-[#24170a] border border-[#e9cfa0]/30 shadow-md transition-transform group-hover:scale-105 shrink-0 flex items-center justify-center">
+          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] overflow-hidden bg-[#FFFFFF] border border-[#E3DCCB] shadow-xs transition-transform group-hover:scale-105 shrink-0 flex items-center justify-center">
             <Image
               src="/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png"
               alt="Şahmat Məktəbi Loqosu"
@@ -118,18 +117,21 @@ export const Navbar: React.FC = () => {
           </div>
         </Link>
 
-        {/* Desktop Navigation (visible on lg and above) */}
-        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#d9c7a6]">
+        {/* Desktop Navigation */}
+        <nav className="hidden sm:flex items-center gap-7 text-sm font-medium text-[#5E6B62]">
           {navLinks.map((link) => {
-            const isActive = link.isRoute && pathname === link.href;
+            const isActive =
+              link.href === '/'
+                ? pathname === '/'
+                : pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <Link
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 className={`transition-colors whitespace-nowrap py-1 ${
                   isActive
-                    ? 'text-[#f3ece1] font-semibold border-b-2 border-[#e9cfa0]'
-                    : 'hover:text-[#f3ece1]'
+                    ? 'text-[#1E2A22] font-semibold border-b-2 border-[#2F5D46]'
+                    : 'hover:text-[#1E2A22]'
                 }`}
               >
                 {link.label}
@@ -138,49 +140,54 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Right Zone: User Avatar or Auth CTA */}
-        <div className="flex items-center gap-3">
+        {/* Right Zone: Language Switcher, User Avatar or Auth CTA */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Desktop Language Switcher */}
+          <div className="hidden sm:block">
+            <LanguageSwitcher />
+          </div>
+
           {user ? (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 p-1 rounded-full hover:bg-[#2b1d0e] transition-colors cursor-pointer focus-visible:outline-hidden"
-                aria-label="İstifadəçi menyusu"
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-[#E4EBD9] transition-colors cursor-pointer focus-visible:outline-hidden"
+                aria-label={t('navbar.userMenu')}
                 aria-expanded={userMenuOpen}
               >
-                <div className="w-9 h-9 rounded-full bg-[#e9cfa0] text-[#1a130c] flex items-center justify-center font-bold text-sm shadow-sm select-none">
+                <div className="w-9 h-9 rounded-full bg-[#E4EBD9] text-[#1E2A22] border border-[#E3DCCB] flex items-center justify-center font-bold text-sm shadow-xs select-none">
                   {userInitial}
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 text-[#d9c7a6] hidden sm:block" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#5E6B62] hidden sm:block" />
               </button>
 
               {/* User Dropdown */}
               {userMenuOpen && (
-                <div className="absolute right-0 mt-2 w-52 rounded-[16px] bg-[#24170a] border border-[rgba(243,236,225,0.12)] shadow-2xl py-2 z-50 animate-in fade-in duration-100">
-                  <div className="px-4 py-2 border-b border-[rgba(243,236,225,0.10)]">
-                    <p className="text-sm font-semibold text-[#f3ece1] truncate max-w-[170px]" title={firstName}>
+                <div className="absolute right-0 mt-2 w-52 rounded-[16px] bg-[#FFFFFF] border border-[#E3DCCB] shadow-[0_4px_20px_rgba(30,42,34,0.08)] py-2 z-50 animate-in fade-in duration-100">
+                  <div className="px-4 py-2 border-b border-[#E3DCCB]">
+                    <p className="text-sm font-semibold text-[#1E2A22] truncate max-w-[170px]" title={firstName}>
                       {firstName}
                     </p>
-                    <p className="text-xs text-[#d9c7a6] mt-0.5">
-                      Tələbə
+                    <p className="text-xs text-[#5E6B62] mt-0.5">
+                      {t('navbar.student')}
                     </p>
                   </div>
 
                   <Link
                     href="/books"
                     onClick={() => setUserMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-2.5 text-xs text-[#f3ece1] hover:bg-[#332212] transition-colors"
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-xs text-[#1E2A22] hover:bg-[#E4EBD9] transition-colors"
                   >
-                    <BookOpen className="w-3.5 h-3.5 text-[#e9cfa0]" />
-                    <span>Şahmat Kitabları</span>
+                    <BookOpen className="w-3.5 h-3.5 text-[#2F5D46]" />
+                    <span>{t('navbar.chessBooks')}</span>
                   </Link>
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-xs text-rose-300 hover:bg-[#332212] transition-colors cursor-pointer border-t border-[rgba(243,236,225,0.10)]"
+                    className="w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-xs text-[#B4532A] hover:bg-[#E4EBD9] transition-colors cursor-pointer border-t border-[#E3DCCB]"
                   >
                     <LogOut className="w-3.5 h-3.5" />
-                    <span>Çıxış</span>
+                    <span>{t('navbar.logout')}</span>
                   </button>
                 </div>
               )}
@@ -188,17 +195,17 @@ export const Navbar: React.FC = () => {
           ) : (
             <Link
               href="/auth"
-              className="btn-primary px-5 py-2 text-xs sm:text-sm whitespace-nowrap shadow-sm"
+              className="btn-primary px-4 sm:px-5 py-2 text-xs sm:text-sm whitespace-nowrap shadow-xs"
             >
-              Qoşul
+              {t('navbar.join')}
             </Link>
           )}
 
           {/* Hamburger button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-[#d9c7a6] hover:text-[#f3ece1] cursor-pointer"
-            aria-label="Menyunu aç"
+            className="sm:hidden p-2 text-[#1E2A22] hover:text-[#2F5D46] cursor-pointer"
+            aria-label={t('navbar.openMenu')}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -207,36 +214,47 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#181009] border-b border-[rgba(243,236,225,0.10)] px-4 py-4 space-y-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2.5 px-3 text-sm font-medium text-[#f3ece1] hover:bg-[#2b1d0e] rounded-[10px] transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="sm:hidden bg-[#FFFFFF] border-b border-[#E3DCCB] px-4 py-4 space-y-2 shadow-[0_4px_20px_rgba(30,42,34,0.08)]">
+          {/* Mobile Language Switcher */}
+          <div className="pb-2 border-b border-[#E3DCCB] flex items-center justify-between">
+            <span className="text-xs font-semibold text-[#5E6B62]">
+              {t('navbar.selectLanguage')}
+            </span>
+            <LanguageSwitcher align="right" />
+          </div>
 
-          <div className="pt-3 border-t border-[rgba(243,236,225,0.10)]">
+          {navLinks.map((link) => {
+            const isActive =
+              link.href === '/'
+                ? pathname === '/'
+                : pathname === link.href || pathname.startsWith(`${link.href}/`);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block py-2.5 px-3 text-sm font-medium rounded-[10px] transition-colors ${
+                  isActive
+                    ? 'text-[#1E2A22] font-semibold bg-[#E4EBD9] border-l-2 border-[#2F5D46]'
+                    : 'text-[#5E6B62] hover:text-[#1E2A22] hover:bg-[#F7F3EA]'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+
+          <div className="pt-3 border-t border-[#E3DCCB]">
             {user ? (
               <div className="space-y-1">
-                <div className="px-3 py-1.5 text-xs text-[#d9c7a6]">
-                  Giriş edilib: <span className="text-[#f3ece1] font-semibold">{firstName}</span>
+                <div className="px-3 py-1.5 text-xs text-[#5E6B62]">
+                  {t('navbar.loggedInAs')}: <span className="text-[#1E2A22] font-semibold">{firstName}</span>
                 </div>
-                <Link
-                  href="/books"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 px-3 text-sm text-[#f3ece1] hover:bg-[#2b1d0e] rounded-[10px]"
-                >
-                  Şahmat Kitabları
-                </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left py-2 px-3 text-sm font-medium text-rose-300 hover:bg-[#2b1d0e] rounded-[10px] cursor-pointer"
+                  className="w-full text-left py-2 px-3 text-sm font-medium text-[#B4532A] hover:bg-[#F7F3EA] rounded-[10px] cursor-pointer"
                 >
-                  Çıxış
+                  {t('navbar.logout')}
                 </button>
               </div>
             ) : (
@@ -245,7 +263,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="btn-primary w-full py-2.5 text-sm block text-center"
               >
-                Bizə qoşul
+                {t('navbar.join')}
               </Link>
             )}
           </div>

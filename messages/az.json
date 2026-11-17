@@ -1,0 +1,486 @@
+{
+  "meta": {
+    "title": "ALİNA Chess Club - Uşaqlar və Yeni Başlayanlar üçün Şahmat",
+    "description": "Uşaqlar və yeni başlayanlar üçün şahmat təhsili: qaydalar, fiqurların hərəkəti, dərsliklər və interaktiv şahmat lövhəsi.",
+    "ogTitle": "ALİNA Chess Club"
+  },
+  "navbar": {
+    "home": "Ana səhifə",
+    "play": "Oyna",
+    "analysis": "Analiz",
+    "books": "Kitablar",
+    "join": "Qoşul",
+    "student": "Tələbə",
+    "chessBooks": "Şahmat Kitabları",
+    "logout": "Çıxış",
+    "loggedInAs": "Giriş edilib",
+    "openMenu": "Menyunu aç",
+    "userMenu": "İstifadəçi menyusu",
+    "selectLanguage": "Dili seçin"
+  },
+  "hero": {
+    "title": "ALİNA Chess Club",
+    "description": "Şahmat qaydalarını, fiqurların gedişlərini və ilk taktiki addımları sadə dildə, mərhələli şəkildə mənimsəyin.",
+    "joinBtn": "Bizə qoşul",
+    "playBtn": "Oynamağa başla",
+    "piecesBtn": "Fiqurlarla tanış ol",
+    "boardTitle": "Başlanğıc Vəziyyəti",
+    "boardSubtitle": "Ağlar və Qaralar",
+    "boardCaption": "32 fiqur, 64 xana: hər iki tərəf eyni imkanlarla oyuna başlayır.",
+    "card1Title": "Sadə izahlar",
+    "card1Desc": "Uşaqlar üçün aydın qaydalar",
+    "card2Title": "Təcrübəli müəllimlər",
+    "card2Desc": "Mərhələli tədris proqramı",
+    "card3Title": "Analiz lövhəsi",
+    "card3Desc": "Mövqeyi qur və FEN kodunu al"
+  },
+  "teachers": {
+    "title": "Təlimçilərimiz",
+    "subtitle": "Uşaqlara şahmatın qaydalarını və taktiki düşüncəni addım-addım aşılayan məşqçilər.",
+    "prev": "Əvvəlki müəllim",
+    "next": "Növbəti müəllim",
+    "teacherLabel": "Müəllim"
+  },
+  "startingBoard": {
+    "title": "Şahmat Lövhəsi və Fiqurların Düzülüşü",
+    "subtitle": "Şahmat lövhəsi 64 kvadratdan ibarətdir: 32 açıq və 32 tünd xana. Xanalar şaquli hərflər (a-h) və üfüqi rəqəmlər (1-8) ilə adlandırılır.",
+    "selectedSquare": "Seçilmiş xana",
+    "clickHint": "Xanaya klikləyərək adını və üzərindəki fiquru öyrənin.",
+    "rule1Number": "01. Qayda",
+    "rule1Title": "Sağda açıq xana qaydası",
+    "rule1Text": "Lövhəni qoyarkən hər iki oyunçunun ən sağ küncündə mütləq açıq (ağ) xana (h1 və a8) olmalıdır.",
+    "rule2Number": "02. Qayda",
+    "rule2Title": "Vəzirin öz rəngi qaydası",
+    "rule2Text": "Ağ Vəzir həmişə açıq xanada (d1), Qara Vəzir isə tünd xanada (d8) dayanır. Şah isə qonşu e xanasına yerləşir.",
+    "rule3Number": "03. Qayda",
+    "rule3Title": "Piyadaların ön xətti",
+    "rule3Text": "Bütün 8 ağ piyada 2-ci xətdə, bütün 8 qara piyada isə 7-ci xətdə yerləşərək arxadakı fiqurları qoruyur.",
+    "pieces": {
+      "whiteKing": "Ağ Şah",
+      "whiteQueen": "Ağ Vəzir",
+      "whiteRook": "Ağ Top",
+      "whiteBishop": "Ağ Fil",
+      "whiteKnight": "Ağ At",
+      "whitePawn": "Ağ Piyada",
+      "blackKing": "Qara Şah",
+      "blackQueen": "Qara Vəzir",
+      "blackRook": "Qara Top",
+      "blackBishop": "Qara Fil",
+      "blackKnight": "Qara At",
+      "blackPawn": "Qara Piyada"
+    }
+  },
+  "pieces": {
+    "title": "Şahmat Fiqurları və Hərəkət Qaydaları",
+    "subtitle": "Hər bir fiqurun lövhədə özünəməxsus rolu və gediş istiqaməti var. Fiquru seçərək sağdakı lövhədə hərəkət xətlərini izləyin.",
+    "value": "Dəyəri",
+    "active": "Aktiv",
+    "selectToSee": "Gedişləri görmək üçün seçin",
+    "viewBoard": "Lövhəyə bax",
+    "demoBoard": "Nümayiş Lövhəsi",
+    "movesOf": "{name} fiqurunun gedişləri",
+    "possibleSquares": "{count} mümkün xana",
+    "centerSquare": "Mərkəzi xana",
+    "dotsLegend": "Terracotta nöqtələr: gediş xanaları",
+    "note": "Qeyd: Fiqurlar öz komandasının xanasına gedə bilməz. Rəqib fiquru isə həmin xanaya daxil olaraq vurulur.",
+    "items": {
+      "king": {
+        "name": "Şah",
+        "value": "Oyunu təyin edir",
+        "summary": "İstənilən istiqamətə yalnız 1 xana hərəkət edir.",
+        "description": "Şah lövhənin ən vacib fiqurudur. Əgər şah hücumdan qurtula bilmirsə (mat olursa), oyun başa çatır. Şah istənilən istiqamətə bir addım ata bilər, lakin rəqibin vurduğu xanaya gedə bilməz."
+      },
+      "queen": {
+        "name": "Vəzir",
+        "value": "9 xal",
+        "summary": "Şaquli, üfüqi və diaqonal istiqamətdə istədiyi qədər boş xana gedir.",
+        "description": "Vəzir ən güclü fiqurdur. Həm Top kimi düz xətlərlə, həm də Fil kimi diaqonal xətlərlə istədiyi qədər boş xana irəliləyə bilir."
+      },
+      "rook": {
+        "name": "Top",
+        "value": "5 xal",
+        "summary": "Yalnız düz xətlərlə (şaquli və üfüqi) hərəkət edir.",
+        "description": "Top uzaq məsafəli ağır fiqurdur. Yalnız şaquli və üfüqi düz xətlər boyunca istədiyi qədər boş xanaya irəliləyə bilər. Digər fiqurların üstündən atlaya bilməz."
+      },
+      "bishop": {
+        "name": "Fil",
+        "value": "3 xal",
+        "summary": "Yalnız diaqonal (çəp) xətlərlə hərəkət edir.",
+        "description": "Hər tərəfin iki Fili var: biri ağ xanalarda, digəri qara xanalarda hərəkət edir. Fil öz rəngini heç vaxt dəyişmir və diaqonal boyunca boş xanalarla irəliləyir."
+      },
+      "knight": {
+        "name": "At",
+        "value": "3 xal",
+        "summary": "Sıçrayan fiqur: L hərfi şəklində hərəkət edir və fiqurların üstündən tullanır.",
+        "description": "At lövhədəki yeganə sıçrayan fiqurdur. Başqa fiqurların üstündən atlaya bilir. İki xana bir tərəfə, sonra bir xana yana gedərək \"L\" forması cızır və hər gedişdə xananın rəngini dəyişir."
+      },
+      "pawn": {
+        "name": "Piyada",
+        "value": "1 xal",
+        "summary": "Cəsur piyada: yalnız irəli gedir, rəqibi isə 1 xana çəpinə vurur.",
+        "description": "Piyada yalnız irəli doğru addımlayır və geriyə qayıda bilməz. İlk gedişində istəsə 2 xana birdən ata bilər. Rəqib fiquru isə bir xana diaqonal üzrə vurur. Əgər qarşı tərəfin sonuncu xəttinə çatarsa, Vəzirə və ya başqa fiqura çevrilir."
+      }
+    }
+  },
+  "goals": {
+    "title": "Oyunun Məqsədi: Şah, Mat və Pat",
+    "subtitle": "Şahmatda əsas hədəf rəqibin bütün fiqurlarını vurmaq deyil, rəqib Şahı mat etməkdir.",
+    "exampleState": "Nümunə vəziyyət: {title}",
+    "items": {
+      "shah": {
+        "title": "Şah (Hücum)",
+        "simpleExplain": "Şaha birbaşa hücum edildikdə Şah elan olunur.",
+        "detail": "Rəqibin hər hansı fiquru sizin Şahınızı vurmaqla hədələyirsə, bu Şah elanıdır. Şahı dərhal xilas etmək lazımdır: təhlükəsiz xanaya qaçmaq, araya başqa fiqur qoymaq və ya hücum edən fiquru vurmaqla.",
+        "note": "Şah elanı: Şaha birbaşa hücum edildikdə o dərhal xilas edilməlidir. Şah lövhədən götürülmür."
+      },
+      "mat": {
+        "title": "Mat (Qələbə)",
+        "simpleExplain": "Şah hücum altındadır və heç bir xilas yolu yoxdur.",
+        "detail": "Mat şahmat oyununun məqsədidir. Şah hücum altındadırsa və qaçacaq xana, araya qoyulacaq fiqur və ya hücum edəni vurmaq imkanı yoxdursa, oyun dərhal bitir və hücum edən tərəf qalib gəlir.",
+        "note": "Mat qaydası: Şaha hücum edilib və heç bir müdafiə yolu qalmayıb. Mat edən tərəf qələbə qazanır."
+      },
+      "pat": {
+        "title": "Pat (Heç-heçə)",
+        "simpleExplain": "Şaha hücum yoxdur, lakin heç bir qaydalı gediş qalmayıb.",
+        "detail": "Növbə kimdədirsə, onun heç bir fiquru ilə qaydalı gediş etmək mümkün deyilsə və Şahı da hücum altında deyilsə, bu Pat adlanır. Pat vəziyyətində oyun heç-heçə (bərabərə) başa çatır.",
+        "note": "Pat vəziyyəti: Növbəsi çatan oyunçunun qaydalı gedişi yoxdur və Şahı hücum altında deyil. Oyun heç-heçə başa çatır."
+      },
+      "draw": {
+        "title": "Digər Heç-heçələr",
+        "simpleExplain": "Yetərsiz material və ya qarşılıqlı razılıq.",
+        "detail": "Lövhədə hər iki tərəfin mat etməyə yetərli fiquru qalmadıqda (məsələn, yalnız Şah Şaha qarşı və ya Şah və Fil Şaha qarşı), oyun avtomatik bərabərə bitir. Eyni mövqe 3 dəfə təkrarlandıqda da heç-heçə elan olunur.",
+        "note": "Bərabərlik: Mat etmək üçün fiqur sayı çatışmadıqda və ya qarşılıqlı razılıq olduqda oyun heç-heçə sayılır."
+      }
+    }
+  },
+  "specialMoves": {
+    "title": "Xüsusi Şahmat Gedişləri",
+    "subtitle": "Rokirovka, piyadanın çevrilməsi və keçiddə götürmə qaydaları ilə tanış olun.",
+    "mainConditions": "Əsas şərtlər:",
+    "demo": "Nümayiş",
+    "before": "Əvvəl",
+    "after": "Sonra",
+    "items": {
+      "castling": {
+        "title": "Rokirovka",
+        "subtitle": "Müdafiə və Hücum Hərəkatı",
+        "description": "Şahı qorumaq və küncdəki Topu mərkəzə çıxarmaq üçün eyni anda edilən yeganə ikiqat gedişdir.",
+        "stepDesc": "Qısa rokirovka: Şah e1-dən g1-ə 2 xana sürüşür, h1 topu isə f1 xanasına keçir.",
+        "rules": [
+          "Şah və rokirovka ediləcək Top əvvəl heç vaxt hərəkət etməmiş olmalıdır.",
+          "Şah ilə Topun arasında heç bir fiqur olmamalıdır.",
+          "Şah təhlükə (şah) altında olmamalı və keçdiyi xanalar rəqib tərəfindən vurulmamalıdır."
+        ]
+      },
+      "promotion": {
+        "title": "Piyadanın Çevrilməsi",
+        "subtitle": "Piyadanın Zirvəyə Çatması",
+        "description": "Piyada lövhənin ən sonuncu xəttinə çatdıqda dərhal daha güclü bir fiqura çevrilmək hüququ qazanır.",
+        "stepDesc": "Piyada sonuncu 8-ci üfüqə çatdıqda dərhal Vəzirə və ya istənilən başqa fiqura çevrilir.",
+        "rules": [
+          "Piyada son xəttə çatan kimi həmin gedişdə çevrilməlidir.",
+          "Ən çox Vəzir seçilir, lakin bəzi taktikalarda At çevrilməsi də istifadə olunur.",
+          "Vurulan fiqurlardan asılı olmayaraq eyni anda lövhədə birdən çox Vəzir ola bilər."
+        ]
+      },
+      "enpassant": {
+        "title": "Keçiddə Götürmə (An Passan)",
+        "subtitle": "Xüsusi Piyada Zərbəsi",
+        "description": "Rəqib piyada ilk addımında iki xana tullanaraq sizin piyadanızla yanaşı dayandıqda tətbiq olunur.",
+        "stepDesc": "Qara piyada d7-dən d5-ə 2 xana getdikdə, ağ piyada d6 xanasına keçərək onu vura bilir.",
+        "rules": [
+          "Yalnız rəqib piyada 2 xana birdən irəliləyərək sizin piyadanın yanına gəldikdə keçərlidir.",
+          "Zərbə yalnız dərhal növbəti gedişdə edilməlidir, sonrakı gedişlərdə bu hüquq itir.",
+          "Vurulan piyada lövhədən çıxarılır, sizin piyadanız isə onun keçdiyi xanaya yerləşir."
+        ]
+      }
+    }
+  },
+  "tips": {
+    "title": "Yeni Başlayanlara 6 Əsas Tövsiyə",
+    "subtitle": "İlk oyunlarda düzgün vərdişlər qazanmaq üçün bu sadə prinsipləri yadda saxlayın.",
+    "items": [
+      {
+        "number": "01",
+        "title": "Mərkəzi Nəzarətdə Saxlayın",
+        "text": "Lövhənin mərkəzindəki 4 vacib xana (e4, d4, e5, d5) oyunu idarə etməyin açarıdır. İlk gedişlərdə piyadalarınızı mərkəzə yönəldin."
+      },
+      {
+        "number": "02",
+        "title": "Fiqurlarınızı Tez İnkişaf Etdirin",
+        "text": "At və filləri ilk gedişlərdə oyuna daxil edin. Eyni fiqurla arxa-arxaya məqsədsiz bir neçə dəfə oynamayın."
+      },
+      {
+        "number": "03",
+        "title": "Şahınızın Təhlükəsizliyini Təmin Edin",
+        "text": "Erkən rokirovka edərək şahınızı mərkəzdəki hücumlardan qoruyun və topunuzu açıq xətlərə yaxınlaşdırın."
+      },
+      {
+        "number": "04",
+        "title": "Vəziri Oyuna Çox Tez Salmayın",
+        "text": "Vəzir ən güclü fiqurdur. Onu çox tez qabağa çıxardıqda rəqibin zəif fiqurları vəzirinizi qovaraq inkişafda üstünlük qazanır."
+      },
+      {
+        "number": "05",
+        "title": "Hər Gedişdən Əvvəl Düşünün",
+        "text": "Rəqibin sonuncu gedişinin məqsədini anlamağa çalışın: \"O mənim hansı fiqurumu hədələyir?\" sualını özünüzə verin."
+      },
+      {
+        "number": "06",
+        "title": "Məğlubiyyətlərdən Nəticə Çıxarın",
+        "text": "Hər uduzulan oyun ən yaxşı dərsdir. Partiyanı təhlil edin və hansı gedişdə diqqətsizlik etdiyinizi araşdırın."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Tez-tez Verilən Suallar",
+    "subtitle": "Valideynləri və yeni başlayanları ən çox maraqlandıran suallara qısa cavablar.",
+    "items": [
+      {
+        "question": "Uşaqlar neçə yaşından şahmat öyrənməyə başlaya bilər?",
+        "answer": "Adətən 5-6 yaş şahmat öyrənmək üçün əlverişli dövrdür. Fiqurların hərəkətini və sadə qaydaları bu yaşda rahat mənimsəmək mümkündür."
+      },
+      {
+        "question": "Dərslərə başlamaq üçün ilkin bilik lazımdırmı?",
+        "answer": "Xeyr, heç bir ilkin bilik tələb olunmur. Dərslər lövhənin xanalarından və fiqurların adlarından başlayaraq ən sadə dildə izah edilir."
+      },
+      {
+        "question": "Şahmat uşağın inkişafına necə kömək edir?",
+        "answer": "Şahmat məntiqi təfəkkürü, konsentrasiyanı, səbirlə düşünməyi və qərar qəbul etmə bacarığını gücləndirir."
+      },
+      {
+        "question": "Dərslərə qeydiyyat necə aparılır?",
+        "answer": "Saytın yuxarısındakı \"Qoşul\" düyməsinə klikləyərək və ya əlaqə formasında nömrənizi qeyd edərək dərslərə yazıla bilərsiniz."
+      },
+      {
+        "question": "Öyrənmə mərhələsində rəqiblə oynamaq şərtdirmi?",
+        "answer": "Xeyr. Başlanğıcda qaydaları, fiqurların hərəkətini və sadə tapmacaları öyrənmək daha vacibdir."
+      }
+    ]
+  },
+  "history": {
+    "title": "Azərbaycanda Şahmat Ənənəsi",
+    "lead": "Azərbaycan zəngin şahmat ənənələrinə və beynəlxalq arenada tanınan məktəbə malikdir.",
+    "paragraphs": [
+      "Şahmat Şərqdə əsrlər boyu zəka oyunu kimi qəbul edilmiş, dahi şair Nizami Gəncəvinin əsərlərində də şahmat terminləri və lövhə fəlsəfəsi yer almışdır.",
+      "Müasir dövrdə Azərbaycan şahmat komandaları Avropa Çempionatlarında yüksək nəticələr göstərmiş, ölkəmizdə çoxlu istedadlı qrossmeysterlər yetişmişdir.",
+      "Gənc nəslin şahmata marağı hər il artır və məktəbimiz uşaqlara bu möhkəm təməli aşılamağı hədəfləyir."
+    ],
+    "stat1Value": "3 Dəfə",
+    "stat1Desc": "Kişilərdən ibarət milli komanda: Avropa Çempionu (2009, 2013, 2017)",
+    "stat2Value": "Top Reytinq",
+    "stat2Desc": "FIDE reytinqinə əsasən dünya üzrə aparıcı mövqelər",
+    "gmTitle": "Tanınmış Azərbaycan Qrossmeysterləri",
+    "grandmasters": [
+      {
+        "name": "Şəhriyar Məmmədyarov",
+        "title": "Qrossmeyster, Dünya Çempionatı iddiaçısı, komanda üzrə Avropa Çempionu"
+      },
+      {
+        "name": "Teymur Rəcəbov",
+        "title": "Qrossmeyster, FIDE Dünya Kubokunun qalibi"
+      },
+      {
+        "name": "Vüqar Həşimov",
+        "title": "Mərhum Qrossmeyster, güclü taktika ustası və komanda çempionu"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Şahmat Dərslərinə Qeydiyyat",
+    "subtitle": "Telefon nömrənizi və ya e-poçtunuzu qeyd edin, məşqçilərimiz sizinlə əlaqə saxlasın.",
+    "contactType": "Əlaqə növü",
+    "phone": "Telefon",
+    "email": "E-poçt",
+    "phoneLabel": "Telefon nömrəsi",
+    "emailLabel": "E-poçt ünvanı",
+    "phonePlaceholder": "050 123 45 67",
+    "emailPlaceholder": "ad@example.com",
+    "submit": "Müraciəti göndər",
+    "submitting": "Göndərilir...",
+    "disclaimer": "Məlumatlarınız məxfi saxlanılır və yalnız dərslərlə bağlı əlaqə üçün istifadə olunur.",
+    "successTitle": "Müraciətiniz qəbul edildi",
+    "successDesc": "Təlimçilərimiz ən qısa zamanda sizinlə əlaqə saxlayacaq.",
+    "newRequest": "Yeni müraciət göndər",
+    "errorEmptyPhone": "Zəhmət olmasa telefon nömrənizi daxil edin.",
+    "errorEmptyEmail": "Zəhmət olmasa e-poçt ünvanınızı daxil edin.",
+    "errorInvalidEmail": "Düzgün e-poçt ünvanı daxil edin.",
+    "errorInvalidPhone": "Düzgün telefon nömrəsi daxil edin."
+  },
+  "sandbox": {
+    "title": "Şahmat Mövqe Qurucusu",
+    "subtitle": "Palitradan fiqur seçin və lövhədə istədiyiniz xanaya yerləşdirin. Mövqeyin FEN kodunu asanlıqla əldə edin.",
+    "whiteView": "Ağ tərəfdən baxış",
+    "blackView": "Qara tərəfdən baxış",
+    "flipTitle": "Lövhəni çevir",
+    "resetTitle": "Başlanğıc vəziyyəti bərpa et",
+    "clearTitle": "Lövhəni təmizlə",
+    "paletteTitle": "Fiqur Palitrası",
+    "paletteSubtitle": "Fiquru seçin və lövhədəki xanaya klikləyin.",
+    "whitePieces": "Ağ fiqurlar",
+    "blackPieces": "Qara fiqurlar",
+    "trashMode": "Silmə rejimi",
+    "clearBtn": "Təmizlə",
+    "fenCode": "FEN Kodu",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "flipBtn": "Çevir",
+    "resetBtn": "Başlanğıc",
+    "modeLabel": "Rejim",
+    "moveMode": "Fiqur daşı",
+    "deleteMode": "Fiqur sil",
+    "pieceCounts": "{white} ağ · {black} qara",
+    "helper": "Fiquru seçib lövhədəki xanaya klikləyin, yerini dəyişmək üçün isə lövhədəki fiqura klikləyin.",
+    "whiteTitle": "Ağ fiqur",
+    "blackTitle": "Qara fiqur",
+    "startBtn": "Başla",
+    "endBtn": "Bitir",
+    "turnLabel": "Həmlə sırası",
+    "whiteTurn": "Ağlar",
+    "blackTurn": "Qaralar",
+    "startingTurnHint": "Başlanğıc mövqedə həmlə sırası avtomatik ağlardadır.",
+    "notationTitle": "Notasiya",
+    "capturedTitle": "Vurulanlar",
+    "advantage": "Material üstünlüyü",
+    "even": "Bərabər",
+    "whiteAhead": "Ağlar +{n}",
+    "blackAhead": "Qaralar +{n}",
+    "check": "Şah!",
+    "checkmate": "Şah-mat!",
+    "stalemate": "Pat.",
+    "draw": "Heç-heçə.",
+    "errKings": "Oyun üçün hər iki tərəfdə bir şah fiquru olmalıdır.",
+    "playModeHint": "Fiqurunuzu, sonra isə qanuni hədəf xanasını seçin."
+  },
+  "play": {
+    "localTab": "Lokal oyun",
+    "onlineTab": "Onlayn oyun",
+    "localHint": "Eyni cihazda iki oyunçu sırayla həmlə edir.",
+    "newGame": "Yeni oyun",
+    "leaveRoom": "Otaqdan çıx",
+    "roomCode": "Otaq kodu",
+    "inviteLink": "Dəvət linki",
+    "copyLink": "Linki kopyala",
+    "copied": "Kopyalandı",
+    "copyFailed": "Link kopyalanmadı.",
+    "rpcMissing": "Supabase oyun funksiyaları tapılmadı. SQL skriptini icra edib schema cache-i yeniləyin.",
+    "shareHint": "Bu linki rəqibinizlə paylaşın və ya otaq kodunu deyin.",
+    "youAreWhite": "Siz ağlarsınız",
+    "youAreBlack": "Siz qaralarsınız",
+    "waitingOpponent": "Rəqib otağa qoşulana qədər gözləyin.",
+    "yourTurn": "Sizin növbənizdir.",
+    "opponentTurn": "Rəqibin növbəsidir.",
+    "checkingAuth": "Giriş vəziyyəti yoxlanılır...",
+    "onlineUnavailable": "Onlayn oyun üçün Supabase qurulmayıb.",
+    "onlineRequiresAuth": "Onlayn oynamaq üçün giriş edin",
+    "onlineRequiresAuthHint": "Lokal oyun qeydiyyatsız əlçatandır.",
+    "loginRequired": "Onlayn oynamaq üçün əvvəlcə giriş edin.",
+    "loginBtn": "Qeydiyyat və giriş",
+    "createRoom": "Otaq yarat",
+    "randomMatch": "Oyuna başla",
+    "searching": "Rəqib axtarılır...",
+    "cancelSearch": "Axtarışı ləğv et",
+    "searchingHint": "Eyni vaxt seçimi olan rəqib gözlənir. Otaq yalnız rəqib tapılanda yaranacaq.",
+    "colorTitle": "Rəng seçimi",
+    "color": {
+      "w": "Ağlar",
+      "b": "Qaralar",
+      "random": "Təsadüfi"
+    },
+    "joinTitle": "Otaq koduna qoşul",
+    "codePlaceholder": "MƏS. A1B2C3D4",
+    "joinBtn": "Qoşul",
+    "clockTitle": "Saat",
+    "timeControlTitle": "Oyun vaxtı",
+    "category": {
+      "bullet": "Bullet",
+      "blitz": "Blitz",
+      "rapid": "Rapid",
+      "classical": "Klassik"
+    },
+    "customLabel": "Xüsusi",
+    "minutesLabel": "Dəqiqə",
+    "minutesShort": "dəq",
+    "incrementLabel": "Hər həmləyə əlavə (saniyə)",
+    "incrementShort": "san",
+    "timeOut": "Vaxt bitdi — {color} uduzdu.",
+    "timeExpired": "Vaxt bitdi."
+  },
+  "books": {
+    "title": "Şahmat Kitabları və Dərsliklər",
+    "subtitle": "Uşaqlar və şahmat həvəskarları üçün seçilmiş tədris vəsaitlərini onlayn oxuyun və ya endirin.",
+    "searchPlaceholder": "Kitab və ya müəllif axtarın...",
+    "filterAll": "Hamısı",
+    "filterBeginner": "Başlanğıc",
+    "filterIntermediate": "Orta",
+    "filterAdvanced": "İrəli",
+    "pdfBadge": "PDF dərslik",
+    "author": "Müəllif: {author}",
+    "viewBtn": "Bax",
+    "downloadBtn": "Yüklə",
+    "downloadTitle": "Faylı yüklə",
+    "emptyLibrary": "Hazırda kitabxanada kitab mövcud deyil",
+    "emptySearch": "Axtarışa uyğun kitab tapılmadı",
+    "emptyLibraryDesc": "Tezliklə yeni şahmat vəsaitləri və kitabları əlavə olunacaq.",
+    "emptySearchDesc": "Axtarış sözünü dəyişdirin və ya seçilmiş filtri sıfırlayın.",
+    "resetFilter": "Filtri sıfırla",
+    "errorLoading": "Məlumat yüklənərkən xəta baş verdi"
+  },
+  "auth": {
+    "createAccount": "Hesab Yarat",
+    "signIn": "Daxil Ol",
+    "signUpSubtitle": "Şahmat dərslərinə başlamaq üçün qeydiyyatdan keçin",
+    "signInSubtitle": "Şəxsi kabinetinizə daxil olun",
+    "googleContinue": "Google ilə davam et",
+    "orEmailPhone": "və ya e-poçt / telefon",
+    "fullName": "Ad və Soyad",
+    "fullNamePlaceholder": "Əli Məmmədov",
+    "emailOrPhone": "E-poçt və ya Telefon",
+    "emailOrPhonePlaceholder": "ad@example.com və ya 0501234567",
+    "password": "Şifrə",
+    "passwordPlaceholder": "••••••••",
+    "submitSignUp": "Qeydiyyatdan Keç",
+    "submitSignIn": "Daxil Ol",
+    "pleaseWait": "Gözləyin...",
+    "haveAccount": "Artıq hesabınız var?",
+    "noAccount": "Hesabınız yoxdur?",
+    "signInLink": "Daxil olun",
+    "signUpLink": "Qeydiyyatdan keçin",
+    "errIdentifier": "Zəhmət olmasa e-poçt ünvanınızı və ya telefon nömrənizi daxil edin.",
+    "errPasswordLength": "Şifrə ən azı 6 simvoldan ibarət olmalıdır.",
+    "errFullName": "Zəhmət olmasa ad və soyadınızı daxil edin.",
+    "successSignUp": "Qeydiyyat tamamlandı.",
+    "successSignIn": "Uğurla daxil oldunuz.",
+    "checkEmail": "Qeydiyyatınız qəbul edildi. Hesabınızı təsdiqləmək üçün e-poçtunuza göndərilən linkə klikləyin.",
+    "errAlreadyRegistered": "Bu e-poçt ünvanı ilə artıq qeydiyyat var. Daxil olun və ya e-poçtunuzu yoxlayın.",
+    "errAuthFailed": "E-poçt və ya şifrə yanlışdır.",
+    "errGoogle": "Google ilə daxil olma zamanı xəta baş verdi.",
+    "errGeneral": "Xəta baş verdi."
+  },
+  "footer": {
+    "desc": "Uşaqlar və yeni başlayanlar üçün hazırlanmış şahmat tədris portalı.",
+    "socials": "Sosial şəbəkələr:",
+    "learningSections": "Tədris Bölmələri",
+    "board": "Şahmat Lövhəsi",
+    "pieces": "Fiqurlar və Qaydalar",
+    "goals": "Şah, Mat və Pat",
+    "specialMoves": "Xüsusi Gedişlər",
+    "tips": "6 Qızıl Tövsiyə",
+    "academy": "Akademiya",
+    "teachers": "Təlimçilərimiz",
+    "books": "Şahmat Kitabları",
+    "history": "Azərbaycan Şahmat Tarixi",
+    "faq": "Suallar və Cavablar",
+    "contact": "Əlaqə",
+    "tools": "Alətlər",
+    "setupBoard": "Analiz",
+    "auth": "Qeydiyyat və Giriş",
+    "copyright": "© {year} Şahmat Məktəbi. Bütün hüquqlar qorunur.",
+    "credit": "Şahmat fiqurları: Cburnett (Colin M.L. Burnett), Wikimedia Commons"
+  },
+  "notFound": {
+    "title": "404 - Səhifə Tapılmadı",
+    "desc": "Axtardığınız səhifə mövcud deyil və ya ünvan dəyişdirilmişdir.",
+    "homeBtn": "Ana Səhifəyə Qayıt"
+  }
+}

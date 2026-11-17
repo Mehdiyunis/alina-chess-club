@@ -1,10 +1,23 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
+function safeNext(value: string | null, origin: string): string {
+  if (!value || !value.startsWith('/') || value.startsWith('//')) return '/';
+  if (value.includes('\\') || /[\u0000-\u001F]/.test(value)) return '/';
+
+  try {
+    const target = new URL(value, origin);
+    if (target.origin !== origin) return '/';
+    return `${target.pathname}${target.search}${target.hash}`;
+  } catch {
+    return '/';
+  }
+}
+
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/';
+  const next = safeNext(searchParams.get('next'), origin);
 
   if (code) {
     const supabase = await createClient();
@@ -14,6 +27,5 @@ export async function GET(request: Request) {
     }
   }
 
-  // Return the user to an error page or home page
   return NextResponse.redirect(`${origin}/auth?error=auth_callback_failed`);
 }

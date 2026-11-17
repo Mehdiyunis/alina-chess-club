@@ -3,8 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { ChessPieceSvg, PieceType, PieceColor } from './ChessPieceSvg';
-import { ScrollReveal } from './ScrollReveal';
-import { motion } from 'motion/react';
+import { ArrowUpRight } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 interface SquareData {
   type: PieceType;
@@ -23,182 +23,293 @@ const INITIAL_BOARD_PIECES: Record<string, SquareData> = {
 };
 
 export const HeroSection: React.FC = () => {
+  const { t } = useLanguage();
   const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
   const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
   return (
-    <section className="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-[#100c08] to-[#2b1e10] border-b border-[rgba(243,236,225,0.10)]">
-      {/* Soft warm radial glow near bottom center */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3 w-[640px] h-[360px] bg-[#e9cfa0]/12 rounded-full blur-[120px] pointer-events-none -z-10"
-        aria-hidden="true"
-      />
+    <section className="relative overflow-hidden pt-8 pb-16 sm:pb-20 lg:pt-10 lg:pb-20 bg-[#F7F3EA] border-b border-[#E3DCCB]">
+      <style>{`
+        @keyframes bentoCardFadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(16px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
-      {/* Atmospheric Blurred Background Chess Pieces */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none -z-10" aria-hidden="true">
-        {/* Top-Left: King with subtle blur & float */}
-        <motion.div
-          animate={{ y: [-8, 8, -8], rotate: [-12, -8, -12] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-8 left-0 sm:left-4 md:left-10 w-36 h-36 sm:w-52 sm:h-52 md:w-64 md:h-64 opacity-[0.11] blur-[2.5px] transform-gpu drop-shadow-[0_0_25px_rgba(233,207,160,0.15)]"
-        >
-          <ChessPieceSvg type="k" color="w" />
-        </motion.div>
+        .bento-card {
+          animation: bentoCardFadeUp 500ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        }
 
-        {/* Top-Right: Queen with blur & float */}
-        <motion.div
-          animate={{ y: [6, -10, 6], rotate: [12, 16, 12] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-6 right-2 sm:right-12 md:right-20 w-32 h-32 sm:w-48 sm:h-48 md:w-60 md:h-60 opacity-[0.10] blur-[3.5px] transform-gpu drop-shadow-[0_0_25px_rgba(233,207,160,0.12)]"
-        >
-          <ChessPieceSvg type="q" color="w" />
-        </motion.div>
+        .bento-card-a  { animation-delay: 0ms; }
+        .bento-card-b  { animation-delay: 70ms; }
+        .bento-card-c1 { animation-delay: 140ms; }
+        .bento-card-c2 { animation-delay: 210ms; }
+        .bento-card-c3 { animation-delay: 280ms; }
 
-        {/* Middle-Left: Knight with soft blur */}
-        <motion.div
-          animate={{ y: [-6, 6, -6], rotate: [14, 10, 14] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 -translate-y-1/2 -left-6 sm:left-2 md:left-8 w-28 h-28 sm:w-40 sm:h-40 opacity-[0.09] blur-[2px] transform-gpu"
-        >
-          <ChessPieceSvg type="n" color="w" />
-        </motion.div>
+        /* Mobile single column */
+        .bento-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .bento-card-a  { order: 1; }
+        .bento-card-b  { order: 2; }
+        .bento-card-c1 { order: 3; }
+        .bento-card-c2 { order: 4; }
+        .bento-card-c3 { order: 5; }
 
-        {/* Middle-Right / Bottom-Right: Rook with blur */}
-        <motion.div
-          animate={{ y: [8, -8, 8], rotate: [-14, -10, -14] }}
-          transition={{ duration: 8.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-8 right-4 sm:right-20 md:right-32 w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 opacity-[0.09] blur-[3px] transform-gpu"
-        >
-          <ChessPieceSvg type="r" color="w" />
-        </motion.div>
+        /* Tablet (768px to 1023px): Card A full width, Card B left (row 2-4), C1/C2/C3 stacked on right */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .bento-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+          .bento-card-a {
+            grid-column: 1 / -1;
+            grid-row: 1;
+          }
+          .bento-card-b {
+            grid-column: 1 / 2;
+            grid-row: 2 / 5;
+          }
+          .bento-card-c1 {
+            grid-column: 2 / 3;
+            grid-row: 2;
+          }
+          .bento-card-c2 {
+            grid-column: 2 / 3;
+            grid-row: 3;
+          }
+          .bento-card-c3 {
+            grid-column: 2 / 3;
+            grid-row: 4;
+          }
+        }
 
-        {/* Bottom-Center-Left: Bishop with soft depth blur */}
-        <motion.div
-          animate={{ y: [-5, 7, -5], rotate: [6, 2, 6] }}
-          transition={{ duration: 7.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-2 left-1/4 sm:left-1/3 w-24 h-24 sm:w-36 sm:h-36 opacity-[0.08] blur-[4px] transform-gpu"
-        >
-          <ChessPieceSvg type="b" color="w" />
-        </motion.div>
+        /* Desktop (1024px+): 12-col equivalent proportions (columns 1-7 for A and C1-C3, columns 8-12 for B) */
+        @media (min-width: 1024px) {
+          .bento-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 2.143fr);
+          }
+          .bento-card-a {
+            grid-column: 1 / 4;
+            grid-row: 1;
+          }
+          .bento-card-b {
+            grid-column: 4 / 5;
+            grid-row: 1 / 3;
+          }
+          .bento-card-c1 {
+            grid-column: 1 / 2;
+            grid-row: 2;
+          }
+          .bento-card-c2 {
+            grid-column: 2 / 3;
+            grid-row: 2;
+          }
+          .bento-card-c3 {
+            grid-column: 3 / 4;
+            grid-row: 2;
+          }
+        }
 
-        {/* Top-Center subtle Pawn */}
-        <motion.div
-          animate={{ y: [4, -6, 4], rotate: [-6, -2, -6] }}
-          transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-8 left-1/2 -translate-x-1/2 w-20 h-20 sm:w-28 sm:h-28 opacity-[0.06] blur-[3px] transform-gpu"
-        >
-          <ChessPieceSvg type="p" color="w" />
-        </motion.div>
-      </div>
+        @media (prefers-reduced-motion: reduce) {
+          .bento-card {
+            animation: none !important;
+            transform: none !important;
+          }
+          .bento-card-link:hover {
+            transform: none !important;
+          }
+          .bento-card-link:hover .bento-arrow {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          {/* Left Column: Heading and CTAs */}
-          <ScrollReveal direction="left" className="lg:col-span-6 text-center lg:text-left space-y-6">
-            <h1 className="font-serif text-[clamp(2.4rem,5vw,3.75rem)] font-normal text-[#f3ece1] tracking-tight leading-[1.08]">
-              ALİNA Chess Club
-            </h1>
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="bento-grid gap-3 sm:gap-4">
+          {/* Card A: Main Hero Headline, description, CTAs and pure CSS primary checkerboard at 5% */}
+          <div className="bento-card bento-card-a relative overflow-hidden bg-[#FFFFFF] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+            {/* Faint decorative checkerboard pattern in the bottom-right corner (pure CSS, primary #2F5D46, 5% opacity, radial mask) */}
+            <div
+              className="absolute bottom-0 right-0 w-44 h-44 sm:w-64 sm:h-64 pointer-events-none select-none rounded-br-[20px] sm:rounded-br-[24px] overflow-hidden"
+              aria-hidden="true"
+              style={{
+                opacity: 0.05,
+                backgroundImage: `
+                  linear-gradient(45deg, #2F5D46 25%, transparent 25%),
+                  linear-gradient(-45deg, #2F5D46 25%, transparent 25%),
+                  linear-gradient(45deg, transparent 75%, #2F5D46 75%),
+                  linear-gradient(-45deg, transparent 75%, #2F5D46 75%)
+                `,
+                backgroundSize: '24px 24px',
+                backgroundPosition: '0 0, 0 12px, 12px -12px, -12px 0px',
+                maskImage: 'radial-gradient(circle at bottom right, black 20%, transparent 75%)',
+                WebkitMaskImage: 'radial-gradient(circle at bottom right, black 20%, transparent 75%)',
+              }}
+            />
 
-            <p className="text-base sm:text-lg text-[#d9c7a6] leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Şahmat qaydalarını, fiqurların gedişlərini və ilk taktiki addımları sadə dildə, mərhələli şəkildə mənimsəyin.
-            </p>
+            <div className="relative z-10 space-y-4 sm:space-y-5">
+              <h1 className="font-serif text-[clamp(40px,5.8vw,80px)] font-normal text-[#1E2A22] tracking-tight leading-[1.05]">
+                {t('hero.title')}
+              </h1>
 
-            {/* Action buttons: Sand accent primary, outlined secondary, fully rounded pills */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+              <p className="text-base sm:text-lg text-[#5E6B62] leading-relaxed max-w-2xl">
+                {t('hero.description')}
+              </p>
+            </div>
+
+            <div className="relative z-10 pt-6 sm:pt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <Link
                 href="/auth"
-                className="btn-primary w-full sm:w-auto px-8 py-3.5 text-base font-semibold shadow-md shadow-[#e9cfa0]/10"
+                className="btn-primary w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
               >
-                Bizə qoşul
+                {t('hero.joinBtn')}
+              </Link>
+
+              <Link
+                href="/play"
+                className="btn-secondary-dark w-full sm:w-auto px-8 py-3.5 text-base text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+              >
+                {t('hero.playBtn')}
               </Link>
 
               <a
                 href="#pieces"
-                className="btn-secondary-dark w-full sm:w-auto px-8 py-3.5 text-base"
+                className="btn-secondary-dark w-full sm:w-auto px-8 py-3.5 text-base text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
               >
-                Fiqurlarla tanış ol
+                {t('hero.piecesBtn')}
               </a>
             </div>
+          </div>
 
-            {/* Clean, quiet proof points */}
-            <div className="pt-6 border-t border-[rgba(243,236,225,0.10)] grid grid-cols-3 gap-4 text-left">
-              <div>
-                <p className="text-sm font-semibold text-[#f3ece1]">Sadə izahlar</p>
-                <p className="text-xs text-[#d9c7a6] mt-0.5">Uşaqlar üçün aydın qaydalar</p>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#f3ece1]">Təcrübəli müəllimlər</p>
-                <p className="text-xs text-[#d9c7a6] mt-0.5">Mərhələli tədris proqramı</p>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#f3ece1]">Lövhə qurucusu</p>
-                <p className="text-xs text-[#d9c7a6] mt-0.5">İnteraktiv təlim meydançası</p>
-              </div>
+          {/* Card B: Starting Position Chessboard (Sage-100 surface) */}
+          <div className="bento-card bento-card-b bg-[#E4EBD9] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-center shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+            <div className="flex items-center justify-between pb-3 mb-4 sm:mb-5 border-b border-[#E3DCCB]">
+              <span className="font-serif text-sm sm:text-base font-medium text-[#1E2A22]">
+                {t('hero.boardTitle')}
+              </span>
+              <span className="text-xs text-[#5E6B62]">
+                {t('hero.boardSubtitle')}
+              </span>
             </div>
-          </ScrollReveal>
 
-          {/* Right Column: Real Chessboard with starting position */}
-          <ScrollReveal direction="right" className="lg:col-span-6 flex justify-center">
-            <div className="w-full max-w-[420px] bg-[#24170a] border border-[rgba(243,236,225,0.12)] p-4 sm:p-5 rounded-[18px] shadow-2xl shadow-black/40">
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[rgba(243,236,225,0.10)]">
-                <span className="font-serif text-sm font-medium text-[#f3ece1]">
-                  Başlanğıc Vəziyyəti
-                </span>
-                <span className="text-xs text-[#d9c7a6]">
-                  Ağlar və Qaralar
-                </span>
-              </div>
+            {/* Real 8x8 Chessboard */}
+            <div className="aspect-square w-full max-w-[380px] sm:max-w-[420px] mx-auto rounded-[12px] overflow-hidden border border-[#E3DCCB] grid grid-cols-8 grid-rows-8 select-none shadow-xs">
+              {ranks.map((rank, rankIdx) =>
+                files.map((file, fileIdx) => {
+                  const square = `${file}${rank}`;
+                  const isLight = (rankIdx + fileIdx) % 2 === 0;
+                  const piece = INITIAL_BOARD_PIECES[square];
 
-              {/* Real 8x8 Chessboard */}
-              <div className="aspect-square w-full rounded-[12px] overflow-hidden border border-[rgba(243,236,225,0.10)] grid grid-cols-8 grid-rows-8 select-none shadow-inner">
-                {ranks.map((rank, rankIdx) =>
-                  files.map((file, fileIdx) => {
-                    const square = `${file}${rank}`;
-                    const isLight = (rankIdx + fileIdx) % 2 === 0;
-                    const piece = INITIAL_BOARD_PIECES[square];
+                  return (
+                    <div
+                      key={square}
+                      className={`relative flex items-center justify-center ${
+                        isLight ? 'bg-[#EEEED2]' : 'bg-[#769656]'
+                      }`}
+                    >
+                      {piece && (
+                        <div className="w-[84%] h-[84%] drop-shadow-xs">
+                          <ChessPieceSvg type={piece.type} color={piece.color} />
+                        </div>
+                      )}
+                      {/* Corner Coordinates */}
+                      {fileIdx === 0 && (
+                        <span
+                          className={`absolute top-0.5 left-1 text-[9px] font-bold pointer-events-none ${
+                            isLight ? 'text-[#769656]' : 'text-[#EEEED2]'
+                          }`}
+                        >
+                          {rank}
+                        </span>
+                      )}
+                      {rankIdx === 7 && (
+                        <span
+                          className={`absolute bottom-0.5 right-1 text-[9px] font-bold pointer-events-none ${
+                            isLight ? 'text-[#769656]' : 'text-[#EEEED2]'
+                          }`}
+                        >
+                          {file}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+            </div>
 
-                    return (
-                      <div
-                        key={square}
-                        className={`relative flex items-center justify-center ${
-                          isLight ? 'bg-[#efe7d8]' : 'bg-[#8c6747]'
-                        }`}
-                      >
-                        {piece && (
-                          <div className="w-[84%] h-[84%] drop-shadow-xs">
-                            <ChessPieceSvg type={piece.type} color={piece.color} />
-                          </div>
-                        )}
-                        {/* Corner Coordinates */}
-                        {fileIdx === 0 && (
-                          <span
-                            className={`absolute top-0.5 left-1 text-[9px] font-bold pointer-events-none ${
-                              isLight ? 'text-[#8c6747]/80' : 'text-[#efe7d8]/80'
-                            }`}
-                          >
-                            {rank}
-                          </span>
-                        )}
-                        {rankIdx === 7 && (
-                          <span
-                            className={`absolute bottom-0.5 right-1 text-[9px] font-bold pointer-events-none ${
-                              isLight ? 'text-[#8c6747]/80' : 'text-[#efe7d8]/80'
-                            }`}
-                          >
-                            {file}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })
-                )}
-              </div>
+            <p className="text-[11px] sm:text-xs text-[#5E6B62] mt-3.5 text-center leading-relaxed">
+              {t('hero.boardCaption')}
+            </p>
+          </div>
 
-              <p className="text-[11px] text-[#d9c7a6] mt-3 text-center">
-                32 fiqur, 64 xana: hər iki tərəf eyni imkanlarla oyuna başlayır.
+          {/* Card C1: Feature 1 (Butter yellow #F6E7B4, links to #rules) */}
+          <a
+            href="#rules"
+            className="bento-card bento-card-c1 bento-card-link group bg-[#F6E7B4] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[#2F5D46]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-serif text-sm font-bold text-[#B4532A] tracking-wider">
+                01
+              </span>
+              <ArrowUpRight className="bento-arrow w-4 h-4 text-[#1E2A22] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[#2F5D46]" />
+            </div>
+            <div className="mt-4">
+              <p className="text-base font-medium text-[#1E2A22]">
+                {t('hero.card1Title')}
+              </p>
+              <p className="text-xs sm:text-sm text-[#5E6B62] mt-1 leading-relaxed">
+                {t('hero.card1Desc')}
               </p>
             </div>
-          </ScrollReveal>
+          </a>
+
+          {/* Card C2: Feature 2 (Peach #F4D9C6, links to #teachers) */}
+          <a
+            href="#teachers"
+            className="bento-card bento-card-c2 bento-card-link group bg-[#F4D9C6] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[#2F5D46]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-serif text-sm font-bold text-[#B4532A] tracking-wider">
+                02
+              </span>
+              <ArrowUpRight className="bento-arrow w-4 h-4 text-[#1E2A22] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[#2F5D46]" />
+            </div>
+            <div className="mt-4">
+              <p className="text-base font-medium text-[#1E2A22]">
+                {t('hero.card2Title')}
+              </p>
+              <p className="text-xs sm:text-sm text-[#5E6B62] mt-1 leading-relaxed">
+                {t('hero.card2Desc')}
+              </p>
+            </div>
+          </a>
+
+          {/* Card C3: Feature 3 (Sage-200 #DCE6D0, links to /analysis) */}
+          <Link
+            href="/analysis"
+            className="bento-card bento-card-c3 bento-card-link group bg-[#DCE6D0] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[#2F5D46]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-serif text-sm font-bold text-[#B4532A] tracking-wider">
+                03
+              </span>
+              <ArrowUpRight className="bento-arrow w-4 h-4 text-[#1E2A22] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[#2F5D46]" />
+            </div>
+            <div className="mt-4">
+              <p className="text-base font-medium text-[#1E2A22]">
+                {t('hero.card3Title')}
+              </p>
+              <p className="text-xs sm:text-sm text-[#5E6B62] mt-1 leading-relaxed">
+                {t('hero.card3Desc')}
+              </p>
+            </div>
+          </Link>
         </div>
       </div>
     </section>

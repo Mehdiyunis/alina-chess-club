@@ -1,59 +1,115 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bg: #F7F3EA;
+  --color-bg-alt: #EFE9DB;
+  --color-surface: #FFFFFF;
+  --color-border: #E3DCCB;
+  --color-ink: #1E2A22;
+  --color-ink-muted: #5E6B62;
+  --color-primary: #2F5D46;
+  --color-primary-hover: #254B38;
+  --color-on-primary: #F7F3EA;
+  --color-sage-100: #E4EBD9;
+  --color-sage-200: #DCE6D0;
+  --color-butter: #F6E7B4;
+  --color-peach: #F4D9C6;
+  --color-terracotta: #D9774A;
+  --color-terracotta-text: #B4532A;
+  --color-dark: #1F3D2F;
+  --color-on-dark: #F7F3EA;
+  --color-on-dark-muted: #C9D3C4;
+  --color-board-light: #EEEED2;
+  --color-board-dark: #769656;
+}
+
 @layer base {
   :root {
-    --bg-dark-hero-top: #100c08;
-    --bg-dark-hero-bottom: #2b1e10;
-    --bg-dark: #2b1d0e;
-    --bg-dark-card: #362513;
-    --bg-cream: #efe9e0;
-    --bg-cream-card: #ffffff;
-    --accent-sand: #e9cfa0;
-    --accent-sand-hover: #f1dcb4;
-    --text-dark: #f3ece1;
-    --text-dark-muted: #d9c7a6;
-    --text-cream: #1a130c;
-    --text-cream-muted: #7a736b;
-    --divider-dark: rgba(243, 236, 225, 0.10);
-    --divider-cream: rgba(26, 19, 12, 0.10);
-    --board-light: #efe7d8;
-    --board-dark: #8c6747;
+    color-scheme: light;
+    --bg: #F7F3EA;
+    --bg-alt: #EFE9DB;
+    --surface: #FFFFFF;
+    --border: #E3DCCB;
+    --ink: #1E2A22;
+    --ink-muted: #5E6B62;
+    --primary: #2F5D46;
+    --primary-hover: #254B38;
+    --on-primary: #F7F3EA;
+    --sage-100: #E4EBD9;
+    --sage-200: #DCE6D0;
+    --butter: #F6E7B4;
+    --peach: #F4D9C6;
+    --terracotta: #D9774A;
+    --terracotta-text: #B4532A;
+    --dark: #1F3D2F;
+    --on-dark: #F7F3EA;
+    --on-dark-muted: #C9D3C4;
+    --board-light: #EEEED2;
+    --board-dark: #769656;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: #100c08;
-    color: #f3ece1;
-    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans), 'Segoe UI', Tahoma, 'Noto Sans', Roboto, sans-serif;
+    font-size-adjust: from-font;
   }
 
   body {
     font-size: 1rem;
     line-height: 1.6;
-    color: #f3ece1;
+    background-color: var(--bg);
+    color: var(--ink);
   }
 
-  /* Headings Didone / Bodoni serif style with high contrast and tight line-height */
   h1, h2, h3, h4 {
-    font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+    font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
     letter-spacing: -0.015em;
     line-height: 1.1;
     font-weight: 400;
+    color: var(--ink);
   }
 }
 
 .font-serif {
-  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+  font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size-adjust: from-font;
 }
 
 .font-sans {
-  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-sans), 'Segoe UI', Tahoma, 'Noto Sans', Roboto, sans-serif;
+  font-size-adjust: from-font;
 }
 
-/* Primary Button: Sand accent, fully rounded pill, dark text, subtle lift */
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Noto Sans Mono', 'Segoe UI Mono', 'Courier New', monospace;
+  font-size-adjust: from-font;
+}
+
+/* Browsers without font-size-adjust keep the original line-height rhythm. */
+@supports not (font-size-adjust: from-font) {
+  html,
+  .font-sans,
+  .font-mono {
+    line-height: 1.6;
+  }
+
+  .font-serif,
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.1;
+  }
+}
+
+/* Primary Button: Forest green, on-primary text, hover darker green */
 .btn-primary {
-  background-color: #e9cfa0;
-  color: #1a130c;
+  background-color: var(--primary);
+  color: var(--on-primary);
   border-radius: 9999px;
   font-weight: 600;
   transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -62,36 +118,20 @@
   justify-content: center;
 }
 .btn-primary:hover {
-  background-color: #f1dcb4;
+  background-color: var(--primary-hover);
   transform: translateY(-1px);
 }
 .btn-primary:active {
   transform: translateY(1px);
 }
 
-/* Secondary Button on Dark: Outlined sand border, fully rounded */
-.btn-secondary-dark {
-  background-color: transparent;
-  color: #f3ece1;
-  border: 1px solid rgba(233, 207, 160, 0.35);
-  border-radius: 9999px;
-  font-weight: 500;
-  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn-secondary-dark:hover {
-  background-color: rgba(233, 207, 160, 0.10);
-  border-color: #e9cfa0;
-  color: #f3ece1;
-}
-
-/* Secondary Button on Cream: Outlined warm brown border, fully rounded */
+/* Secondary Button: Transparent with 1px primary border and primary text, hover fills sage-100 */
+.btn-secondary,
+.btn-secondary-dark,
 .btn-secondary-cream {
-  background-color: #ffffff;
-  color: #1a130c;
-  border: 1px solid rgba(26, 19, 12, 0.15);
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
   border-radius: 9999px;
   font-weight: 500;
   transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -99,44 +139,37 @@
   align-items: center;
   justify-content: center;
 }
+.btn-secondary:hover,
+.btn-secondary-dark:hover,
 .btn-secondary-cream:hover {
-  background-color: #efe9e0;
-  border-color: rgba(26, 19, 12, 0.3);
-}
-
-/* Backward compatibility class */
-.btn-secondary {
-  border-radius: 9999px;
-  font-weight: 500;
-  transition: all 160ms ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--sage-100);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 /* Focus styles */
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 2px solid #e9cfa0;
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
-/* Sleek warm scrollbar */
+/* Sleek subtle scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #100c08;
+  background: var(--bg-alt);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #362513;
+  background: #C9D3C4;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #e9cfa0;
+  background: var(--primary);
 }
 
 @media (prefers-reduced-motion: reduce) {

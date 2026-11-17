@@ -4,12 +4,16 @@ import React, { useState } from 'react';
 import { gameGoalsData } from '@/lib/siteData';
 import { ChessPieceSvg } from './ChessPieceSvg';
 import { ScrollReveal } from './ScrollReveal';
+import { useLanguage } from './LanguageProvider';
 
 export const GameGoalsSection: React.FC = () => {
-  const [selectedGoal, setSelectedGoal] = useState(gameGoalsData[1]); // Mat by default
+  const { t } = useLanguage();
+  const [selectedGoalId, setSelectedGoalId] = useState<string>('mat'); // Mat by default
 
   const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
+
+  const selectedGoal = gameGoalsData.find((g) => g.id === selectedGoalId) || gameGoalsData[1];
 
   const parseFenSquares = (fen: string) => {
     const boardState: Record<string, { type: 'p' | 'n' | 'b' | 'r' | 'q' | 'k'; color: 'w' | 'b' }> = {};
@@ -41,14 +45,14 @@ export const GameGoalsSection: React.FC = () => {
   const currentBoardPieces = parseFenSquares(selectedGoal.boardFen);
 
   return (
-    <section id="goals" className="py-16 lg:py-24 bg-[#2b1d0e] border-b border-[rgba(243,236,225,0.10)]">
+    <section id="goals" className="py-16 lg:py-24 bg-[#F7F3EA] border-b border-[#E3DCCB]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <ScrollReveal direction="up" className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#f3ece1] tracking-tight leading-[1.1]">
-            Oyunun Məqsədi: Şah, Mat və Pat
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1E2A22] tracking-tight leading-[1.1]">
+            {t('goals.title')}
           </h2>
-          <p className="text-sm sm:text-base text-[#d9c7a6] mt-2">
-            Şahmatda əsas hədəf rəqibin bütün fiqurlarını vurmaq deyil, rəqib Şahı mat etməkdir.
+          <p className="text-sm sm:text-base text-[#5E6B62] mt-2">
+            {t('goals.subtitle')}
           </p>
         </ScrollReveal>
 
@@ -59,55 +63,44 @@ export const GameGoalsSection: React.FC = () => {
             return (
               <button
                 key={goal.id}
-                onClick={() => setSelectedGoal(goal)}
+                onClick={() => setSelectedGoalId(goal.id)}
                 className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#e9cfa0] text-[#1a130c] shadow-md shadow-[#e9cfa0]/10'
-                    : 'bg-[#362513] text-[#d9c7a6] hover:text-[#f3ece1] border border-[rgba(243,236,225,0.10)]'
+                    ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
+                    : 'bg-[#FFFFFF] text-[#5E6B62] hover:text-[#1E2A22] border border-[#E3DCCB]'
                 }`}
               >
-                {goal.title}
+                {t(`goals.items.${goal.id}.title`)}
               </button>
             );
           })}
         </ScrollReveal>
 
         {/* Goal Detail Card */}
-        <div className="bg-[#362513] rounded-[18px] border border-[rgba(243,236,225,0.10)] p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-4xl mx-auto shadow-xl">
+        <div className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-4xl mx-auto shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
           {/* Explanation Text */}
           <ScrollReveal direction="left" className="md:col-span-7 space-y-3.5">
-            <span className="text-xs font-semibold text-[#e9cfa0] uppercase tracking-wider block">
-              {selectedGoal.simpleExplain}
+            <span className="text-xs font-semibold text-[#B4532A] uppercase tracking-wider block">
+              {t(`goals.items.${selectedGoal.id}.simpleExplain`)}
             </span>
 
-            <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#f3ece1]">
-              {selectedGoal.title}
+            <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1E2A22]">
+              {t(`goals.items.${selectedGoal.id}.title`)}
             </h3>
 
-            <p className="text-sm text-[#d9c7a6] leading-relaxed">
-              {selectedGoal.detail}
+            <p className="text-sm text-[#5E6B62] leading-relaxed">
+              {t(`goals.items.${selectedGoal.id}.detail`)}
             </p>
 
-            <div className="p-4 bg-[#24170a] rounded-[14px] border border-[rgba(243,236,225,0.10)] text-xs text-[#f3ece1]">
-              {selectedGoal.id === 'mat' && (
-                <span>Mat qaydası: Şaha hücum edilib və heç bir müdafiə yolu qalmayıb. Mat edən tərəf qələbə qazanır.</span>
-              )}
-              {selectedGoal.id === 'shah' && (
-                <span>Şah elanı: Şaha birbaşa hücum edildikdə o dərhal xilas edilməlidir. Şah lövhədən götürülmür.</span>
-              )}
-              {selectedGoal.id === 'pat' && (
-                <span>Pat vəziyyəti: Növbəsi çatan oyunçunun qaydalı gedişi yoxdur və Şahı hücum altında deyil. Oyun heç-heçə başa çatır.</span>
-              )}
-              {selectedGoal.id === 'draw' && (
-                <span>Bərabərlik: Mat etmək üçün fiqur sayı çatışmadıqda və ya qarşılıqlı razılıq olduqda oyun heç-heçə sayılır.</span>
-              )}
+            <div className="p-4 bg-[#E4EBD9] rounded-[14px] border border-[#E3DCCB] text-xs text-[#1E2A22]">
+              <span>{t(`goals.items.${selectedGoal.id}.note`)}</span>
             </div>
           </ScrollReveal>
 
           {/* Demonstration Board */}
           <ScrollReveal direction="right" className="md:col-span-5 flex flex-col items-center">
-            <div className="p-3 bg-[#24170a] rounded-[16px] border border-[rgba(243,236,225,0.12)] shadow-md">
-              <div className="grid grid-cols-8 grid-rows-8 w-[240px] h-[240px] sm:w-[260px] sm:h-[260px] border border-[rgba(243,236,225,0.10)] rounded-[10px] overflow-hidden shadow-inner">
+            <div className="p-3 bg-[#EFE9DB] rounded-[16px] border border-[#E3DCCB] shadow-xs">
+              <div className="grid grid-cols-8 grid-rows-8 w-[240px] h-[240px] sm:w-[260px] sm:h-[260px] border border-[#E3DCCB] rounded-[10px] overflow-hidden shadow-xs">
                 {ranks.map((rank, rIdx) =>
                   files.map((file, fIdx) => {
                     const square = `${file}${rank}`;
@@ -120,9 +113,9 @@ export const GameGoalsSection: React.FC = () => {
                       <div
                         key={square}
                         className={`relative flex items-center justify-center ${
-                          isLight ? 'bg-[#efe7d8]' : 'bg-[#8c6747]'
+                          isLight ? 'bg-[#EEEED2]' : 'bg-[#769656]'
                         } ${isTarget ? 'ring-2 ring-rose-500 ring-inset bg-rose-500/20' : ''} ${
-                          isAttacker ? 'ring-2 ring-[#e9cfa0] ring-inset' : ''
+                          isAttacker ? 'ring-2 ring-[rgba(217,119,74,0.7)] ring-inset bg-[rgba(217,119,74,0.45)]' : ''
                         }`}
                       >
                         {piece && (
@@ -136,8 +129,8 @@ export const GameGoalsSection: React.FC = () => {
                 )}
               </div>
             </div>
-            <span className="text-[11px] text-[#d9c7a6] mt-2">
-              Nümunə vəziyyət: {selectedGoal.title}
+            <span className="text-[11px] text-[#5E6B62] mt-2">
+              {t('goals.exampleState', { title: t(`goals.items.${selectedGoal.id}.title`) })}
             </span>
           </ScrollReveal>
         </div>

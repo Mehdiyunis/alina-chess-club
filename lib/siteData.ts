@@ -21,28 +21,13 @@ export interface PieceInfo {
   };
 }
 
-export interface SocialLink {
-  platform: string;
-  name: string;
-  url: string;
-  icon: string;
-}
-
 export interface UserProfile {
   id: string;
   full_name: string;
-  role?: string;
   created_at?: string;
   email?: string;
   phone?: string;
-}
-
-export interface ContactRequest {
-  id?: string;
-  value: string;
-  type: 'email' | 'phone';
-  status?: 'new' | 'contacted';
-  created_at?: string;
+  language?: string | null;
 }
 
 export type BookLevel = 'beginner' | 'intermediate' | 'advanced';
@@ -235,81 +220,4 @@ export const specialMovesData = [
   },
 ];
 
-export const tipsData = [
-  {
-    number: '01',
-    title: 'Mərkəzi Nəzarətdə Saxlayın',
-    text: 'Lövhənin mərkəzindəki 4 vacib xana (e4, d4, e5, d5) oyunu idarə etməyin açarıdır. İlk gedişlərdə piyadalarınızı mərkəzə yönəldin.',
-    desc: 'Lövhənin mərkəzindəki 4 vacib xana (e4, d4, e5, d5) oyunu idarə etməyin açarıdır. İlk gedişlərdə piyadalarınızı mərkəzə yönəldin.',
-  },
-  {
-    number: '02',
-    title: 'Fiqurlarınızı Tez İnkişaf Etdirin',
-    text: 'At və filləri ilk gedişlərdə oyuna daxil edin. Eyni fiqurla arxa-arxaya məqsədsiz bir neçə dəfə oynamayın.',
-    desc: 'At və filləri ilk gedişlərdə oyuna daxil edin. Eyni fiqurla arxa-arxaya məqsədsiz bir neçə dəfə oynamayın.',
-  },
-  {
-    number: '03',
-    title: 'Şahınızın Təhlükəsizliyini Təmin Edin',
-    text: 'Erkən rokirovka edərək şahınızı mərkəzdəki hücumlardan qoruyun və topunuzu açıq xətlərə yaxınlaşdırın.',
-    desc: 'Erkən rokirovka edərək şahınızı mərkəzdəki hücumlardan qoruyun və topunuzu açıq xətlərə yaxınlaşdırın.',
-  },
-  {
-    number: '04',
-    title: 'Vəziri Oyuna Çox Tez Salmayın',
-    text: 'Vəzir ən güclü fiqurdur. Onu çox tez qabağa çıxardıqda rəqibin zəif fiqurları vəzirinizi qovaraq inkişafda üstünlük qazanır.',
-    desc: 'Vəzir ən güclü fiqurdur. Onu çox tez qabağa çıxardıqda rəqibin zəif fiqurları vəzirinizi qovaraq inkişafda üstünlük qazanır.',
-  },
-  {
-    number: '05',
-    title: 'Hər Gedişdən Əvvəl Düşünün',
-    text: 'Rəqibin sonuncu gedişinin məqsədini anlamağa çalışın: "O mənim hansı fiqurumu hədələyir?" sualını özünüzə verin.',
-    desc: 'Rəqibin sonuncu gedişinin məqsədini anlamağa çalışın: "O mənim hansı fiqurumu hədələyir?" sualını özünüzə verin.',
-  },
-  {
-    number: '06',
-    title: 'Məğlubiyyətlərdən Nəticə Çıxarın',
-    text: 'Hər uduzulan oyun ən yaxşı dərsdir. Partiyanı təhlil edin və hansı gedişdə diqqətsizlik etdiyinizi araşdırın.',
-    desc: 'Hər uduzulan oyun ən yaxşı dərsdir. Partiyanı təhlil edin və hansı gedişdə diqqətsizlik etdiyinizi araşdırın.',
-  },
-];
 
-export const beginnerTipsData = tipsData;
-
-export const faqData = [
-  {
-    question: 'Uşaqlar neçə yaşından şahmat öyrənməyə başlaya bilər?',
-    answer: 'Adətən 5-6 yaş şahmat öyrənmək üçün əlverişli dövrdür. Fiqurların hərəkətini və sadə qaydaları bu yaşda rahat mənimsəmək mümkündür.',
-  },
-  {
-    question: 'Dərslərə başlamaq üçün ilkin bilik lazımdırmı?',
-    answer: 'Xeyr, heç bir ilkin bilik tələb olunmur. Dərslər lövhənin xanalarından və fiqurların adlarından başlayaraq ən sadə dildə izah edilir.',
-  },
-  {
-    question: 'Şahmat uşağın inkişafına necə kömək edir?',
-    answer: 'Şahmat məntiqi təfəkkürü, konsentrasiyanı, səbirlə düşünməyi və qərar qəbul etmə bacarığını gücləndirir.',
-  },
-  {
-    question: 'Dərslərə qeydiyyat necə aparılır?',
-    answer: 'Saytın yuxarısındakı "Qoşul" düyməsinə klikləyərək və ya əlaqə formasında nömrənizi qeyd edərək dərslərə yazıla bilərsiniz.',
-  },
-  {
-    question: 'Öyrənmə mərhələsində rəqiblə oynamaq şərtdirmi?',
-    answer: 'Xeyr. Başlanğıcda qaydaları, fiqurların hərəkətini və sadə tapmacaları öyrənmək daha vacibdir.',
-  },
-];
-
-export const historyData = {
-  title: 'Azərbaycanda Şahmat Ənənəsi',
-  lead: 'Azərbaycan zəngin şahmat ənənələrinə və beynəlxalq arenada tanınan məktəbə malikdir.',
-  paragraphs: [
-    'Şahmat Şərqdə əsrlər boyu zəka oyunu kimi qəbul edilmiş, dahi şair Nizami Gəncəvinin əsərlərində də şahmat terminləri və lövhə fəlsəfəsi yer almışdır.',
-    'Müasir dövrdə Azərbaycan şahmat komandaları Avropa Çempionatlarında yüksək nəticələr göstərmiş, ölkəmizdə çoxlu istedadlı qrossmeysterlər yetişmişdir.',
-    'Gənc nəslin şahmata marağı hər il artır və məktəbimiz uşaqlara bu möhkəm təməli aşılamağı hədəfləyir.',
-  ],
-  grandmasters: [
-    { name: 'Şəhriyar Məmmədyarov', title: 'Qrossmeyster, Dünya Çempionatı iddiaçısı, komanda üzrə Avropa Çempionu' },
-    { name: 'Teymur Rəcəbov', title: 'Qrossmeyster, FIDE Dünya Kubokunun qalibi' },
-    { name: 'Vüqar Həşimov', title: 'Mərhum Qrossmeyster, güclü taktika ustası və komanda çempionu' },
-  ],
-};

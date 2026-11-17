@@ -1,111 +1,71 @@
-# Şahmat Məktəbi (Next.js App Router)
+# ALİNA Chess Club — Şahmat Məktəbi
 
-Uşaqlar və yeni başlayanlar üçün hazırlanmış müasir və interaktiv şahmat təhsil portalı.
+Uşaqlar və yeni başlayanlar üçün interaktiv şahmat təhsil portalı. Lokal və onlayn oyun, analiz lövhəsi, kitabxana və çoxdilli interfeys.
 
-Platformanın bütün istifadəçi interfeysi tamamilə **Azərbaycan dilindədir**. Bütün dinamik məlumatlar (müəllimlər, kitablar, əlaqə müraciətləri və profillər) birbaşa **Supabase** üzərindən idarə olunur.
+## Marşrutlar
 
-> **Qeyd:** Bu sayt yalnız ictimai istifadəçilər üçündür (User-Facing). Saytın məzmununu idarə etmək (müəllimlərin və kitabların əlavə edilməsi, əlaqə müraciətlərinin cavablandırılması) üçün gələcəkdə eyni Supabase layihəsinə qoşulan **ayrıca İnzibatçı (Admin) saytı** qurulacaqdır.
+| Yol | Təyinat |
+| --- | --- |
+| `/` | Ana səhifə |
+| `/play` | Lokal və onlayn oyun |
+| `/play/{KOD}` | Dəvət olunmuş otağa qoşulma |
+| `/analysis` | Analiz lövhəsi |
+| `/books` | Kitabxana |
+| `/auth` | Qeydiyyat və giriş |
 
----
+## Texnologiya
 
-## 🎨 Dizayn Xüsusiyyətləri
+- Next.js 16 App Router, React 19, TypeScript
+- Tailwind CSS 4
+- Supabase Auth, Postgres, Realtime və private Storage (`book-files`)
+- chess.js, lucide-react
+- Şriftlər: Raleway, Cormorant Garamond
 
-- **Əsas Fon:** Dərin bənövşəyi / qara (`#0d0b17`)
-- **Kart və Səthlər:** `#171428`, yüksəldilmiş səth `#211c3a`
-- **İncə Haşiyələr:** `#2d2750`
-- **Əsas Vurğu:** Bənövşəyi (`#7c5cff`) və hover rəngi (`#9a82ff`)
-- **Şahmat Lövhəsi:** Açıq xanalar `#b9b0d9`, tünd xanalar `#5b4b9a`
-- **Tipoqrafiya:** Azərbaycan dilinin xüsusi hərflərini (ə, Ə, ı, İ, ğ, Ğ, ş, Ş, ç, Ç, ö, Ö, ü, Ü) tam dəstəkləyən `latin-ext` şrifti.
+## Quraşdırma
 
----
-
-## 🚀 Texnoloji Yığın (Tech Stack)
-
-- **Freymvork:** Next.js (App Router, Server və Client komponentlər)
-- **Dil:** TypeScript
-- **Stil:** Tailwind CSS
-- **İkonlar:** Lucide React
-- **Backend & Autentifikasiya:** Supabase (`@supabase/supabase-js`, `@supabase/ssr`)
-- **Məlumat Bazası:** PostgreSQL (Row Level Security - RLS siyasətləri ilə)
-- **Fayl Saxlama:** Supabase Storage (`book-files`, `book-covers`)
-
----
-
-## 📁 Layihə Strukturu
-
-```
-├── app/
-│   ├── layout.tsx             # Root layout (Metadata, Azərbaycan dili, Tailwind)
-│   ├── page.tsx               # Ana səhifə (Dinamik müəllimlər və interaktiv bölmələr)
-│   ├── auth/
-│   │   ├── page.tsx           # Giriş və Qeydiyyat səhifəsi (Google OAuth + Email/Telefon)
-│   │   └── callback/route.ts  # Supabase OAuth yönləndirmə emalçısı
-│   ├── books/
-│   │   └── page.tsx           # Şahmat kitabxanası (Axtarış, səviyyə filtri, baxış və yükləmə)
-│   └── globals.css            # Tailwind CSS qlobal tənzimləmələri
-├── components/
-│   ├── Navbar.tsx             # İstifadəçi avatarı və menyu
-│   ├── Footer.tsx             # Altlıq və sosial şəbəkə keçidləri
-│   ├── HeroSection.tsx        # Başlıq və şahmat lövhəsi
-│   ├── TeachersSlider.tsx     # public.teachers cədvəlindən oxunan müəllimlər karuseli
-│   ├── StartingBoard.tsx      # Başlanğıc vəziyyət lövhəsi
-│   ├── PiecesSection.tsx      # Fiqurlar və hərəkət qaydaları
-│   ├── GameGoalsSection.tsx   # Şah, Mat, Pat və Heç-heçə qaydaları
-│   ├── SpecialMovesSection.tsx# Rokirovka, Vəzirə çevrilmə, Keçiddə götürmə
-│   ├── BeginnerTipsSection.tsx# Yeni başlayanlara 6 qızıl qayda
-│   ├── FaqSection.tsx         # Tez-tez verilən suallar
-│   ├── HistorySection.tsx     # Azərbaycan şahmat tarixi və qrossmeysterlərimiz
-│   ├── ContactSection.tsx     # public.contact_requests cədvəlinə yazan əlaqə forması
-│   ├── PositionSetupBoard.tsx # Mövqe qurucusu və FEN generatoru
-│   ├── BooksClient.tsx        # Kitabların axtarışı və səviyyə üzrə filtri
-│   └── ChessPieceSvg.tsx      # Vektorlu (SVG) şahmat fiqurları
-├── lib/
-│   ├── siteData.ts            # Statik maarifləndirici mətnlər və TypeScript tipləri
-│   ├── types.ts               # Tip ixracları
-│   └── supabase/
-│       ├── client.ts          # Brauzer Supabase müştərisi (SSR)
-│       ├── server.ts          # Server Supabase müştərisi
-│       ├── actions.ts         # Server əməliyyatları (Müraciət göndərmə, kitablar, müəllimlər)
-│       └── config.ts          # Supabase URL və konfiqurasiya yoxlayıcısı
-├── middleware.ts              # Supabase istifadəçi sessiyasının avtomatik yenilənməsi
-├── schema.sql                 # Supabase cədvəllərinin sənədləşdirməsi
-├── .env.example               # Mühit dəyişənləri nümunəsi
-└── package.json               # Asılılıqlar və skriptlər
-```
-
----
-
-## ⚙️ Quraşdırma və İşə Salma
-
-### 1. Asılılıqların quraşdırılması:
 ```bash
 npm install
+cp .env.example .env.local
 ```
 
-### 2. Mühit dəyişənlərinin tənzimlənməsi:
-`.env.example` faylını `.env.local` adı ilə kopyalayın və Supabase layihənizin məlumatlarını daxil edin:
+`.env.local` faylına Supabase dəyərlərini yazın:
+
 ```env
-NEXT_PUBLIC_SUPABASE_URL="https://sizin-lahiyeniz.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="sizin-anonim-acarınız"
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_TRACK_LOCALHOST=false
 ```
 
-### 3. Supabase Məlumat Bazası Cədvəlləri:
-Sayt aşağıdakı cədvəllərdən istifadə edir:
-- `public.teachers`: Müəllimlər siyahısı (`first_name`, `last_name`, `role_title`, `description`, `photo_url`, `sort_order`).
-- `public.books`: Şahmat kitabları (`title`, `author`, `description`, `level`, `cover_url`, `file_url`, `file_name`, `created_at`).
-- `public.contact_requests`: Əlaqə formasından göndərilən müraciətlər (`value`, `type`, `status`).
-- `public.profiles`: Qeydiyyatdan keçmiş istifadəçi məlumatları (`full_name`, `role`).
+Windows PowerShell üçün `npm.cmd` istifadə edin.
 
-Tam cədvəl strukturu və nümunələr üçün `schema.sql` sənədinə baxa bilərsiniz.
+## Supabase qurulumu
 
-### 4. İnkişaf serverinin işə salınması:
+Onlayn oyun, otaqlar və təsadüfi rəqib növbəsi üçün `supabase-online-play.sql` faylını Supabase SQL Editor-da icra edin. Script idempotentdır; 7 funksiya və `matchmaking_queue` cədvəli yaranır.
+
+Kitab PDF-ləri `book-files` adlı private bucket-da saxlanılır. Fayllar `/api/books/download?path=...` üzərindən qısaömürlü signed URL ilə verilir; service-role açarı istifadə olunmur.
+
+Deploy-dan sonra Supabase Auth üçün sayt URL-ni və redirect URL-lərini Vercel domenine uyğun təyin edin.
+
+## Komandalar
+
 ```bash
-npm run dev
+npm run dev     # http://localhost:3000
+npm run build   # production build
+npm run start   # production server
+npm run lint    # tsc --noEmit
 ```
-Sayt `http://localhost:3000` ünvanında açılacaq.
 
----
+## Layihə strukturu
 
-## ♟️ Şahmat Vektorları (Attribution)
+```text
+app/                    Səhifələr, layout, API route və auth callback
+components/             Ümumi UI, PlayBoard, AnalysisBoard, Supabase helper-ləri
+lib/                    i18n, tiplər, vaxt parametrləri, Supabase client/server
+messages/               az.json, en.json, ru.json
+public/                 Loqo, fiqur SVG-ləri və müəllim şəkilləri
+proxy.ts                Supabase sessiyasının yenilənməsi və təhlükəsizlik header-ləri
+supabase-online-play.sql  Onlayn oyun üçün cədvəl, RLS və RPC-lər
+.env.example            Mühit dəyişənləri nümunəsi
+```
 
-Bu layihədə istifadə olunan vektor (SVG) şahmat fiqurları **Colin M.L. Burnett (Cburnett)** tərəfindən hazırlanmış və [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces) vasitəsilə **Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)** lisenziyası ilə təqdim olunmuşdur. Fiqurlar `/public/pieces/` qovluğunda saxlanılır.
+Administrasiya interfeysi ayrı layihədədir və `public.admin_profiles` üzərindən icazə alır.

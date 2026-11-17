@@ -1,0 +1,486 @@
+{
+  "meta": {
+    "title": "ALİNA Chess Club - Chess for Kids and Beginners",
+    "description": "Chess education for children and beginners: rules, piece movements, learning materials, and interactive chessboard.",
+    "ogTitle": "ALİNA Chess Club"
+  },
+  "navbar": {
+    "home": "Home",
+    "play": "Play",
+    "analysis": "Analysis",
+    "books": "Books",
+    "join": "Join",
+    "student": "Student",
+    "chessBooks": "Chess Books",
+    "logout": "Sign Out",
+    "loggedInAs": "Signed in as",
+    "openMenu": "Open menu",
+    "userMenu": "User menu",
+    "selectLanguage": "Select language"
+  },
+  "hero": {
+    "title": "ALİNA Chess Club",
+    "description": "Master chess rules, piece movements, and your first tactical steps with clear, step-by-step guidance.",
+    "joinBtn": "Join us",
+    "playBtn": "Start playing",
+    "piecesBtn": "Explore pieces",
+    "boardTitle": "Starting Position",
+    "boardSubtitle": "White and Black",
+    "boardCaption": "32 pieces, 64 squares: both sides start the game with equal opportunities.",
+    "card1Title": "Simple explanations",
+    "card1Desc": "Clear rules made for kids",
+    "card2Title": "Experienced coaches",
+    "card2Desc": "Step-by-step curriculum",
+    "card3Title": "Analysis board",
+    "card3Desc": "Build a position and copy its FEN code"
+  },
+  "teachers": {
+    "title": "Our Coaches",
+    "subtitle": "Instructors who guide children through chess rules and strategic thinking step by step.",
+    "prev": "Previous coach",
+    "next": "Next coach",
+    "teacherLabel": "Coach"
+  },
+  "startingBoard": {
+    "title": "The Chessboard and Piece Setup",
+    "subtitle": "The chessboard has 64 squares: 32 light and 32 dark. Squares are identified by vertical files (a-h) and horizontal ranks (1-8).",
+    "selectedSquare": "Selected square",
+    "clickHint": "Click on any square to discover its coordinate and piece.",
+    "rule1Number": "Rule 01",
+    "rule1Title": "Light square on the right",
+    "rule1Text": "When setting up the board, each player must have a light square in their bottom-right corner (h1 and a8).",
+    "rule2Number": "Rule 02",
+    "rule2Title": "Queen on her own color",
+    "rule2Text": "The White Queen always starts on a light square (d1), and the Black Queen on a dark square (d8). The King stands next to her on the e-file.",
+    "rule3Number": "Rule 03",
+    "rule3Title": "Front line of pawns",
+    "rule3Text": "All 8 white pawns stand on the 2nd rank and all 8 black pawns on the 7th rank, shielding the pieces behind them.",
+    "pieces": {
+      "whiteKing": "White King",
+      "whiteQueen": "White Queen",
+      "whiteRook": "White Rook",
+      "whiteBishop": "White Bishop",
+      "whiteKnight": "White Knight",
+      "whitePawn": "White Pawn",
+      "blackKing": "Black King",
+      "blackQueen": "Black Queen",
+      "blackRook": "Black Rook",
+      "blackBishop": "Black Bishop",
+      "blackKnight": "Black Knight",
+      "blackPawn": "Black Pawn"
+    }
+  },
+  "pieces": {
+    "title": "Chess Pieces and Movement Rules",
+    "subtitle": "Every piece has a unique role and moving style. Pick a piece to see its movement lines on the demonstration board.",
+    "value": "Value",
+    "active": "Active",
+    "selectToSee": "Click to view moves",
+    "viewBoard": "View board",
+    "demoBoard": "Demonstration Board",
+    "movesOf": "{name} moves",
+    "possibleSquares": "{count} possible squares",
+    "centerSquare": "Center square",
+    "dotsLegend": "Terracotta dots: available moves",
+    "note": "Note: Pieces cannot land on squares occupied by friendly pieces. An opponent piece is captured by landing on its square.",
+    "items": {
+      "king": {
+        "name": "King",
+        "value": "Decides the game",
+        "summary": "Moves only 1 square in any direction.",
+        "description": "The King is the most precious piece. If the King cannot escape attack (checkmate), the game ends. The King steps one square in any direction, but can never walk into danger."
+      },
+      "queen": {
+        "name": "Queen",
+        "value": "9 points",
+        "summary": "Moves any number of open squares vertically, horizontally, or diagonally.",
+        "description": "The Queen is the most powerful piece. It combines the powers of the Rook and Bishop, sliding across ranks, files, and diagonals as far as the way is clear."
+      },
+      "rook": {
+        "name": "Rook",
+        "value": "5 points",
+        "summary": "Moves in straight lines (vertically and horizontally).",
+        "description": "The Rook is a mighty long-range piece. It travels along vertical and horizontal lines across any number of empty squares, but cannot jump over other pieces."
+      },
+      "bishop": {
+        "name": "Bishop",
+        "value": "3 points",
+        "summary": "Moves only along diagonal lines.",
+        "description": "Each player has two Bishops: one on light squares and one on dark squares. A Bishop never changes its square color and glides freely across open diagonals."
+      },
+      "knight": {
+        "name": "Knight",
+        "value": "3 points",
+        "summary": "Jumping piece: moves in an 'L' shape and leaps over obstacles.",
+        "description": "The Knight is the only piece that can jump over others. It hops two squares in one direction and one square sideways, changing square color on every single leap."
+      },
+      "pawn": {
+        "name": "Pawn",
+        "value": "1 point",
+        "summary": "Brave pawn: moves straight forward, captures diagonally.",
+        "description": "Pawns march forward and can never move backward. On their very first move, they may advance two squares. They capture one square diagonally. Reaching the far end allows promotion to a Queen or another piece."
+      }
+    }
+  },
+  "goals": {
+    "title": "Goal of the Game: Check, Checkmate and Stalemate",
+    "subtitle": "The main goal in chess is not to capture every single piece, but to deliver checkmate to the enemy King.",
+    "exampleState": "Example position: {title}",
+    "items": {
+      "shah": {
+        "title": "Check (Attack)",
+        "simpleExplain": "Check occurs when the King is under direct attack.",
+        "detail": "When an opponent piece threatens to capture your King, it is check. You must save the King immediately: run to a safe square, block the attack with another piece, or capture the attacking piece.",
+        "note": "Check rule: When the King is attacked, it must be protected right away. The King is never captured or removed from the board."
+      },
+      "mat": {
+        "title": "Checkmate (Victory)",
+        "simpleExplain": "The King is under attack and has no way to escape.",
+        "detail": "Checkmate is the ultimate goal in chess. If the King is in check and cannot move away, block the attack, or capture the attacker, the game ends instantly and the attacker wins.",
+        "note": "Checkmate rule: The King is attacked and has no legal escape. The player delivering checkmate wins the game."
+      },
+      "pat": {
+        "title": "Stalemate (Draw)",
+        "simpleExplain": "The King is not attacked, but there are no legal moves.",
+        "detail": "If the player whose turn it is has no legal move and their King is NOT in check, the game is in stalemate. Stalemate immediately results in a peaceful draw.",
+        "note": "Stalemate condition: The player to move has no legal moves and their King is safe. The game ends in a tie."
+      },
+      "draw": {
+        "title": "Other Draws",
+        "simpleExplain": "Insufficient material or mutual agreement.",
+        "detail": "When neither player has enough pieces left to force checkmate (such as King vs King or King and Bishop vs King), the game ends in an automatic draw. Threefold repetition of the same position also leads to a draw.",
+        "note": "Draw rule: When checkmate cannot be forced or both players mutually agree, the game is declared a draw."
+      }
+    }
+  },
+  "specialMoves": {
+    "title": "Special Chess Moves",
+    "subtitle": "Learn the rules of castling, pawn promotion, and en passant.",
+    "mainConditions": "Key conditions:",
+    "demo": "Demonstration",
+    "before": "Before",
+    "after": "After",
+    "items": {
+      "castling": {
+        "title": "Castling",
+        "subtitle": "Defense and Attack Combined",
+        "description": "The only double move in chess, designed to shield your King and activate your corner Rook.",
+        "stepDesc": "Kingside castling: The King slides two squares from e1 to g1, and the h1 Rook hops over to f1.",
+        "rules": [
+          "The King and the castling Rook must not have moved yet.",
+          "All squares between the King and the Rook must be empty.",
+          "The King must not be in check and cannot pass through attacked squares."
+        ]
+      },
+      "promotion": {
+        "title": "Pawn Promotion",
+        "subtitle": "Reaching the Summit",
+        "description": "When a pawn reaches the farthest rank of the board, it transforms into a more powerful piece.",
+        "stepDesc": "Upon reaching the 8th rank, the pawn immediately turns into a Queen or any chosen piece.",
+        "rules": [
+          "Promotion takes place on the exact turn the pawn lands on the last rank.",
+          "The Queen is chosen most often, though tactical Knight underpromotions also occur.",
+          "You can have multiple Queens on the board at the same time."
+        ]
+      },
+      "enpassant": {
+        "title": "En Passant",
+        "subtitle": "Special Pawn Strike",
+        "description": "Applies when an enemy pawn jumps two squares forward on its first move and lands right beside yours.",
+        "stepDesc": "When black moves from d7 to d5, the white pawn captures by stepping diagonally onto d6.",
+        "rules": [
+          "Only valid when the opponent pawn advances two squares on a single turn.",
+          "The capture must be made on the very next move, or the right is permanently lost.",
+          "The captured pawn is removed from the board, and your pawn takes the square it skipped over."
+        ]
+      }
+    }
+  },
+  "tips": {
+    "title": "6 Golden Rules for Beginners",
+    "subtitle": "Remember these simple principles to develop strong chess habits in your opening games.",
+    "items": [
+      {
+        "number": "01",
+        "title": "Control the Center",
+        "text": "The four central squares (e4, d4, e5, d5) are the keys to controlling the game. Aim your opening pawns toward the center."
+      },
+      {
+        "number": "02",
+        "title": "Develop Your Pieces Quickly",
+        "text": "Bring your knights and bishops into the game early. Avoid moving the same piece multiple times without a clear reason."
+      },
+      {
+        "number": "03",
+        "title": "Keep Your King Safe",
+        "text": "Castle early to tuck your King away from danger in the center and connect your rooks to open files."
+      },
+      {
+        "number": "04",
+        "title": "Do Not Bring the Queen Out Too Soon",
+        "text": "The Queen is very powerful. Bringing it out too early lets minor opponent pieces chase it while developing freely."
+      },
+      {
+        "number": "05",
+        "title": "Think Before Every Move",
+        "text": "Always ask yourself: \"What is the goal of my opponent's last move? What piece are they threatening?\""
+      },
+      {
+        "number": "06",
+        "title": "Learn from Every Defeat",
+        "text": "Every lost game is a valuable lesson. Review your moves to discover where you lost focus and improve."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Quick answers to the questions parents and young beginners ask most.",
+    "items": [
+      {
+        "question": "At what age can children start learning chess?",
+        "answer": "Ages 5-6 are usually ideal to start chess. Children can easily grasp piece movements and simple rules at this age."
+      },
+      {
+        "question": "Is any prior experience required to begin?",
+        "answer": "No previous experience is needed. Lessons start from board squares and piece names, explained in simple terms."
+      },
+      {
+        "question": "How does chess support a child's development?",
+        "answer": "Chess fosters logical thinking, concentration, patience, spatial awareness, and decisive problem-solving."
+      },
+      {
+        "question": "How do we register for lessons?",
+        "answer": "You can sign up by clicking the \"Join\" button in the navbar or leaving your phone number in the contact form."
+      },
+      {
+        "question": "Is it necessary to play against opponents right away?",
+        "answer": "Not at all. In the beginning, learning the rules, piece movements, and solving fun puzzles is much more important."
+      }
+    ]
+  },
+  "history": {
+    "title": "Chess Heritage of Azerbaijan",
+    "lead": "Azerbaijan has a deep chess heritage and an internationally celebrated chess academy.",
+    "paragraphs": [
+      "In the East, chess has been revered for centuries as the royal game of intellect; the celebrated poet Nizami Ganjavi wove chess terminology into his timeless verse.",
+      "In modern times, Azerbaijani teams have claimed European Championships, nurturing numerous world-renowned grandmasters.",
+      "Enthusiasm among children continues to grow, and our academy is dedicated to providing young learners with an inspiring foundation."
+    ],
+    "stat1Value": "3 Times",
+    "stat1Desc": "Men's National Team: European Champions (2009, 2013, 2017)",
+    "stat2Value": "Top Rank",
+    "stat2Desc": "Leading global positions according to official FIDE ratings",
+    "gmTitle": "Renowned Azerbaijani Grandmasters",
+    "grandmasters": [
+      {
+        "name": "Shakhriyar Mamedyarov",
+        "title": "Grandmaster, World Championship Candidate, European Team Champion"
+      },
+      {
+        "name": "Teimour Radjabov",
+        "title": "Grandmaster, FIDE World Cup Winner"
+      },
+      {
+        "name": "Vugar Gashimov",
+        "title": "Late Grandmaster, brilliant tactician and European Team Champion"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Enroll in Chess Lessons",
+    "subtitle": "Leave your phone number or email, and our coaches will get in touch with you.",
+    "contactType": "Contact method",
+    "phone": "Phone",
+    "email": "Email",
+    "phoneLabel": "Phone number",
+    "emailLabel": "Email address",
+    "phonePlaceholder": "+994 50 123 45 67",
+    "emailPlaceholder": "name@example.com",
+    "submit": "Submit request",
+    "submitting": "Sending...",
+    "disclaimer": "Your information remains private and is strictly used to coordinate lesson inquiries.",
+    "successTitle": "Your request has been received",
+    "successDesc": "Our coaches will contact you as soon as possible.",
+    "newRequest": "Send another request",
+    "errorEmptyPhone": "Please enter your phone number.",
+    "errorEmptyEmail": "Please enter your email address.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorInvalidPhone": "Please enter a valid phone number."
+  },
+  "sandbox": {
+    "title": "Chess Position Sandbox",
+    "subtitle": "Pick a piece from the palette and place it on any square. Easily export the position's FEN code.",
+    "whiteView": "White's perspective",
+    "blackView": "Black's perspective",
+    "flipTitle": "Flip board",
+    "resetTitle": "Reset to starting position",
+    "clearTitle": "Clear board",
+    "paletteTitle": "Piece Palette",
+    "paletteSubtitle": "Select a piece and click on a square to place it.",
+    "whitePieces": "White pieces",
+    "blackPieces": "Black pieces",
+    "trashMode": "Erase mode",
+    "clearBtn": "Clear",
+    "fenCode": "FEN Code",
+    "copy": "Copy",
+    "copied": "Copied",
+    "flipBtn": "Flip",
+    "resetBtn": "Starting position",
+    "modeLabel": "Mode",
+    "moveMode": "Move piece",
+    "deleteMode": "Remove piece",
+    "pieceCounts": "{white} white · {black} black",
+    "helper": "Select a piece and click a square to place it. Click a piece already on the board to relocate it.",
+    "whiteTitle": "White piece",
+    "blackTitle": "Black piece",
+    "startBtn": "Start",
+    "endBtn": "End",
+    "turnLabel": "Turn",
+    "whiteTurn": "White",
+    "blackTurn": "Black",
+    "startingTurnHint": "In the starting position, White moves first.",
+    "notationTitle": "Notation",
+    "capturedTitle": "Captured",
+    "advantage": "Material advantage",
+    "even": "Even",
+    "whiteAhead": "White +{n}",
+    "blackAhead": "Black +{n}",
+    "check": "Check!",
+    "checkmate": "Checkmate!",
+    "stalemate": "Stalemate.",
+    "draw": "Draw.",
+    "errKings": "Each side must have exactly one king to start a game.",
+    "playModeHint": "Select your piece, then a legal target square."
+  },
+  "play": {
+    "localTab": "Local game",
+    "onlineTab": "Online game",
+    "localHint": "Two players take turns on the same device.",
+    "newGame": "New game",
+    "leaveRoom": "Leave room",
+    "roomCode": "Room code",
+    "inviteLink": "Invite link",
+    "copyLink": "Copy link",
+    "copied": "Copied",
+    "copyFailed": "Could not copy the link.",
+    "rpcMissing": "Supabase game functions are missing. Run the SQL script and reload the schema cache.",
+    "shareHint": "Share this link with your opponent or tell them the room code.",
+    "youAreWhite": "You play White",
+    "youAreBlack": "You play Black",
+    "waitingOpponent": "Waiting for an opponent to join the room.",
+    "yourTurn": "It is your turn.",
+    "opponentTurn": "It is your opponent's turn.",
+    "checkingAuth": "Checking sign-in status...",
+    "onlineUnavailable": "Supabase is not configured for online play.",
+    "onlineRequiresAuth": "Sign in to play online",
+    "onlineRequiresAuthHint": "Local play is available without an account.",
+    "loginRequired": "Please sign in before playing online.",
+    "loginBtn": "Sign up or sign in",
+    "createRoom": "Create a room",
+    "randomMatch": "Start game",
+    "searching": "Searching for an opponent...",
+    "cancelSearch": "Cancel search",
+    "searchingHint": "Waiting for an opponent with the same time control. A room is created only when an opponent is found.",
+    "colorTitle": "Color",
+    "color": {
+      "w": "White",
+      "b": "Black",
+      "random": "Random"
+    },
+    "joinTitle": "Join by room code",
+    "codePlaceholder": "E.G. A1B2C3D4",
+    "joinBtn": "Join",
+    "clockTitle": "Clock",
+    "timeControlTitle": "Time control",
+    "category": {
+      "bullet": "Bullet",
+      "blitz": "Blitz",
+      "rapid": "Rapid",
+      "classical": "Classical"
+    },
+    "customLabel": "Custom",
+    "minutesLabel": "Minutes",
+    "minutesShort": "min",
+    "incrementLabel": "Increment per move (seconds)",
+    "incrementShort": "sec",
+    "timeOut": "Time out — {color} lost.",
+    "timeExpired": "Time out."
+  },
+  "books": {
+    "title": "Chess Books and Manuals",
+    "subtitle": "Read online or download curated learning materials for kids and chess enthusiasts.",
+    "searchPlaceholder": "Search by title or author...",
+    "filterAll": "All",
+    "filterBeginner": "Beginner",
+    "filterIntermediate": "Intermediate",
+    "filterAdvanced": "Advanced",
+    "pdfBadge": "PDF manual",
+    "author": "Author: {author}",
+    "viewBtn": "Read",
+    "downloadBtn": "Download",
+    "downloadTitle": "Download file",
+    "emptyLibrary": "The library is currently empty",
+    "emptySearch": "No books match your search",
+    "emptyLibraryDesc": "New chess materials and books will be added shortly.",
+    "emptySearchDesc": "Try a different search word or reset the active filter.",
+    "resetFilter": "Reset filter",
+    "errorLoading": "Error loading library books"
+  },
+  "auth": {
+    "createAccount": "Create Account",
+    "signIn": "Sign In",
+    "signUpSubtitle": "Sign up to begin your chess learning journey",
+    "signInSubtitle": "Sign in to your personal dashboard",
+    "googleContinue": "Continue with Google",
+    "orEmailPhone": "or email / phone",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "emailOrPhone": "Email or Phone",
+    "emailOrPhonePlaceholder": "name@example.com or phone",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submitSignUp": "Register",
+    "submitSignIn": "Sign In",
+    "pleaseWait": "Please wait...",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "signInLink": "Sign in",
+    "signUpLink": "Sign up",
+    "errIdentifier": "Please enter your email address or phone number.",
+    "errPasswordLength": "Password must be at least 6 characters.",
+    "errFullName": "Please enter your full name.",
+    "successSignUp": "Registration complete.",
+    "successSignIn": "Successfully signed in.",
+    "checkEmail": "Registration received. Click the link sent to your email to confirm your account.",
+    "errAlreadyRegistered": "An account with this email already exists. Sign in or check your email.",
+    "errAuthFailed": "Incorrect email or password.",
+    "errGoogle": "An error occurred during Google sign in.",
+    "errGeneral": "An error occurred."
+  },
+  "footer": {
+    "desc": "Chess educational platform created for children and beginners.",
+    "socials": "Social media:",
+    "learningSections": "Learning Sections",
+    "board": "The Chessboard",
+    "pieces": "Pieces and Rules",
+    "goals": "Check, Mate and Stalemate",
+    "specialMoves": "Special Moves",
+    "tips": "6 Golden Rules",
+    "academy": "Academy",
+    "teachers": "Our Coaches",
+    "books": "Chess Books",
+    "history": "Azerbaijan Chess History",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "tools": "Tools",
+    "setupBoard": "Analysis",
+    "auth": "Sign Up & Login",
+    "copyright": "© {year} Chess School. All rights reserved.",
+    "credit": "Şahmat fiqurları: Cburnett (Colin M.L. Burnett), Wikimedia Commons"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "desc": "The page you are looking for does not exist or has been moved.",
+    "homeBtn": "Return to Home"
+  }
+}
