@@ -1,14 +1,14 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   AlertCircle,
   BookOpen,
-  Check,
   Download,
+  LoaderCircle,
   LogOut,
-  Moon,
-  Sun,
+  Pencil,
   UserRound,
 } from 'lucide-react';
 import { Book } from '@/lib/siteData';
@@ -20,10 +20,12 @@ import { useLanguage } from './LanguageProvider';
 import { useTheme } from './ThemeProvider';
 
 interface ProfileClientProps {
-  user: { id: string; name: string; email: string } | null;
+  user: { id: string; name: string; email: string; photo: string | null } | null;
   books: Book[];
   error: string | null;
 }
+
+const MAX_PHOTO_BYTES = 2 * 1024 * 1024;
 
 const LEVEL_KEYS: Record<Book['level'], string> = {
   beginner: 'books.filterBeginner',
@@ -44,6 +46,10 @@ function getDownloadUrl(book: Book) {
 export function ProfileClient({ user, books, error }: ProfileClientProps) {
   const { t } = useLanguage();
   const { theme, setTheme } = useTheme();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [photo, setPhoto] = useState<string | null>(user?.photo || null);
+  const [photoError, setPhotoError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
   const initial = (user?.name || 'U').charAt(0).toUpperCase();
 
   const handleLogout = async () => {
@@ -58,40 +64,116 @@ export function ProfileClient({ user, books, error }: ProfileClientProps) {
     window.location.href = '/';
   };
 
-  const themeOptions = [
-    {
-      id: 'light' as const,
-      label: t('profile.themeLight'),
-      icon: Sun,
-    },
-    {
-      id: 'dark' as const,
-      label: t('profile.themeDark'),
-      icon: Moon,
-    },
-  ];
+  const handlePhotoChange = async (file?: File | null) => {
+    if (!file || !user) return;
+    setPhotoError(null);
+
+    if (!file.type.startsWith('image/')) {
+      setPhotoError(t('profile.photoType'));
+      return;
+    }
+
+    if (file.size > MAX_PHOTO_BYTES) {
+      setPhotoError(t('profile.photoLimit'));
+      return;
+    }
+
+    if (!isSupabaseConfigured()) {
+      setPhotoError(t('profile.photoError'));
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const supabase = createClient();
+      // One file per user; upsert replaces the previous photo.
+      const path = `${user.id}/avatar`;
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(path, file, {
+          contentType: file.type,
+          upsert: true,
+        });
+
+      if (uploadError) throw uploadError;
+
+      const publicUrl = supabase.storage
+        .from('avatars')
+        .getPublicUrl(path).data.publicUrl;
+      // Eyni path üzərində yenidən yükləmədə keşlənmiş köhnə şəklin göstərilməməsi üçün.
+      const photoUrl = `${publicUrl}?v=${Date.now()}`;
+
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ photo: photoUrl })
+        .eq('id', user.id);
+
+      if (updateError) throw updateError;
+      setPhoto(photoUrl);
+    } catch {
+      setPhotoError(t('profile.photoError'));
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
   return (
     <div className="max-w-[900px] mx-auto space-y-6">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-8">
-        <div className="w-16 h-16 rounded-full mx-auto mb-4 bg-[var(--sage-100)] border border-[var(--border)] text-[var(--primary)] flex items-center justify-center shadow-xs">
-          {user ? (
-            <span className="font-serif text-2xl">{initial}</span>
-          ) : (
-            <UserRound className="w-7 h-7" />
+        <div className="relative w-16 h-16 mx-auto mb-4">
+          <div className="w-full h-full rounded-full overflow-hidden bg-[var(--sage-100)] border border-[var(--border)] text-[var(--primary)] flex items-center justify-center shadow-xs">
+            {user && photo ? (
+              <img
+                src={photo}
+                alt={user.name}
+                className="w-full h-full object-cover"
+              />
+            ) : user ? (
+              <span className="font-serif text-2xl">{initial}</span>
+            ) : (
+              <UserRound className="w-7 h-7" />
+            )}
+          </div>
+          {user && (
+            <>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                aria-label={t('profile.photoEdit')}
+                title={t('profile.photoEdit')}
+                className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-[var(--primary)] text-[var(--surface)] border-2 border-[var(--surface)] flex items-center justify-center shadow-sm cursor-pointer disabled:opacity-60"
+              >
+                {uploading ? (
+                  <LoaderCircle className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Pencil className="w-3.5 h-3.5" />
+                )}
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(event) =>
+                  handlePhotoChange(event.target.files?.[0])
+                }
+              />
+            </>
           )}
         </div>
         <h1 className="font-serif text-[clamp(2rem,4vw,2.75rem)] font-normal text-[var(--ink)] tracking-tight leading-[1.1]">
-          {t('profile.title')}
+          {user ? user.name : t('profile.title')}
         </h1>
-        <p className="mt-2 text-[var(--ink-muted)] text-sm sm:text-base leading-relaxed">
-          {user ? t('profile.subtitle') : t('profile.guestSubtitle')}
-        </p>
         {!user && (
           <span className="inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--sage-100)] text-[var(--primary)] border border-[var(--border)]">
             {t('profile.guestBadge')}
           </span>
+        )}
+        {photoError && (
+          <p className="mt-2 text-xs text-[var(--danger)]">{photoError}</p>
         )}
       </div>
 
@@ -105,38 +187,30 @@ export function ProfileClient({ user, books, error }: ProfileClientProps) {
         </div>
       )}
 
-      {/* Theme selection - available to guests and members */}
+      {/* Theme toggle - available to guests and members */}
       <section className="bg-[var(--surface)] rounded-[18px] border border-[var(--border)] p-5 sm:p-6 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
-        <h2 className="font-serif text-xl font-normal text-[var(--ink)]">
-          {t('profile.themeTitle')}
-        </h2>
-        <p className="text-xs text-[var(--ink-muted)] mt-1 mb-4">
-          {t('profile.themeDesc')}
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {themeOptions.map((option) => {
-            const Icon = option.icon;
-            const active = theme === option.id;
-            return (
-              <button
-                key={option.id}
-                type="button"
-                onClick={() => setTheme(option.id)}
-                aria-pressed={active}
-                className={`flex items-center justify-between gap-3 px-4 py-3.5 rounded-[14px] border text-sm font-semibold transition-colors cursor-pointer ${
-                  active
-                    ? 'bg-[var(--sage-100)] border-[var(--primary)] text-[var(--ink)]'
-                    : 'bg-[var(--bg)] border-[var(--border)] text-[var(--ink-muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'
-                }`}
-              >
-                <span className="flex items-center gap-2.5">
-                  <Icon className="w-4.5 h-4.5 text-[var(--primary)]" />
-                  {option.label}
-                </span>
-                {active && <Check className="w-4 h-4 text-[var(--primary)]" />}
-              </button>
-            );
-          })}
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-sm font-semibold text-[var(--ink)]">
+            {t('profile.darkMode')}
+          </span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={theme === 'dark'}
+            aria-label={t('profile.darkMode')}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className={`relative w-12 h-7 shrink-0 rounded-full border transition-colors cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-[var(--primary)] border-[var(--primary)]'
+                : 'bg-[var(--bg)] border-[var(--border)]'
+            }`}
+          >
+            <span
+              className={`absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[var(--surface)] shadow-sm transition-[left] ${
+                theme === 'dark' ? 'left-6' : 'left-1'
+              }`}
+            />
+          </button>
         </div>
       </section>
 

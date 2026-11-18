@@ -44,6 +44,8 @@ Windows PowerShell üçün `npm.cmd` istifadə edin.
 
 Profil və tema üçün `supabase-profile-theme.sql` faylını icra edin: `profiles.theme` sahəsi, hər istifadəçinin aldığı kitabları saxlayan `public.user_books` cədvəli və RLS qaydaları yaranır. Admin paneli bu cədvələ `(user_id, book_id)` cütlüyü yazaraq kitab təyin edir.
 
+Profil şəkilləri üçün `supabase-profile-photo.sql` faylını icra edin: ictimai `avatars` bucket və hər istifadəçinin yalnız öz qovluğuna yazmasına icazə verən Storage RLS qaydaları yaranır. `profiles.photo` sahəsinə əlavə dəyişiklik tələb olunmur; buraya şəklin ictimai URL-i yazılır. Şəkil ölçüsü 2 MB ilə məhduddur: yoxlama həm brauzerdə, həm də bucket-in `file_size_limit` parametrində qoyulub.
+
 Kitab PDF-ləri `book-files` adlı private bucket-da saxlanılır. Fayllar `/api/books/download?path=...` üzərindən qısaömürlü signed URL ilə verilir; service-role açarı istifadə olunmur.
 
 Deploy-dan sonra Supabase Auth üçün sayt URL-ni və redirect URL-lərini Vercel domenine uyğun təyin edin.
@@ -67,6 +69,7 @@ messages/               az.json, en.json, ru.json
 public/                 Loqo, fiqur SVG-ləri və müəllim şəkilləri
 proxy.ts                Supabase sessiyasının yenilənməsi və təhlükəsizlik header-ləri
 supabase-profile-theme.sql  Profil teması, istifadəçi kitabları və RLS
+supabase-profile-photo.sql  Profil şəkli üçün avatars bucket və Storage RLS
 ```
 
 Administrasiya interfeysi ayrı layihədədir və `public.admin_profiles` üzərindən icazə alır.

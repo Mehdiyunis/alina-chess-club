@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${dict.profile.title} - ${dict.meta.title}`,
-    description: dict.profile.subtitle,
+    description: dict.meta.description,
   };
 }
 
@@ -23,6 +23,7 @@ interface ProfileUser {
   id: string;
   name: string;
   email: string;
+  photo: string | null;
 }
 
 interface BookRow {
@@ -62,7 +63,7 @@ async function getProfileData(): Promise<{
 
     const { data: profile } = await supabase
       .from('profiles')
-      .select('full_name')
+      .select('full_name, photo')
       .eq('id', user.id)
       .maybeSingle();
 
@@ -84,6 +85,7 @@ async function getProfileData(): Promise<{
             user.email?.split('@')[0] ||
             'Tələbə',
           email: user.email || '',
+          photo: profile?.photo || null,
         },
         books: [],
         error: error.message,
@@ -118,6 +120,7 @@ async function getProfileData(): Promise<{
           user.email?.split('@')[0] ||
           'Tələbə',
         email: user.email || '',
+        photo: profile?.photo || null,
       },
       books,
       error: null,

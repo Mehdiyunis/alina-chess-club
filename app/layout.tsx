@@ -5,6 +5,8 @@ import { VisitTracker } from '@/components/VisitTracker';
 import { LanguageProvider } from '@/components/LanguageProvider';
 import { LanguageSync } from '@/components/LanguageSync';
 import { ThemeProvider, Theme } from '@/components/ThemeProvider';
+import { AuthProvider } from '@/components/AuthProvider';
+import { UserProfile } from '@/lib/types';
 import { getLocale, getDictionary } from '@/lib/i18n';
 import { createClient } from '@/lib/supabase/server';
 import { getSupabaseConfig } from '@/lib/supabase/config';
@@ -57,12 +59,13 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-async function getThemeState(): Promise<{
+async function getSessionState(): Promise<{
   theme: Theme;
   isAuthenticated: boolean;
+  user: UserProfile | null;
 }> {
   if (!getSupabaseConfig().isConfigured) {
-    return { theme: 'light', isAuthenticated: false };
+    return { theme: 'light', isAuthenticated: false, user: null };
   }
 
   try {
@@ -72,21 +75,32 @@ async function getThemeState(): Promise<{
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return { theme: 'light', isAuthenticated: false };
+      return { theme: 'light', isAuthenticated: false, user: null };
     }
 
-    const { data } = await supabase
+    const { data: profile } = await supabase
       .from('profiles')
-      .select('theme')
+      .select('theme, full_name')
       .eq('id', user.id)
       .maybeSingle();
 
     return {
-      theme: data?.theme === 'dark' ? 'dark' : 'light',
+      theme: profile?.theme === 'dark' ? 'dark' : 'light',
       isAuthenticated: true,
+      user: {
+        id: user.id,
+        full_name:
+          profile?.full_name ||
+          user.user_metadata?.full_name ||
+          user.email?.split('@')[0] ||
+          '',
+        created_at: user.created_at,
+        email: user.email,
+        phone: user.phone,
+      },
     };
   } catch {
-    return { theme: 'light', isAuthenticated: false };
+    return { theme: 'light', isAuthenticated: false, user: null };
   }
 }
 
@@ -97,7 +111,7 @@ export default async function RootLayout({
 }) {
   const locale = await getLocale();
   const dict = await getDictionary(locale);
-  const { theme, isAuthenticated } = await getThemeState();
+  const { theme, isAuthenticated, user } = await getSessionState();
 
   // Runs before paint: guests get the browser choice, members get the account choice.
   const themeScript = `(function(){try{var t=${JSON.stringify(
@@ -121,13 +135,15 @@ export default async function RootLayout({
         className="min-h-screen bg-[var(--bg)] text-[var(--ink)] font-sans antialiased selection:bg-[var(--primary-bg)]/20 selection:text-[var(--ink)]"
         suppressHydrationWarning
       >
-        <ThemeProvider initialTheme={theme} isAuthenticated={isAuthenticated}>
-          <LanguageProvider initialLocale={locale} initialDictionary={dict}>
-            <VisitTracker />
-            <LanguageSync />
-            {children}
-          </LanguageProvider>
-        </ThemeProvider>
+        <AuthProvider initialUser={user}>
+          <ThemeProvider initialTheme={theme} isAuthenticated={isAuthenticated}>
+            <LanguageProvider initialLocale={locale} initialDictionary={dict}>
+              <VisitTracker />
+              <LanguageSync />
+              {children}
+            </LanguageProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

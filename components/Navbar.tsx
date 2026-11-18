@@ -1,58 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
-import { UserProfile } from '@/lib/types';
 import { Menu, X, UserRound } from 'lucide-react';
+import { useAuth } from './AuthProvider';
 import { useLanguage } from './LanguageProvider';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const Navbar: React.FC = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<UserProfile | null>(null);
   const pathname = usePathname();
-
-  useEffect(() => {
-    async function loadUser() {
-      if (!isSupabaseConfigured()) {
-        return;
-      }
-
-      try {
-        const supabase = createClient();
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('full_name')
-            .eq('id', session.user.id)
-            .single();
-
-          setUser({
-            id: session.user.id,
-            full_name:
-              profile?.full_name ||
-              session.user.user_metadata?.full_name ||
-              session.user.email?.split('@')[0] ||
-              t('navbar.student'),
-            created_at: session.user.created_at,
-            email: session.user.email,
-            phone: session.user.phone,
-          });
-        } else {
-          setUser(null);
-        }
-      } catch (err) {
-        console.warn('Navbar loadUser error:', err);
-      }
-    }
-
-    loadUser();
-  }, [pathname, t]);
 
   const navLinks = [
     { label: t('navbar.home'), href: '/' },
