@@ -28,7 +28,6 @@ Görünüş rejimi varsayılan olaraq ağdır. Qonaqlar seçimi `localStorage`-d
 
 ```bash
 npm install
-cp .env.example .env.local
 ```
 
 `.env.local` faylına Supabase dəyərlərini yazın:
@@ -42,8 +41,6 @@ NEXT_PUBLIC_TRACK_LOCALHOST=false
 Windows PowerShell üçün `npm.cmd` istifadə edin.
 
 ## Supabase qurulumu
-
-Onlayn oyun, otaqlar və təsadüfi rəqib növbəsi üçün `supabase-online-play.sql` faylını Supabase SQL Editor-da icra edin. Script idempotentdır; 7 funksiya və `matchmaking_queue` cədvəli yaranır.
 
 Profil və tema üçün `supabase-profile-theme.sql` faylını icra edin: `profiles.theme` sahəsi, hər istifadəçinin aldığı kitabları saxlayan `public.user_books` cədvəli və RLS qaydaları yaranır. Admin paneli bu cədvələ `(user_id, book_id)` cütlüyü yazaraq kitab təyin edir.
 
@@ -70,8 +67,6 @@ messages/               az.json, en.json, ru.json
 public/                 Loqo, fiqur SVG-ləri və müəllim şəkilləri
 proxy.ts                Supabase sessiyasının yenilənməsi və təhlükəsizlik header-ləri
 supabase-profile-theme.sql  Profil teması, istifadəçi kitabları və RLS
-supabase-online-play.sql  Onlayn oyun üçün cədvəl, RLS və RPC-lər
-.env.example            Mühit dəyişənləri nümunəsi
 ```
 
 Administrasiya interfeysi ayrı layihədədir və `public.admin_profiles` üzərindən icazə alır.
