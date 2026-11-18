@@ -126,6 +126,16 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/updates" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
+                  {t('news.nav')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/tournaments" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
+                  {t('tournaments.nav')}
+                </Link>
+              </li>
+              <li>
                 <Link href="/#history" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.history')}
                 </Link>

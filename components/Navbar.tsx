@@ -20,6 +20,8 @@ export const Navbar: React.FC = () => {
     { label: t('navbar.play'), href: '/play' },
     { label: t('navbar.analysis'), href: '/analysis' },
     { label: t('navbar.books'), href: '/books' },
+    { label: t('news.nav'), href: '/updates' },
+    { label: t('tournaments.nav'), href: '/tournaments' },
   ];
 
   // Clean first name: remove any "(Google)" or provider tags, and extract first word

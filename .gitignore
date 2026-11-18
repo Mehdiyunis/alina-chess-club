@@ -11,3 +11,4 @@ bun.lock
 bun.lockb
 .env*
 !.env.example
+AGENTS.md

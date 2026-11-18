@@ -47,8 +47,12 @@ export interface Book {
 export const siteConfig = {
   name: 'Şahmat Məktəbi',
   tagline: 'Uşaqlar və yeni başlayanlar üçün aydın və sadə şahmat dərsləri',
+  // TODO: əsl nömrə verildikdə doldurun. WhatsApp üçün yalnız rəqəmlər (ölkə kodu ilə).
+  phone: '+994 70 974 19 27',
+  phoneHref: '',
+  whatsapp: '+994 70 974 19 27',
   socialLinks: [
-    { platform: 'Instagram', name: '@sahmat.mektebi', url: 'https://instagram.com/sahmat.mektebi', icon: 'instagram' },
+    { platform: 'Instagram', name: '@sahmat.mektebi', url: 'https://www.instagram.com/alina_chess_club/', icon: 'instagram' },
     { platform: 'Facebook', name: 'Şahmat Məktəbi', url: 'https://facebook.com/sahmatmektebi', icon: 'facebook' },
     { platform: 'YouTube', name: 'Şahmat Dərsləri', url: 'https://youtube.com/@sahmatdersleri', icon: 'youtube' },
     { platform: 'TikTok', name: '@sahmatdersi', url: 'https://tiktok.com/@sahmatdersi', icon: 'tiktok' },
