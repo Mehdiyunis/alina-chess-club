@@ -8,13 +8,13 @@ export function BeginnerTipsSection() {
   const tips = dict.tips?.items || [];
 
   return (
-    <section id="tips" className="py-16 lg:py-24 bg-[#F7F3EA] border-b border-[#E3DCCB]">
+    <section id="tips" className="py-16 lg:py-24 bg-[var(--bg)] border-b border-[var(--border)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <ScrollReveal direction="up" className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1E2A22] tracking-tight leading-[1.1]">
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[var(--ink)] tracking-tight leading-[1.1]">
             {t('tips.title')}
           </h2>
-          <p className="text-sm sm:text-base text-[#5E6B62] mt-2">
+          <p className="text-sm sm:text-base text-[var(--ink-muted)] mt-2">
             {t('tips.subtitle')}
           </p>
         </ScrollReveal>
@@ -26,16 +26,16 @@ export function BeginnerTipsSection() {
               key={tip.number || idx}
               direction={idx % 2 === 0 ? 'left' : 'right'}
               delay={Math.floor(idx / 2) * 0.1}
-              className="pb-6 border-b border-[#E3DCCB] flex items-start gap-4"
+              className="pb-6 border-b border-[var(--border)] flex items-start gap-4"
             >
-              <span className="text-lg font-serif font-bold text-[#B4532A] shrink-0 mt-0.5">
+              <span className="text-lg font-serif font-bold text-[var(--terracotta-text)] shrink-0 mt-0.5">
                 {tip.number}.
               </span>
               <div>
-                <h3 className="font-serif text-lg font-normal text-[#1E2A22] mb-1.5">
+                <h3 className="font-serif text-lg font-normal text-[var(--ink)] mb-1.5">
                   {tip.title}
                 </h3>
-                <p className="text-sm text-[#5E6B62] leading-relaxed">
+                <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
                   {tip.text}
                 </p>
               </div>

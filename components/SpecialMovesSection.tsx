@@ -77,13 +77,13 @@ export const SpecialMovesSection: React.FC = () => {
     (dict.specialMoves?.items as any)?.[selectedId]?.rules || [];
 
   return (
-    <section id="rules" className="py-16 lg:py-24 bg-[#EFE9DB] border-b border-[#E3DCCB]">
+    <section id="rules" className="py-16 lg:py-24 bg-[var(--bg-alt)] border-b border-[var(--border)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <ScrollReveal direction="up" className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1E2A22] tracking-tight leading-[1.1]">
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[var(--ink)] tracking-tight leading-[1.1]">
             {t('specialMoves.title')}
           </h2>
-          <p className="text-sm sm:text-base text-[#5E6B62] mt-2">
+          <p className="text-sm sm:text-base text-[var(--ink-muted)] mt-2">
             {t('specialMoves.subtitle')}
           </p>
         </ScrollReveal>
@@ -101,8 +101,8 @@ export const SpecialMovesSection: React.FC = () => {
                 }}
                 className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-                    : 'bg-[#FFFFFF] text-[#5E6B62] hover:text-[#1E2A22] border border-[#E3DCCB]'
+                    ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+                    : 'bg-[var(--surface)] text-[var(--ink-muted)] hover:text-[var(--ink)] border border-[var(--border)]'
                 }`}
               >
                 {t(`specialMoves.items.${item.id}.title`)}
@@ -115,25 +115,25 @@ export const SpecialMovesSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-4xl mx-auto">
           {/* Left: Explanation & Rules */}
           <ScrollReveal direction="left" className="lg:col-span-7 space-y-4">
-            <div className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-6 sm:p-7 space-y-3 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#B4532A]">
+            <div className="bg-[var(--surface)] rounded-[18px] border border-[var(--border)] p-6 sm:p-7 space-y-3 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--terracotta-text)]">
                 {t(`specialMoves.items.${selectedId}.subtitle`)}
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1E2A22]">
+              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[var(--ink)]">
                 {t(`specialMoves.items.${selectedId}.title`)}
               </h3>
-              <p className="text-sm text-[#5E6B62] leading-relaxed">
+              <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
                 {t(`specialMoves.items.${selectedId}.description`)}
               </p>
 
-              <div className="pt-3 border-t border-[#E3DCCB] space-y-2">
-                <span className="text-xs font-bold text-[#1E2A22] block">
+              <div className="pt-3 border-t border-[var(--border)] space-y-2">
+                <span className="text-xs font-bold text-[var(--ink)] block">
                   {t('specialMoves.mainConditions')}
                 </span>
-                <ul className="space-y-1.5 text-xs text-[#5E6B62]">
+                <ul className="space-y-1.5 text-xs text-[var(--ink-muted)]">
                   {rulesList.map((rule, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-[#B4532A] font-bold">·</span>
+                      <span className="text-[var(--terracotta-text)] font-bold">·</span>
                       <span className="leading-relaxed">{rule}</span>
                     </li>
                   ))}
@@ -144,18 +144,18 @@ export const SpecialMovesSection: React.FC = () => {
 
           {/* Right: Interactive Mini Board */}
           <ScrollReveal direction="right" className="lg:col-span-5 flex flex-col items-center">
-            <div className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-4 sm:p-5 w-full max-w-sm shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+            <div className="bg-[var(--surface)] rounded-[18px] border border-[var(--border)] p-4 sm:p-5 w-full max-w-sm shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
               <div className="flex items-center justify-between mb-3 px-1">
-                <span className="font-serif text-sm font-medium text-[#1E2A22]">
+                <span className="font-serif text-sm font-medium text-[var(--ink)]">
                   {t('specialMoves.demo')}
                 </span>
-                <div className="inline-flex rounded-full bg-[#EFE9DB] p-1 border border-[#E3DCCB]">
+                <div className="inline-flex rounded-full bg-[var(--bg-alt)] p-1 border border-[var(--border)]">
                   <button
                     onClick={() => setStep('before')}
                     className={`px-3 py-1 text-xs font-semibold rounded-full transition-all cursor-pointer ${
                       step === 'before'
-                        ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-                        : 'text-[#5E6B62] hover:text-[#1E2A22]'
+                        ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+                        : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
                     }`}
                   >
                     {t('specialMoves.before')}
@@ -164,8 +164,8 @@ export const SpecialMovesSection: React.FC = () => {
                     onClick={() => setStep('after')}
                     className={`px-3 py-1 text-xs font-semibold rounded-full transition-all cursor-pointer ${
                       step === 'after'
-                        ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-                        : 'text-[#5E6B62] hover:text-[#1E2A22]'
+                        ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+                        : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
                     }`}
                   >
                     {t('specialMoves.after')}
@@ -174,7 +174,7 @@ export const SpecialMovesSection: React.FC = () => {
               </div>
 
               {/* Board */}
-              <div className="aspect-square w-full rounded-[12px] overflow-hidden border border-[#E3DCCB] grid grid-cols-8 grid-rows-8 shadow-xs">
+              <div className="aspect-square w-full rounded-[12px] overflow-hidden border border-[var(--border)] grid grid-cols-8 grid-rows-8 shadow-xs">
                 {ranks.map((rank, rankIdx) =>
                   files.map((file, fileIdx) => {
                     const square = `${file}${rank}`;
@@ -203,7 +203,7 @@ export const SpecialMovesSection: React.FC = () => {
               </div>
 
               {/* Step indicator caption */}
-              <p className="mt-3 text-xs text-[#5E6B62] px-1">
+              <p className="mt-3 text-xs text-[var(--ink-muted)] px-1">
                 {t(`specialMoves.items.${selectedId}.stepDesc`)}
               </p>
             </div>

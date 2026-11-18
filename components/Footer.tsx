@@ -33,13 +33,13 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#1F3D2F] text-[#C9D3C4] pt-16 pb-12 border-t border-[#E3DCCB]">
+    <footer className="bg-[var(--dark)] text-[var(--on-dark-muted)] pt-16 pb-12 border-t border-[var(--border)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-[#C9D3C4]/20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-[var(--on-dark-muted)]/20">
           {/* Brand info (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
             <div className="flex items-center gap-3">
-              <div className="relative w-9 h-9 rounded-[10px] overflow-hidden bg-[#FFFFFF] border border-[#E3DCCB] shadow-xs shrink-0 flex items-center justify-center">
+              <div className="relative w-9 h-9 rounded-[10px] overflow-hidden bg-[var(--surface)] border border-[var(--border)] shadow-xs shrink-0 flex items-center justify-center">
                 <Image
                   src="/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png"
                   alt="ALİNA Chess Club"
@@ -50,12 +50,12 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-xs text-[#C9D3C4] max-w-sm leading-relaxed">
+            <p className="text-xs text-[var(--on-dark-muted)] max-w-sm leading-relaxed">
               {t('footer.desc')}
             </p>
 
             <div className="pt-2">
-              <span className="text-xs font-semibold text-[#F7F3EA] block mb-2">
+              <span className="text-xs font-semibold text-[var(--on-primary)] block mb-2">
                 {t('footer.socials')}
               </span>
               <div className="flex flex-wrap items-center gap-2">
@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-[#1F3D2F] hover:bg-[#F6E7B4] text-[#F7F3EA] hover:text-[#1E2A22] transition-all flex items-center justify-center border border-[#C9D3C4]/30 shadow-xs"
+                    className="w-9 h-9 rounded-full bg-[var(--dark)] hover:bg-[var(--butter)] text-[var(--on-primary)] hover:text-[var(--ink)] transition-all flex items-center justify-center border border-[var(--on-dark-muted)]/30 shadow-xs"
                     title={social.platform}
                   >
                     {getSocialIcon(social.platform)}
@@ -77,32 +77,32 @@ export const Footer: React.FC = () => {
 
           {/* Links 1: Dərslər */}
           <div className="space-y-2.5">
-            <h4 className="font-serif text-xs font-normal text-[#F7F3EA] uppercase tracking-wider">
+            <h4 className="font-serif text-xs font-normal text-[var(--on-primary)] uppercase tracking-wider">
               {t('footer.learningSections')}
             </h4>
             <ul className="space-y-1.5 text-xs">
               <li>
-                <Link href="/#board" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#board" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.board')}
                 </Link>
               </li>
               <li>
-                <Link href="/#pieces" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#pieces" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.pieces')}
                 </Link>
               </li>
               <li>
-                <Link href="/#goals" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#goals" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.goals')}
                 </Link>
               </li>
               <li>
-                <Link href="/#rules" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#rules" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.specialMoves')}
                 </Link>
               </li>
               <li>
-                <Link href="/#tips" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#tips" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.tips')}
                 </Link>
               </li>
@@ -111,32 +111,32 @@ export const Footer: React.FC = () => {
 
           {/* Links 2: Akademiya */}
           <div className="space-y-2.5">
-            <h4 className="font-serif text-xs font-normal text-[#F7F3EA] uppercase tracking-wider">
+            <h4 className="font-serif text-xs font-normal text-[var(--on-primary)] uppercase tracking-wider">
               {t('footer.academy')}
             </h4>
             <ul className="space-y-1.5 text-xs">
               <li>
-                <Link href="/#teachers" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#teachers" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.teachers')}
                 </Link>
               </li>
               <li>
-                <Link href="/books" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/books" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.books')}
                 </Link>
               </li>
               <li>
-                <Link href="/#history" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#history" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.history')}
                 </Link>
               </li>
               <li>
-                <Link href="/#faq" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#faq" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.faq')}
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/#contact" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.contact')}
                 </Link>
               </li>
@@ -145,27 +145,27 @@ export const Footer: React.FC = () => {
 
           {/* Links 3: Alətlər */}
           <div className="space-y-2.5">
-            <h4 className="font-serif text-xs font-normal text-[#F7F3EA] uppercase tracking-wider">
+            <h4 className="font-serif text-xs font-normal text-[var(--on-primary)] uppercase tracking-wider">
               {t('footer.tools')}
             </h4>
             <ul className="space-y-1.5 text-xs">
               <li>
-                <Link href="/play" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/play" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('navbar.play')}
                 </Link>
               </li>
               <li>
-                <Link href="/analysis" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/analysis" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.setupBoard')}
                 </Link>
               </li>
               <li>
-                <Link href="/books" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/books" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.books')}
                 </Link>
               </li>
               <li>
-                <Link href="/auth" className="text-[#C9D3C4] hover:text-[#F6E7B4] transition-colors">
+                <Link href="/auth" className="text-[var(--on-dark-muted)] hover:text-[var(--butter-text)] transition-colors">
                   {t('footer.auth')}
                 </Link>
               </li>
@@ -174,9 +174,9 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar: Copyright and SVG License Attribution */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#C9D3C4]/80">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--on-dark-muted)]/80">
           <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-          <p className="text-[11px] text-[#C9D3C4]/60 text-center sm:text-right">
+          <p className="text-[11px] text-[var(--on-dark-muted)]/60 text-center sm:text-right">
             {t('footer.credit')}
           </p>
         </div>

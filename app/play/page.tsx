@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function PlayPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F3EA] text-[#1E2A22]">
+    <div className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--ink)]">
       <Navbar />
 
       <main className="flex-1">

@@ -38,7 +38,7 @@ export default async function HomePage() {
   const teachers = await getTeachersData();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F3EA] text-[#1E2A22]">
+    <div className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--ink)]">
       {/* Sticky Navigation */}
       <Navbar />
 

@@ -189,7 +189,7 @@ export function PlayBoard({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-start">
         <div className="lg:col-span-8 flex justify-start min-w-0">
           <div className="w-full max-w-[min(100%,calc(100dvh-5.5rem))]">
-            <div className="aspect-square w-full rounded-[16px] overflow-hidden border-2 border-[#1E2A22]/20 grid grid-cols-8 grid-rows-8 select-none shadow-[0_8px_30px_rgba(30,42,34,0.12)]">
+            <div className="aspect-square w-full rounded-[16px] overflow-hidden border-2 border-[var(--ink)]/20 grid grid-cols-8 grid-rows-8 select-none shadow-[0_8px_30px_rgba(30,42,34,0.12)]">
               {displayRanks.map((rank, rankIdx) =>
                 displayFiles.map((file, fileIdx) => {
                   const square = `${file}${rank}`;
@@ -208,16 +208,16 @@ export function PlayBoard({
                         canMove && !busy ? 'cursor-pointer' : 'cursor-default'
                       } ${
                         isSelected
-                          ? '!bg-[#F6E7B4] ring-4 ring-[#2F5D46] ring-inset z-10'
+                          ? '!bg-[var(--butter)] ring-4 ring-[var(--primary)] ring-inset z-10'
                           : isTarget && piece
-                          ? 'ring-4 ring-[#2F5D46]/60 ring-inset z-10'
+                          ? 'ring-4 ring-[var(--primary)]/60 ring-inset z-10'
                           : isLight
                           ? 'bg-[#EEEED2] hover:bg-[#e6e6c2]'
                           : 'bg-[#769656] hover:bg-[#6c8b4e]'
                       }`}
                     >
                       {isTarget && !piece && (
-                        <span className="absolute w-[30%] h-[30%] rounded-full bg-[#2F5D46]/55 pointer-events-none z-10" />
+                        <span className="absolute w-[30%] h-[30%] rounded-full bg-[var(--primary-bg)]/55 pointer-events-none z-10" />
                       )}
                       {piece && (
                         <div className="w-[88%] h-[88%] pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
@@ -251,15 +251,15 @@ export function PlayBoard({
         </div>
 
         <div className="lg:col-span-4 space-y-4">
-          <div className="bg-[#FFFFFF] rounded-[24px] border border-[#E3DCCB] p-4 sm:p-5 space-y-5 shadow-[0_4px_24px_rgba(30,42,34,0.06)]">
+          <div className="bg-[var(--surface)] rounded-[24px] border border-[var(--border)] p-4 sm:p-5 space-y-5 shadow-[0_4px_24px_rgba(30,42,34,0.06)]">
             {clock && (
-              <div className="rounded-[16px] bg-[#F7F3EA] border border-[#E3DCCB] p-4 space-y-2">
+              <div className="rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-4 space-y-2">
                 <div className="flex items-center justify-between px-1">
-                  <span className="text-[12px] font-bold uppercase tracking-wider text-[#5E6B62]">
+                  <span className="text-[12px] font-bold uppercase tracking-wider text-[var(--ink-muted)]">
                     {t('play.clockTitle')}
                   </span>
                   {timeLabel && (
-                    <span className="font-mono text-[14px] font-bold text-[#2F5D46]">
+                    <span className="font-mono text-[14px] font-bold text-[var(--primary)]">
                       {timeLabel}
                     </span>
                   )}
@@ -274,15 +274,15 @@ export function PlayBoard({
                         key={side}
                         className={`rounded-[12px] px-3 py-3 border transition-colors ${
                           isFlagged
-                            ? 'bg-[#FCE8E6] border-[#E5A19B]'
+                            ? 'bg-[var(--danger-bg)] border-[#E5A19B]'
                             : isActive
-                            ? 'bg-[#2F5D46] border-[#2F5D46]'
-                            : 'bg-[#FFFFFF] border-[#E3DCCB]'
+                            ? 'bg-[var(--primary-bg)] border-[var(--primary)]'
+                            : 'bg-[var(--surface)] border-[var(--border)]'
                         }`}
                       >
                         <span
                           className={`block text-[12px] font-bold uppercase tracking-wider ${
-                            isActive && !isFlagged ? 'text-[#DCE8D2]' : 'text-[#5E6B62]'
+                            isActive && !isFlagged ? 'text-[#DCE8D2]' : 'text-[var(--ink-muted)]'
                           }`}
                         >
                           {side === 'w' ? t('sandbox.whiteTurn') : t('sandbox.blackTurn')}
@@ -291,11 +291,11 @@ export function PlayBoard({
                           className={`block font-mono text-2xl font-bold leading-tight ${
                             isFlagged || value <= 10000
                               ? isActive && !isFlagged
-                                ? 'text-[#FFD7D3]'
-                                : 'text-[#B3261E]'
+                                ? 'text-[var(--danger)]'
+                                : 'text-[var(--danger)]'
                               : isActive
-                              ? 'text-[#F7F3EA]'
-                              : 'text-[#1E2A22]'
+                              ? 'text-[var(--on-primary)]'
+                              : 'text-[var(--ink)]'
                           }`}
                         >
                           {formatClock(value)}
@@ -312,7 +312,7 @@ export function PlayBoard({
                 {(['b', 'w'] as const).map((side) => {
                   const extra =
                     aheadSide === side ? (
-                      <span className="font-mono text-[10px] font-bold text-[#2F5D46]">
+                      <span className="font-mono text-[10px] font-bold text-[var(--primary)]">
                         +{Math.abs(materialDiff)}
                       </span>
                     ) : null;
@@ -347,18 +347,18 @@ export function PlayBoard({
             )}
 
             {moves.length > 0 && (
-              <div className="rounded-[16px] bg-[#F7F3EA] border border-[#E3DCCB] p-4">
-                <span className="text-[15px] font-bold uppercase tracking-wider text-[#5E6B62] block mb-2">
+              <div className="rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-4">
+                <span className="text-[15px] font-bold uppercase tracking-wider text-[var(--ink-muted)] block mb-2">
                   {t('sandbox.notationTitle')}
                 </span>
-                <div className="max-h-44 overflow-y-auto rounded-[12px] border border-[#E3DCCB] bg-[#FFFFFF] divide-y divide-[#E3DCCB]">
+                <div className="max-h-44 overflow-y-auto rounded-[12px] border border-[var(--border)] bg-[var(--surface)] divide-y divide-[var(--border)]">
                   {Array.from({ length: Math.ceil(moves.length / 2) }, (_, i) => (
                     <div
                       key={i}
-                      className="grid grid-cols-[2.25rem_1fr_1fr] gap-2.5 px-3 py-2 text-[15px] font-mono text-[#1E2A22] items-center"
+                      className="grid grid-cols-[2.25rem_1fr_1fr] gap-2.5 px-3 py-2 text-[15px] font-mono text-[var(--ink)] items-center"
                     >
-                      <span className="text-[#5E6B62]">{i + 1}.</span>
-                      <span className="font-semibold text-[#2F5D46]">{moves[i * 2]?.san}</span>
+                      <span className="text-[var(--ink-muted)]">{i + 1}.</span>
+                      <span className="font-semibold text-[var(--primary)]">{moves[i * 2]?.san}</span>
                       <span>{moves[i * 2 + 1]?.san ?? ''}</span>
                     </div>
                   ))}
@@ -370,23 +370,23 @@ export function PlayBoard({
 
             <button
               onClick={() => setFlipped(!flipped)}
-              className="w-full inline-flex items-center justify-center gap-2 px-3 py-3.5 rounded-[12px] bg-[#EFE9DB] border border-[#E3DCCB] text-[14px] font-semibold text-[#1E2A22] hover:bg-[#E4EBD9] transition-colors cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 px-3 py-3.5 rounded-[12px] bg-[var(--bg-alt)] border border-[var(--border)] text-[14px] font-semibold text-[var(--ink)] hover:bg-[var(--sage-100)] transition-colors cursor-pointer"
             >
               <RotateCw className="w-[18px] h-[18px] shrink-0" />
               <span>{t('sandbox.flipBtn')}</span>
             </button>
 
-            <div className="pt-4 border-t border-[#E3DCCB] space-y-2">
-              <p className="text-[14px] text-[#5E6B62] leading-relaxed">
+            <div className="pt-4 border-t border-[var(--border)] space-y-2">
+              <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed">
                 {infoText ?? (canMove ? t('sandbox.playModeHint') : null)}
               </p>
               {shownStatus && (
-                <p className="text-[15px] font-bold text-[#2F5D46] bg-[#E4EBD9] border border-[#C9D9BC] rounded-[10px] px-3 py-3">
+                <p className="text-[15px] font-bold text-[var(--primary)] bg-[var(--sage-100)] border border-[#C9D9BC] rounded-[10px] px-3 py-3">
                   {shownStatus}
                 </p>
               )}
               {errorText && (
-                <p className="text-[14px] leading-relaxed text-[#B3261E] bg-rose-50 border border-rose-200 rounded-[10px] px-3 py-3">
+                <p className="text-[14px] leading-relaxed text-[var(--danger)] bg-rose-50 border border-rose-200 rounded-[10px] px-3 py-3">
                   {errorText}
                 </p>
               )}

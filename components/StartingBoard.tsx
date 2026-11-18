@@ -62,13 +62,13 @@ export const StartingBoard: React.FC = () => {
   };
 
   return (
-    <section id="board" className="py-16 lg:py-24 bg-[#F7F3EA] border-b border-[#E3DCCB]">
+    <section id="board" className="py-16 lg:py-24 bg-[var(--bg)] border-b border-[var(--border)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <ScrollReveal direction="up" className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1E2A22] tracking-tight leading-[1.1]">
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[var(--ink)] tracking-tight leading-[1.1]">
             {t('startingBoard.title')}
           </h2>
-          <p className="text-sm sm:text-base text-[#5E6B62] mt-2">
+          <p className="text-sm sm:text-base text-[var(--ink-muted)] mt-2">
             {t('startingBoard.subtitle')}
           </p>
         </ScrollReveal>
@@ -76,10 +76,10 @@ export const StartingBoard: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Visual Chessboard */}
           <ScrollReveal direction="left" className="lg:col-span-7 flex flex-col items-center justify-center">
-            <div className="p-3 sm:p-5 bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+            <div className="p-3 sm:p-5 bg-[var(--surface)] rounded-[18px] border border-[var(--border)] shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
               <div className="relative">
                 {/* Top Files Letters */}
-                <div className="grid grid-cols-8 text-center text-xs font-semibold text-[#5E6B62] pb-1.5 pl-6 pr-6">
+                <div className="grid grid-cols-8 text-center text-xs font-semibold text-[var(--ink-muted)] pb-1.5 pl-6 pr-6">
                   {files.map((f) => (
                     <span key={f}>{f}</span>
                   ))}
@@ -87,14 +87,14 @@ export const StartingBoard: React.FC = () => {
 
                 <div className="flex">
                   {/* Left Ranks Numbers */}
-                  <div className="flex flex-col justify-around text-xs font-semibold text-[#5E6B62] pr-2 w-6 text-right">
+                  <div className="flex flex-col justify-around text-xs font-semibold text-[var(--ink-muted)] pr-2 w-6 text-right">
                     {ranks.map((r) => (
                       <span key={r}>{r}</span>
                     ))}
                   </div>
 
                   {/* 8x8 Board Grid */}
-                  <div className="grid grid-cols-8 grid-rows-8 w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[420px] md:h-[420px] border border-[#E3DCCB] rounded-[12px] overflow-hidden shadow-xs">
+                  <div className="grid grid-cols-8 grid-rows-8 w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[420px] md:h-[420px] border border-[var(--border)] rounded-[12px] overflow-hidden shadow-xs">
                     {ranks.map((rank, rIdx) =>
                       files.map((file, fIdx) => {
                         const square = `${file}${rank}`;
@@ -126,7 +126,7 @@ export const StartingBoard: React.FC = () => {
                   </div>
 
                   {/* Right Ranks Numbers */}
-                  <div className="flex flex-col justify-around text-xs font-semibold text-[#5E6B62] pl-2 w-6 text-left">
+                  <div className="flex flex-col justify-around text-xs font-semibold text-[var(--ink-muted)] pl-2 w-6 text-left">
                     {ranks.map((r) => (
                       <span key={r}>{r}</span>
                     ))}
@@ -134,7 +134,7 @@ export const StartingBoard: React.FC = () => {
                 </div>
 
                 {/* Bottom Files Letters */}
-                <div className="grid grid-cols-8 text-center text-xs font-semibold text-[#5E6B62] pt-1.5 pl-6 pr-6">
+                <div className="grid grid-cols-8 text-center text-xs font-semibold text-[var(--ink-muted)] pt-1.5 pl-6 pr-6">
                   {files.map((f) => (
                     <span key={f}>{f}</span>
                   ))}
@@ -143,54 +143,54 @@ export const StartingBoard: React.FC = () => {
             </div>
 
             {/* Selected square feedback */}
-            <div className="mt-3.5 text-xs text-[#1E2A22] bg-[#FFFFFF] px-4 py-2 rounded-full border border-[#E3DCCB] shadow-xs">
+            <div className="mt-3.5 text-xs text-[var(--ink)] bg-[var(--surface)] px-4 py-2 rounded-full border border-[var(--border)] shadow-xs">
               {selectedSquare ? (
                 <span>
-                  {t('startingBoard.selectedSquare')}: <strong className="text-[#B4532A] font-bold">{selectedSquare.toUpperCase()}</strong>
+                  {t('startingBoard.selectedSquare')}: <strong className="text-[var(--terracotta-text)] font-bold">{selectedSquare.toUpperCase()}</strong>
                   {initialSetup[selectedSquare] && (
                     <span>: {getPieceName(initialSetup[selectedSquare].key)}</span>
                   )}
                 </span>
               ) : (
-                <span className="text-[#5E6B62]">{t('startingBoard.clickHint')}</span>
+                <span className="text-[var(--ink-muted)]">{t('startingBoard.clickHint')}</span>
               )}
             </div>
           </ScrollReveal>
 
           {/* Educational Guidelines (Clean Editorial Numbered List) */}
           <ScrollReveal direction="right" className="lg:col-span-5 space-y-4">
-            <div className="bg-[#FFFFFF] p-5 rounded-[18px] border border-[#E3DCCB] space-y-1.5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
-              <span className="text-xs font-serif font-bold text-[#B4532A] uppercase tracking-wider block">
+            <div className="bg-[var(--surface)] p-5 rounded-[18px] border border-[var(--border)] space-y-1.5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+              <span className="text-xs font-serif font-bold text-[var(--terracotta-text)] uppercase tracking-wider block">
                 {t('startingBoard.rule1Number')}
               </span>
-              <h3 className="font-serif text-lg font-normal text-[#1E2A22]">
+              <h3 className="font-serif text-lg font-normal text-[var(--ink)]">
                 {t('startingBoard.rule1Title')}
               </h3>
-              <p className="text-sm text-[#5E6B62] leading-relaxed">
+              <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
                 {t('startingBoard.rule1Text')}
               </p>
             </div>
 
-            <div className="bg-[#FFFFFF] p-5 rounded-[18px] border border-[#E3DCCB] space-y-1.5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
-              <span className="text-xs font-serif font-bold text-[#B4532A] uppercase tracking-wider block">
+            <div className="bg-[var(--surface)] p-5 rounded-[18px] border border-[var(--border)] space-y-1.5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+              <span className="text-xs font-serif font-bold text-[var(--terracotta-text)] uppercase tracking-wider block">
                 {t('startingBoard.rule2Number')}
               </span>
-              <h3 className="font-serif text-lg font-normal text-[#1E2A22]">
+              <h3 className="font-serif text-lg font-normal text-[var(--ink)]">
                 {t('startingBoard.rule2Title')}
               </h3>
-              <p className="text-sm text-[#5E6B62] leading-relaxed">
+              <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
                 {t('startingBoard.rule2Text')}
               </p>
             </div>
 
-            <div className="bg-[#FFFFFF] p-5 rounded-[18px] border border-[#E3DCCB] space-y-1.5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
-              <span className="text-xs font-serif font-bold text-[#B4532A] uppercase tracking-wider block">
+            <div className="bg-[var(--surface)] p-5 rounded-[18px] border border-[var(--border)] space-y-1.5 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+              <span className="text-xs font-serif font-bold text-[var(--terracotta-text)] uppercase tracking-wider block">
                 {t('startingBoard.rule3Number')}
               </span>
-              <h3 className="font-serif text-lg font-normal text-[#1E2A22]">
+              <h3 className="font-serif text-lg font-normal text-[var(--ink)]">
                 {t('startingBoard.rule3Title')}
               </h3>
-              <p className="text-sm text-[#5E6B62] leading-relaxed">
+              <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
                 {t('startingBoard.rule3Text')}
               </p>
             </div>

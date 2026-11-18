@@ -130,15 +130,15 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F3EA] text-[#1E2A22]">
+    <div className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--ink)]">
       <Navbar />
 
       <main className="flex-1 flex items-center justify-center py-16 px-4">
         <div className="w-full max-w-md">
-          <div className="bg-[#FFFFFF] border border-[#E3DCCB] rounded-[18px] p-6 sm:p-8 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+          <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[18px] p-6 sm:p-8 shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="relative w-14 h-14 mx-auto mb-3.5 rounded-[14px] overflow-hidden bg-[#FFFFFF] border border-[#E3DCCB] shadow-xs flex items-center justify-center">
+              <div className="relative w-14 h-14 mx-auto mb-3.5 rounded-[14px] overflow-hidden bg-[var(--surface)] border border-[var(--border)] shadow-xs flex items-center justify-center">
                 <Image
                   src="/assets/aistudio/Golden_Knight_Chess_Club_Emblem_a4cf73aa.png"
                   alt="ALİNA Chess Club"
@@ -147,25 +147,25 @@ export default function AuthPage() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h1 className="font-serif text-2xl sm:text-3xl font-normal text-[#1E2A22]">
+              <h1 className="font-serif text-2xl sm:text-3xl font-normal text-[var(--ink)]">
                 {isSignUp ? t('auth.createAccount') : t('auth.signIn')}
               </h1>
-              <p className="text-xs text-[#5E6B62] mt-1.5">
+              <p className="text-xs text-[var(--ink-muted)] mt-1.5">
                 {isSignUp ? t('auth.signUpSubtitle') : t('auth.signInSubtitle')}
               </p>
             </div>
 
             {/* Error & Success Messages */}
             {errorMsg && (
-              <div className="mb-4 p-3 rounded-[12px] bg-rose-500/10 border border-rose-500/20 text-[#B3261E] text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0 text-[#B3261E]" />
+              <div className="mb-4 p-3 rounded-[12px] bg-rose-500/10 border border-rose-500/20 text-[var(--danger)] text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-[var(--danger)]" />
                 <span>{errorMsg}</span>
               </div>
             )}
 
             {successMsg && (
-              <div className="mb-4 p-3 rounded-[12px] bg-[#E4EBD9] border border-[#2F5D46]/20 text-[#2F5D46] text-xs flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 shrink-0 text-[#2F5D46]" />
+              <div className="mb-4 p-3 rounded-[12px] bg-[var(--sage-100)] border border-[var(--primary)]/20 text-[var(--primary)] text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-[var(--primary)]" />
                 <span>{successMsg}</span>
               </div>
             )}
@@ -174,7 +174,7 @@ export default function AuthPage() {
             <button
               onClick={handleGoogleSignIn}
               type="button"
-              className="w-full py-2.5 px-3 text-xs mb-5 flex items-center justify-center gap-2.5 rounded-full border border-[#E3DCCB] text-[#1E2A22] bg-[#FFFFFF] hover:bg-[#E4EBD9] transition-colors cursor-pointer shadow-xs font-medium"
+              className="w-full py-2.5 px-3 text-xs mb-5 flex items-center justify-center gap-2.5 rounded-full border border-[var(--border)] text-[var(--ink)] bg-[var(--surface)] hover:bg-[var(--sage-100)] transition-colors cursor-pointer shadow-xs font-medium"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -198,22 +198,22 @@ export default function AuthPage() {
             </button>
 
             <div className="relative flex py-2 items-center mb-5">
-              <div className="flex-grow border-t border-[#E3DCCB]" />
-              <span className="shrink-0 px-2.5 text-[11px] text-[#5E6B62] uppercase font-semibold">
+              <div className="flex-grow border-t border-[var(--border)]" />
+              <span className="shrink-0 px-2.5 text-[11px] text-[var(--ink-muted)] uppercase font-semibold">
                 {t('auth.orEmailPhone')}
               </span>
-              <div className="flex-grow border-t border-[#E3DCCB]" />
+              <div className="flex-grow border-t border-[var(--border)]" />
             </div>
 
             {/* Email/Phone Form */}
             <form onSubmit={handleEmailAuth} className="space-y-3.5">
               {isSignUp && (
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#5E6B62] mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
                     {t('auth.fullName')}
                   </label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#5E6B62]">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[var(--ink-muted)]">
                       <User className="w-3.5 h-3.5" />
                     </div>
                     <input
@@ -221,18 +221,18 @@ export default function AuthPage() {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder={t('auth.fullNamePlaceholder')}
-                      className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#FFFFFF] border border-[#E3DCCB] text-[#1E2A22] placeholder-[#5E6B62]/50 focus:outline-hidden focus:border-[#2F5D46] focus:ring-2 focus:ring-[#2F5D46]/35 text-xs sm:text-sm"
+                      className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] placeholder-[var(--ink-muted)]/50 focus:outline-hidden focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/35 text-xs sm:text-sm"
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#5E6B62] mb-1">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
                   {t('auth.emailOrPhone')}
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#5E6B62]">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[var(--ink-muted)]">
                     <Mail className="w-3.5 h-3.5" />
                   </div>
                   <input
@@ -240,17 +240,17 @@ export default function AuthPage() {
                     value={emailOrPhone}
                     onChange={(e) => setEmailOrPhone(e.target.value)}
                     placeholder={t('auth.emailOrPhonePlaceholder')}
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#FFFFFF] border border-[#E3DCCB] text-[#1E2A22] placeholder-[#5E6B62]/50 focus:outline-hidden focus:border-[#2F5D46] focus:ring-2 focus:ring-[#2F5D46]/35 text-xs sm:text-sm"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] placeholder-[var(--ink-muted)]/50 focus:outline-hidden focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/35 text-xs sm:text-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#5E6B62] mb-1">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
                   {t('auth.password')}
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#5E6B62]">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[var(--ink-muted)]">
                     <Lock className="w-3.5 h-3.5" />
                   </div>
                   <input
@@ -258,7 +258,7 @@ export default function AuthPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={t('auth.passwordPlaceholder')}
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[#FFFFFF] border border-[#E3DCCB] text-[#1E2A22] placeholder-[#5E6B62]/50 focus:outline-hidden focus:border-[#2F5D46] focus:ring-2 focus:ring-[#2F5D46]/35 text-xs sm:text-sm"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] placeholder-[var(--ink-muted)]/50 focus:outline-hidden focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/35 text-xs sm:text-sm"
                   />
                 </div>
               </div>
@@ -273,7 +273,7 @@ export default function AuthPage() {
             </form>
 
             {/* Toggle */}
-            <div className="mt-5 text-center text-xs text-[#5E6B62]">
+            <div className="mt-5 text-center text-xs text-[var(--ink-muted)]">
               {isSignUp ? (
                 <>
                   {t('auth.haveAccount')}{' '}
@@ -282,7 +282,7 @@ export default function AuthPage() {
                       setIsSignUp(false);
                       setErrorMsg(null);
                     }}
-                    className="text-[#2F5D46] hover:text-[#254B38] font-semibold cursor-pointer underline"
+                    className="text-[var(--primary)] hover:text-[var(--primary-hover)] font-semibold cursor-pointer underline"
                   >
                     {t('auth.signInLink')}
                   </button>
@@ -295,7 +295,7 @@ export default function AuthPage() {
                       setIsSignUp(true);
                       setErrorMsg(null);
                     }}
-                    className="text-[#2F5D46] hover:text-[#254B38] font-semibold cursor-pointer underline"
+                    className="text-[var(--primary)] hover:text-[var(--primary-hover)] font-semibold cursor-pointer underline"
                   >
                     {t('auth.signUpLink')}
                   </button>

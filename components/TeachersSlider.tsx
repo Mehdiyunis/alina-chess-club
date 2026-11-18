@@ -52,15 +52,15 @@ export const TeachersSlider: React.FC<TeachersSliderProps> = ({ teachers }) => {
   const hasMultiple = teachers.length > 1;
 
   return (
-    <section id="teachers" className="py-16 lg:py-24 bg-[#1F3D2F] text-[#F7F3EA] border-b border-[#E3DCCB] relative">
+    <section id="teachers" className="py-16 lg:py-24 bg-[var(--dark)] text-[var(--on-primary)] border-b border-[var(--border)] relative">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <ScrollReveal direction="left">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-              <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#F7F3EA] tracking-tight leading-[1.1]">
+              <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[var(--on-primary)] tracking-tight leading-[1.1]">
                 {t('teachers.title')}
               </h2>
-              <p className="text-sm sm:text-base text-[#C9D3C4] mt-2 max-w-xl">
+              <p className="text-sm sm:text-base text-[var(--on-dark-muted)] mt-2 max-w-xl">
                 {t('teachers.subtitle')}
               </p>
             </div>
@@ -71,14 +71,14 @@ export const TeachersSlider: React.FC<TeachersSliderProps> = ({ teachers }) => {
                 <button
                   onClick={prevSlide}
                   aria-label={t('teachers.prev')}
-                  className="w-10 h-10 rounded-full border border-[#C9D3C4]/30 bg-[#1F3D2F] hover:bg-[#F6E7B4] text-[#F7F3EA] hover:text-[#1E2A22] flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#F6E7B4]"
+                  className="w-10 h-10 rounded-full border border-[var(--on-dark-muted)]/30 bg-[var(--dark)] hover:bg-[var(--butter)] text-[var(--on-primary)] hover:text-[var(--ink)] flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--butter-text)]"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
                   onClick={nextSlide}
                   aria-label={t('teachers.next')}
-                  className="w-10 h-10 rounded-full border border-[#C9D3C4]/30 bg-[#1F3D2F] hover:bg-[#F6E7B4] text-[#F7F3EA] hover:text-[#1E2A22] flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#F6E7B4]"
+                  className="w-10 h-10 rounded-full border border-[var(--on-dark-muted)]/30 bg-[var(--dark)] hover:bg-[var(--butter)] text-[var(--on-primary)] hover:text-[var(--ink)] flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--butter-text)]"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
@@ -110,8 +110,8 @@ export const TeachersSlider: React.FC<TeachersSliderProps> = ({ teachers }) => {
                 return (
                   <div key={teacher.id || idx} className="w-full shrink-0 px-1 sm:px-2">
                     <div
-                      className={`max-w-2xl mx-auto bg-[#FFFFFF] text-[#1E2A22] rounded-[18px] p-6 sm:p-8 border transition-all shadow-[0_1px_2px_rgba(30,42,34,0.06)] ${
-                        isActive ? 'border-[#2F5D46]' : 'border-[#E3DCCB]'
+                      className={`max-w-2xl mx-auto bg-[var(--surface)] text-[var(--ink)] rounded-[18px] p-6 sm:p-8 border transition-all shadow-[0_1px_2px_rgba(30,42,34,0.06)] ${
+                        isActive ? 'border-[var(--primary)]' : 'border-[var(--border)]'
                       } flex flex-col sm:flex-row items-center gap-6 sm:gap-8`}
                     >
                       {/* Photo or Initials Placeholder */}
@@ -121,14 +121,14 @@ export const TeachersSlider: React.FC<TeachersSliderProps> = ({ teachers }) => {
                             src={teacher.photo_url}
                             alt={`${teacher.first_name} ${teacher.last_name}`}
                             className={`w-36 h-36 sm:w-40 sm:h-40 object-cover rounded-[16px] border ${
-                              isActive ? 'border-[#2F5D46]' : 'border-[#E3DCCB]'
+                              isActive ? 'border-[var(--primary)]' : 'border-[var(--border)]'
                             } shadow-xs`}
                           />
                         ) : (
                           <div
-                            className={`w-36 h-36 sm:w-40 sm:h-40 rounded-[16px] bg-[#E4EBD9] border ${
-                              isActive ? 'border-[#2F5D46]' : 'border-[#E3DCCB]'
-                            } text-[#2F5D46] flex items-center justify-center font-bold text-3xl select-none shadow-xs`}
+                            className={`w-36 h-36 sm:w-40 sm:h-40 rounded-[16px] bg-[var(--sage-100)] border ${
+                              isActive ? 'border-[var(--primary)]' : 'border-[var(--border)]'
+                            } text-[var(--primary)] flex items-center justify-center font-bold text-3xl select-none shadow-xs`}
                           >
                             {initials || 'ŞM'}
                           </div>
@@ -137,17 +137,17 @@ export const TeachersSlider: React.FC<TeachersSliderProps> = ({ teachers }) => {
 
                       <div className="text-center sm:text-left space-y-2 flex-1">
                         {teacher.role_title && (
-                          <p className="text-xs font-semibold text-[#B4532A] uppercase tracking-wider">
+                          <p className="text-xs font-semibold text-[var(--terracotta-text)] uppercase tracking-wider">
                             {teacher.role_title}
                           </p>
                         )}
 
-                        <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#1E2A22]">
+                        <h3 className="font-serif text-xl sm:text-2xl font-normal text-[var(--ink)]">
                           {teacher.first_name} {teacher.last_name}
                         </h3>
 
                         {teacher.description && (
-                          <p className="text-sm text-[#5E6B62] leading-relaxed">
+                          <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
                             {teacher.description}
                           </p>
                         )}
@@ -169,8 +169,8 @@ export const TeachersSlider: React.FC<TeachersSliderProps> = ({ teachers }) => {
                   aria-label={`${t('teachers.teacherLabel')} ${idx + 1}`}
                   className={`h-2 rounded-full transition-all cursor-pointer ${
                     currentIndex === idx
-                      ? 'w-6 bg-[#F6E7B4]'
-                      : 'w-2 bg-[#C9D3C4]/40 hover:bg-[#F6E7B4]'
+                      ? 'w-6 bg-[var(--butter)]'
+                      : 'w-2 bg-[var(--on-dark-muted)]/40 hover:bg-[var(--butter)]'
                   }`}
                 />
               ))}

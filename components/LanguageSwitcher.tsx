@@ -60,14 +60,14 @@ export function LanguageSwitcher({
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label={t('navbar.selectLanguage')}
-        className={`flex items-center justify-between gap-1.5 py-1.5 px-2.5 sm:px-3 text-xs font-semibold rounded-full border border-[#E3DCCB] text-[#1E2A22] bg-[#FFFFFF] hover:bg-[#E4EBD9] transition-colors cursor-pointer shadow-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46] ${
+        className={`flex items-center justify-between gap-1.5 py-1.5 px-2.5 sm:px-3 text-xs font-semibold rounded-full border border-[var(--border)] text-[var(--ink)] bg-[var(--surface)] hover:bg-[var(--sage-100)] transition-colors cursor-pointer shadow-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--primary)] ${
           fullWidth ? 'w-full' : ''
         }`}
       >
         <span className="tracking-wider uppercase">{locale}</span>
         <ChevronDown
-          className={`w-3.5 h-3.5 text-[#5E6B62] transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-[#2F5D46]' : ''
+          className={`w-3.5 h-3.5 text-[var(--ink-muted)] transition-transform duration-200 ${
+            isOpen ? 'rotate-180 text-[var(--primary)]' : ''
           }`}
         />
       </button>
@@ -76,7 +76,7 @@ export function LanguageSwitcher({
         <div
           role="listbox"
           aria-label={t('navbar.selectLanguage')}
-          className={`absolute mt-1.5 py-1.5 rounded-[14px] bg-[#FFFFFF] border border-[#E3DCCB] shadow-[0_4px_20px_rgba(30,42,34,0.08)] z-50 animate-in fade-in duration-100 min-w-[130px] ${
+          className={`absolute mt-1.5 py-1.5 rounded-[14px] bg-[var(--surface)] border border-[var(--border)] shadow-[0_4px_20px_rgba(30,42,34,0.08)] z-50 animate-in fade-in duration-100 min-w-[130px] ${
             fullWidth ? 'w-full left-0' : align === 'right' ? 'right-0' : 'left-0'
           }`}
         >
@@ -91,8 +91,8 @@ export function LanguageSwitcher({
                 onClick={() => handleSelect(loc)}
                 className={`w-full text-left px-3.5 py-2 text-xs transition-colors flex items-center justify-between cursor-pointer ${
                   isSelected
-                    ? 'font-bold text-[#2F5D46] bg-[#E4EBD9]'
-                    : 'font-medium text-[#1E2A22] hover:bg-[#F7F3EA]'
+                    ? 'font-bold text-[var(--primary)] bg-[var(--sage-100)]'
+                    : 'font-medium text-[var(--ink)] hover:bg-[var(--bg)]'
                 }`}
               >
                 <span>{LOCALE_LABELS[loc]}</span>

@@ -45,13 +45,13 @@ export const GameGoalsSection: React.FC = () => {
   const currentBoardPieces = parseFenSquares(selectedGoal.boardFen);
 
   return (
-    <section id="goals" className="py-16 lg:py-24 bg-[#F7F3EA] border-b border-[#E3DCCB]">
+    <section id="goals" className="py-16 lg:py-24 bg-[var(--bg)] border-b border-[var(--border)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <ScrollReveal direction="up" className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[#1E2A22] tracking-tight leading-[1.1]">
+          <h2 className="font-serif text-[clamp(2rem,3.5vw,2.5rem)] font-normal text-[var(--ink)] tracking-tight leading-[1.1]">
             {t('goals.title')}
           </h2>
-          <p className="text-sm sm:text-base text-[#5E6B62] mt-2">
+          <p className="text-sm sm:text-base text-[var(--ink-muted)] mt-2">
             {t('goals.subtitle')}
           </p>
         </ScrollReveal>
@@ -66,8 +66,8 @@ export const GameGoalsSection: React.FC = () => {
                 onClick={() => setSelectedGoalId(goal.id)}
                 className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-                    : 'bg-[#FFFFFF] text-[#5E6B62] hover:text-[#1E2A22] border border-[#E3DCCB]'
+                    ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+                    : 'bg-[var(--surface)] text-[var(--ink-muted)] hover:text-[var(--ink)] border border-[var(--border)]'
                 }`}
               >
                 {t(`goals.items.${goal.id}.title`)}
@@ -77,30 +77,30 @@ export const GameGoalsSection: React.FC = () => {
         </ScrollReveal>
 
         {/* Goal Detail Card */}
-        <div className="bg-[#FFFFFF] rounded-[18px] border border-[#E3DCCB] p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-4xl mx-auto shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+        <div className="bg-[var(--surface)] rounded-[18px] border border-[var(--border)] p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-4xl mx-auto shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
           {/* Explanation Text */}
           <ScrollReveal direction="left" className="md:col-span-7 space-y-3.5">
-            <span className="text-xs font-semibold text-[#B4532A] uppercase tracking-wider block">
+            <span className="text-xs font-semibold text-[var(--terracotta-text)] uppercase tracking-wider block">
               {t(`goals.items.${selectedGoal.id}.simpleExplain`)}
             </span>
 
-            <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1E2A22]">
+            <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[var(--ink)]">
               {t(`goals.items.${selectedGoal.id}.title`)}
             </h3>
 
-            <p className="text-sm text-[#5E6B62] leading-relaxed">
+            <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
               {t(`goals.items.${selectedGoal.id}.detail`)}
             </p>
 
-            <div className="p-4 bg-[#E4EBD9] rounded-[14px] border border-[#E3DCCB] text-xs text-[#1E2A22]">
+            <div className="p-4 bg-[var(--sage-100)] rounded-[14px] border border-[var(--border)] text-xs text-[var(--ink)]">
               <span>{t(`goals.items.${selectedGoal.id}.note`)}</span>
             </div>
           </ScrollReveal>
 
           {/* Demonstration Board */}
           <ScrollReveal direction="right" className="md:col-span-5 flex flex-col items-center">
-            <div className="p-3 bg-[#EFE9DB] rounded-[16px] border border-[#E3DCCB] shadow-xs">
-              <div className="grid grid-cols-8 grid-rows-8 w-[240px] h-[240px] sm:w-[260px] sm:h-[260px] border border-[#E3DCCB] rounded-[10px] overflow-hidden shadow-xs">
+            <div className="p-3 bg-[var(--bg-alt)] rounded-[16px] border border-[var(--border)] shadow-xs">
+              <div className="grid grid-cols-8 grid-rows-8 w-[240px] h-[240px] sm:w-[260px] sm:h-[260px] border border-[var(--border)] rounded-[10px] overflow-hidden shadow-xs">
                 {ranks.map((rank, rIdx) =>
                   files.map((file, fIdx) => {
                     const square = `${file}${rank}`;
@@ -129,7 +129,7 @@ export const GameGoalsSection: React.FC = () => {
                 )}
               </div>
             </div>
-            <span className="text-[11px] text-[#5E6B62] mt-2">
+            <span className="text-[11px] text-[var(--ink-muted)] mt-2">
               {t('goals.exampleState', { title: t(`goals.items.${selectedGoal.id}.title`) })}
             </span>
           </ScrollReveal>

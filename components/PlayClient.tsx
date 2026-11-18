@@ -492,8 +492,8 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
         }}
         className={`py-3.5 rounded-[12px] text-[14px] font-semibold transition-colors cursor-pointer ${
           tab === 'local'
-            ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-            : 'bg-[#F7F3EA] text-[#1E2A22] border border-[#E3DCCB] hover:bg-[#EFE9DB]'
+            ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+            : 'bg-[var(--bg)] text-[var(--ink)] border border-[var(--border)] hover:bg-[var(--bg-alt)]'
         }`}
       >
         {t('play.localTab')}
@@ -505,8 +505,8 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
         }}
         className={`py-3.5 rounded-[12px] text-[14px] font-semibold transition-colors cursor-pointer ${
           tab === 'online'
-            ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-            : 'bg-[#F7F3EA] text-[#1E2A22] border border-[#E3DCCB] hover:bg-[#EFE9DB]'
+            ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+            : 'bg-[var(--bg)] text-[var(--ink)] border border-[var(--border)] hover:bg-[var(--bg-alt)]'
         }`}
       >
         {t('play.onlineTab')}
@@ -517,12 +517,12 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
   const roomLocked = tab === 'online' && !!room;
 
   const timeControlPanel = (
-    <div className="rounded-[14px] bg-[#F7F3EA] border border-[#E3DCCB] p-4 space-y-2.5">
+    <div className="rounded-[14px] bg-[var(--bg)] border border-[var(--border)] p-4 space-y-2.5">
       <div className="flex items-center justify-between gap-2.5">
-        <span className="text-[13px] font-bold uppercase tracking-wider text-[#5E6B62]">
+        <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--ink-muted)]">
           {t('play.timeControlTitle')}
         </span>
-        <span className="font-mono text-[14px] font-bold text-[#2F5D46]">
+        <span className="font-mono text-[14px] font-bold text-[var(--primary)]">
           {formatControlLabel(timeControl.initialSeconds, timeControl.incrementSeconds)}
         </span>
       </div>
@@ -543,8 +543,8 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
             }}
             className={`py-3 rounded-[9px] text-[12px] font-bold transition-colors cursor-pointer disabled:cursor-default ${
               timeControl.category === category
-                ? 'bg-[#2F5D46] text-[#F7F3EA]'
-                : 'bg-[#FFFFFF] border border-[#E3DCCB] text-[#5E6B62] hover:bg-[#EFE9DB]'
+                ? 'bg-[var(--primary-bg)] text-[var(--on-primary)]'
+                : 'bg-[var(--surface)] border border-[var(--border)] text-[var(--ink-muted)] hover:bg-[var(--bg-alt)]'
             }`}
           >
             {t(`play.category.${category}`)}
@@ -572,8 +572,8 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
               }
               className={`py-3 rounded-[9px] font-mono text-[13px] font-bold transition-colors cursor-pointer disabled:cursor-default ${
                 selected
-                  ? 'bg-[#2F5D46] text-[#F7F3EA]'
-                  : 'bg-[#FFFFFF] border border-[#E3DCCB] text-[#1E2A22] hover:bg-[#EFE9DB]'
+                  ? 'bg-[var(--primary-bg)] text-[var(--on-primary)]'
+                  : 'bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] hover:bg-[var(--bg-alt)]'
               }`}
             >
               {label}
@@ -583,7 +583,7 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
       </div>
 
       <div className={`flex items-center gap-2 ${roomLocked ? 'opacity-60' : ''}`}>
-        <span className="text-[12px] font-semibold uppercase text-[#5E6B62]">
+        <span className="text-[12px] font-semibold uppercase text-[var(--ink-muted)]">
           {t('play.customLabel')}
         </span>
         <input
@@ -600,9 +600,9 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
               applyCustomTime(value, customIncrement);
             }
           }}
-          className="w-14 rounded-[8px] border border-[#E3DCCB] bg-[#FFFFFF] px-1.5 py-1 text-center text-[13px] font-mono text-[#1E2A22] focus:outline-hidden focus:ring-2 focus:ring-[#2F5D46]/40"
+          className="w-14 rounded-[8px] border border-[var(--border)] bg-[var(--surface)] px-1.5 py-1 text-center text-[13px] font-mono text-[var(--ink)] focus:outline-hidden focus:ring-2 focus:ring-[var(--primary)]/40"
         />
-        <span className="text-[12px] text-[#5E6B62]">{t('play.minutesShort')}</span>
+        <span className="text-[12px] text-[var(--ink-muted)]">{t('play.minutesShort')}</span>
         <input
           type="number"
           min={0}
@@ -617,26 +617,26 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
               applyCustomTime(customMinutes, value);
             }
           }}
-          className="w-14 rounded-[8px] border border-[#E3DCCB] bg-[#FFFFFF] px-1.5 py-1 text-center text-[13px] font-mono text-[#1E2A22] focus:outline-hidden focus:ring-2 focus:ring-[#2F5D46]/40"
+          className="w-14 rounded-[8px] border border-[var(--border)] bg-[var(--surface)] px-1.5 py-1 text-center text-[13px] font-mono text-[var(--ink)] focus:outline-hidden focus:ring-2 focus:ring-[var(--primary)]/40"
         />
-        <span className="text-[12px] text-[#5E6B62]">{t('play.incrementShort')}</span>
+        <span className="text-[12px] text-[var(--ink-muted)]">{t('play.incrementShort')}</span>
       </div>
     </div>
   );
 
   const roomActions = room ? (
     <>
-      <div className="rounded-[14px] bg-[#F7F3EA] border border-[#E3DCCB] p-4 space-y-2.5">
+      <div className="rounded-[14px] bg-[var(--bg)] border border-[var(--border)] p-4 space-y-2.5">
         <div className="flex items-center justify-between gap-2.5">
-          <span className="text-[13px] font-bold uppercase tracking-wider text-[#5E6B62]">
+          <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--ink-muted)]">
             {t('play.roomCode')}
           </span>
-          <span className="font-mono text-base font-bold tracking-[0.2em] text-[#1E2A22]">
+          <span className="font-mono text-base font-bold tracking-[0.2em] text-[var(--ink)]">
             {room.code}
           </span>
         </div>
         <div>
-          <span className="block text-[13px] font-bold uppercase tracking-wider text-[#5E6B62] mb-1.5">
+          <span className="block text-[13px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-1.5">
             {t('play.inviteLink')}
           </span>
           <div className="flex gap-2">
@@ -646,11 +646,11 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
               title={inviteLink}
               aria-label={t('play.inviteLink')}
               onFocus={(e) => e.target.select()}
-              className="flex-1 min-w-0 rounded-[10px] border border-[#E3DCCB] bg-[#FFFFFF] px-3.5 py-3 text-[13px] font-mono text-[#1E2A22] focus:outline-hidden focus:ring-2 focus:ring-[#2F5D46]/40"
+              className="flex-1 min-w-0 rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-3.5 py-3 text-[13px] font-mono text-[var(--ink)] focus:outline-hidden focus:ring-2 focus:ring-[var(--primary)]/40"
             />
             <button
               onClick={copyRoomLink}
-              className="shrink-0 inline-flex items-center gap-1 px-3.5 py-3 rounded-[10px] bg-[#2F5D46] hover:bg-[#254B38] text-[#F7F3EA] text-[13px] font-semibold transition-colors cursor-pointer"
+              className="shrink-0 inline-flex items-center gap-1 px-3.5 py-3 rounded-[10px] bg-[var(--primary-bg)] hover:bg-[var(--primary-hover-bg)] text-[var(--on-primary)] text-[13px] font-semibold transition-colors cursor-pointer"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               {copied ? t('play.copied') : t('play.copyLink')}
@@ -658,7 +658,7 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
           </div>
         </div>
         <div className="flex items-center justify-between gap-2.5">
-          <span className="text-[13px] font-semibold text-[#5E6B62]">
+          <span className="text-[13px] font-semibold text-[var(--ink-muted)]">
             {myColor === 'w'
               ? t('play.youAreWhite')
               : myColor === 'b'
@@ -666,13 +666,13 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
               : ''}
           </span>
         </div>
-        <p className="text-[13px] text-[#5E6B62] leading-relaxed">{t('play.shareHint')}</p>
+        <p className="text-[13px] text-[var(--ink-muted)] leading-relaxed">{t('play.shareHint')}</p>
       </div>
       <div className="grid grid-cols-2 gap-2">
         <button
           onClick={resetRoom}
           disabled={busyAction === 'reset'}
-          className="px-3 py-3.5 rounded-[12px] bg-[#EFE9DB] border border-[#E3DCCB] text-[14px] font-semibold text-[#1E2A22] hover:bg-[#E4EBD9] transition-colors cursor-pointer disabled:opacity-50"
+          className="px-3 py-3.5 rounded-[12px] bg-[var(--bg-alt)] border border-[var(--border)] text-[14px] font-semibold text-[var(--ink)] hover:bg-[var(--sage-100)] transition-colors cursor-pointer disabled:opacity-50"
         >
           {t('play.newGame')}
         </button>
@@ -682,7 +682,7 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
             setRoomMoves([]);
             setErrorText(null);
           }}
-          className="px-3 py-3.5 rounded-[12px] bg-[#F7F3EA] border border-[#E3DCCB] text-[14px] font-semibold text-[#1E2A22] hover:bg-[#EFE9DB] transition-colors cursor-pointer"
+          className="px-3 py-3.5 rounded-[12px] bg-[var(--bg)] border border-[var(--border)] text-[14px] font-semibold text-[var(--ink)] hover:bg-[var(--bg-alt)] transition-colors cursor-pointer"
         >
           {t('play.leaveRoom')}
         </button>
@@ -691,14 +691,14 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
   ) : null;
 
   const loginCard = (
-    <div className="rounded-[14px] bg-[#F7F3EA] border border-[#E3DCCB] p-4 space-y-2.5">
-      <p className="text-[15px] font-semibold text-[#1E2A22]">{t('play.onlineRequiresAuth')}</p>
-      <p className="text-[13px] text-[#5E6B62] leading-relaxed">
+    <div className="rounded-[14px] bg-[var(--bg)] border border-[var(--border)] p-4 space-y-2.5">
+      <p className="text-[15px] font-semibold text-[var(--ink)]">{t('play.onlineRequiresAuth')}</p>
+      <p className="text-[13px] text-[var(--ink-muted)] leading-relaxed">
         {t('play.onlineRequiresAuthHint')}
       </p>
       <Link
         href="/auth"
-        className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 rounded-[12px] bg-[#2F5D46] hover:bg-[#254B38] text-[#F7F3EA] text-[14px] font-bold transition-colors cursor-pointer"
+        className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 rounded-[12px] bg-[var(--primary-bg)] hover:bg-[var(--primary-hover-bg)] text-[var(--on-primary)] text-[14px] font-bold transition-colors cursor-pointer"
       >
         <LogIn className="w-[18px] h-[18px]" />
         {t('play.loginBtn')}
@@ -707,9 +707,9 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
   );
 
   const roomMenu = (
-    <div className="rounded-[14px] bg-[#F7F3EA] border border-[#E3DCCB] p-4 space-y-3">
+    <div className="rounded-[14px] bg-[var(--bg)] border border-[var(--border)] p-4 space-y-3">
       <div>
-        <span className="block text-[13px] font-bold uppercase tracking-wider text-[#5E6B62] mb-2">
+        <span className="block text-[13px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-2">
           {t('play.colorTitle')}
         </span>
         <div className="grid grid-cols-3 gap-1.5">
@@ -723,8 +723,8 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
               }}
               className={`py-2.5 rounded-[10px] text-[13px] font-bold transition-colors cursor-pointer ${
                 colorChoice === choice
-                  ? 'bg-[#2F5D46] text-[#F7F3EA]'
-                  : 'bg-[#FFFFFF] border border-[#E3DCCB] text-[#1E2A22] hover:bg-[#EFE9DB]'
+                  ? 'bg-[var(--primary-bg)] text-[var(--on-primary)]'
+                  : 'bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] hover:bg-[var(--bg-alt)]'
               }`}
             >
               {t(`play.color.${choice}`)}
@@ -737,7 +737,7 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
         <button
           onClick={() => void createRoom()}
           disabled={busyAction === 'create'}
-          className="inline-flex items-center justify-center gap-2 py-3.5 rounded-[12px] bg-[#2F5D46] hover:bg-[#254B38] text-[#F7F3EA] text-[14px] font-bold transition-colors cursor-pointer disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 py-3.5 rounded-[12px] bg-[var(--primary-bg)] hover:bg-[var(--primary-hover-bg)] text-[var(--on-primary)] text-[14px] font-bold transition-colors cursor-pointer disabled:opacity-50"
         >
           <Users className="w-[18px] h-[18px]" />
           {t('play.createRoom')}
@@ -747,8 +747,8 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
           disabled={busyAction === 'match'}
           className={`inline-flex items-center justify-center gap-2 py-3.5 rounded-[12px] border text-[14px] font-bold transition-colors cursor-pointer disabled:opacity-50 ${
             matching
-              ? 'bg-[#EFE9DB] border-[#C9A24A] text-[#1E2A22] hover:bg-[#E4EBD9]'
-              : 'bg-[#FFFFFF] border-[#E3DCCB] text-[#1E2A22] hover:bg-[#EFE9DB]'
+              ? 'bg-[var(--bg-alt)] border-[#C9A24A] text-[var(--ink)] hover:bg-[var(--sage-100)]'
+              : 'bg-[var(--surface)] border-[var(--border)] text-[var(--ink)] hover:bg-[var(--bg-alt)]'
           }`}
         >
           {matching ? (
@@ -764,14 +764,14 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
         </button>
       </div>
       {matching && (
-        <p className="rounded-[10px] bg-[#E4EBD9] border border-[#C9D9BC] px-3.5 py-3 text-[13px] font-semibold text-[#2F5D46]">
+        <p className="rounded-[10px] bg-[var(--sage-100)] border border-[#C9D9BC] px-3.5 py-3 text-[13px] font-semibold text-[var(--primary)]">
           {t('play.searchingHint')}
         </p>
       )}
-      <div className="pt-3 border-t border-[#E3DCCB]">
+      <div className="pt-3 border-t border-[var(--border)]">
         <label
           htmlFor="room-code"
-          className="block text-[13px] font-bold uppercase tracking-wider text-[#5E6B62] mb-2"
+          className="block text-[13px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-2"
         >
           {t('play.joinTitle')}
         </label>
@@ -785,12 +785,12 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
             }}
             maxLength={8}
             placeholder={t('play.codePlaceholder')}
-            className="flex-1 min-w-0 rounded-[10px] border border-[#E3DCCB] bg-[#FFFFFF] px-3.5 py-3 text-[15px] font-mono tracking-widest text-[#1E2A22] uppercase focus:outline-hidden focus:ring-2 focus:ring-[#2F5D46]/40"
+            className="flex-1 min-w-0 rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-3.5 py-3 text-[15px] font-mono tracking-widest text-[var(--ink)] uppercase focus:outline-hidden focus:ring-2 focus:ring-[var(--primary)]/40"
           />
           <button
             onClick={() => joinRoom()}
             disabled={busyAction === 'join' || !joinCode.trim()}
-            className="px-3 py-3 rounded-[10px] bg-[#2F5D46] hover:bg-[#254B38] text-[#F7F3EA] text-[14px] font-bold transition-colors cursor-pointer disabled:opacity-50"
+            className="px-3 py-3 rounded-[10px] bg-[var(--primary-bg)] hover:bg-[var(--primary-hover-bg)] text-[var(--on-primary)] text-[14px] font-bold transition-colors cursor-pointer disabled:opacity-50"
           >
             {t('play.joinBtn')}
           </button>
@@ -840,16 +840,16 @@ export function PlayClient({ initialRoomCode = '' }: PlayClientProps) {
             {isLocal ? (
               <button
                 onClick={newLocalGame}
-                className="w-full py-3.5 rounded-[12px] bg-[#2F5D46] hover:bg-[#254B38] text-[#F7F3EA] text-[14px] font-bold transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
+                className="w-full py-3.5 rounded-[12px] bg-[var(--primary-bg)] hover:bg-[var(--primary-hover-bg)] text-[var(--on-primary)] text-[14px] font-bold transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
               >
                 {t('play.newGame')}
               </button>
             ) : room ? (
               roomActions
             ) : !authReady ? (
-              <p className="text-[14px] text-[#5E6B62]">{t('play.checkingAuth')}</p>
+              <p className="text-[14px] text-[var(--ink-muted)]">{t('play.checkingAuth')}</p>
             ) : !supabase ? (
-              <div className="rounded-[14px] bg-[#F7F3EA] border border-[#E3DCCB] p-4 text-[14px] text-[#1E2A22]">
+              <div className="rounded-[14px] bg-[var(--bg)] border border-[var(--border)] p-4 text-[14px] text-[var(--ink)]">
                 {t('play.onlineUnavailable')}
               </div>
             ) : !userId ? (

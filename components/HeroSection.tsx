@@ -28,7 +28,7 @@ export const HeroSection: React.FC = () => {
   const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
   return (
-    <section className="relative overflow-hidden pt-8 pb-16 sm:pb-20 lg:pt-10 lg:pb-20 bg-[#F7F3EA] border-b border-[#E3DCCB]">
+    <section className="relative overflow-hidden pt-8 pb-16 sm:pb-20 lg:pt-10 lg:pb-20 bg-[var(--bg)] border-b border-[var(--border)]">
       <style>{`
         @keyframes bentoCardFadeUp {
           from {
@@ -133,7 +133,7 @@ export const HeroSection: React.FC = () => {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="bento-grid gap-3 sm:gap-4">
           {/* Card A: Main Hero Headline, description, CTAs and pure CSS primary checkerboard at 5% */}
-          <div className="bento-card bento-card-a relative overflow-hidden bg-[#FFFFFF] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+          <div className="bento-card bento-card-a relative overflow-hidden bg-[var(--surface)] border border-[var(--border)] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
             {/* Faint decorative checkerboard pattern in the bottom-right corner (pure CSS, primary #2F5D46, 5% opacity, radial mask) */}
             <div
               className="absolute bottom-0 right-0 w-44 h-44 sm:w-64 sm:h-64 pointer-events-none select-none rounded-br-[20px] sm:rounded-br-[24px] overflow-hidden"
@@ -154,11 +154,11 @@ export const HeroSection: React.FC = () => {
             />
 
             <div className="relative z-10 space-y-4 sm:space-y-5">
-              <h1 className="font-serif text-[clamp(40px,5.8vw,80px)] font-normal text-[#1E2A22] tracking-tight leading-[1.05]">
+              <h1 className="font-serif text-[clamp(40px,5.8vw,80px)] font-normal text-[var(--ink)] tracking-tight leading-[1.05]">
                 {t('hero.title')}
               </h1>
 
-              <p className="text-base sm:text-lg text-[#5E6B62] leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg text-[var(--ink-muted)] leading-relaxed max-w-2xl">
                 {t('hero.description')}
               </p>
             </div>
@@ -166,21 +166,21 @@ export const HeroSection: React.FC = () => {
             <div className="relative z-10 pt-6 sm:pt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <Link
                 href="/auth"
-                className="btn-primary w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+                className="btn-primary w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
               >
                 {t('hero.joinBtn')}
               </Link>
 
               <Link
                 href="/play"
-                className="btn-secondary-dark w-full sm:w-auto px-8 py-3.5 text-base text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+                className="btn-secondary-dark w-full sm:w-auto px-8 py-3.5 text-base text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
               >
                 {t('hero.playBtn')}
               </Link>
 
               <a
                 href="#pieces"
-                className="btn-secondary-dark w-full sm:w-auto px-8 py-3.5 text-base text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+                className="btn-secondary-dark w-full sm:w-auto px-8 py-3.5 text-base text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
               >
                 {t('hero.piecesBtn')}
               </a>
@@ -188,18 +188,18 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Card B: Starting Position Chessboard (Sage-100 surface) */}
-          <div className="bento-card bento-card-b bg-[#E4EBD9] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-center shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
-            <div className="flex items-center justify-between pb-3 mb-4 sm:mb-5 border-b border-[#E3DCCB]">
-              <span className="font-serif text-sm sm:text-base font-medium text-[#1E2A22]">
+          <div className="bento-card bento-card-b bg-[var(--sage-100)] border border-[var(--border)] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-center shadow-[0_1px_2px_rgba(30,42,34,0.06)]">
+            <div className="flex items-center justify-between pb-3 mb-4 sm:mb-5 border-b border-[var(--border)]">
+              <span className="font-serif text-sm sm:text-base font-medium text-[var(--ink)]">
                 {t('hero.boardTitle')}
               </span>
-              <span className="text-xs text-[#5E6B62]">
+              <span className="text-xs text-[var(--ink-muted)]">
                 {t('hero.boardSubtitle')}
               </span>
             </div>
 
             {/* Real 8x8 Chessboard */}
-            <div className="aspect-square w-full max-w-[380px] sm:max-w-[420px] mx-auto rounded-[12px] overflow-hidden border border-[#E3DCCB] grid grid-cols-8 grid-rows-8 select-none shadow-xs">
+            <div className="aspect-square w-full max-w-[380px] sm:max-w-[420px] mx-auto rounded-[12px] overflow-hidden border border-[var(--border)] grid grid-cols-8 grid-rows-8 select-none shadow-xs">
               {ranks.map((rank, rankIdx) =>
                 files.map((file, fileIdx) => {
                   const square = `${file}${rank}`;
@@ -243,7 +243,7 @@ export const HeroSection: React.FC = () => {
               )}
             </div>
 
-            <p className="text-[11px] sm:text-xs text-[#5E6B62] mt-3.5 text-center leading-relaxed">
+            <p className="text-[11px] sm:text-xs text-[var(--ink-muted)] mt-3.5 text-center leading-relaxed">
               {t('hero.boardCaption')}
             </p>
           </div>
@@ -251,19 +251,19 @@ export const HeroSection: React.FC = () => {
           {/* Card C1: Feature 1 (Butter yellow #F6E7B4, links to #rules) */}
           <a
             href="#rules"
-            className="bento-card bento-card-c1 bento-card-link group bg-[#F6E7B4] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[#2F5D46]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+            className="bento-card bento-card-c1 bento-card-link group bg-[var(--butter)] border border-[var(--border)] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[var(--primary)]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
           >
             <div className="flex items-center justify-between">
-              <span className="font-serif text-sm font-bold text-[#B4532A] tracking-wider">
+              <span className="font-serif text-sm font-bold text-[var(--terracotta-text)] tracking-wider">
                 01
               </span>
-              <ArrowUpRight className="bento-arrow w-4 h-4 text-[#1E2A22] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[#2F5D46]" />
+              <ArrowUpRight className="bento-arrow w-4 h-4 text-[var(--ink)] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[var(--primary)]" />
             </div>
             <div className="mt-4">
-              <p className="text-base font-medium text-[#1E2A22]">
+              <p className="text-base font-medium text-[var(--ink)]">
                 {t('hero.card1Title')}
               </p>
-              <p className="text-xs sm:text-sm text-[#5E6B62] mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[var(--ink-muted)] mt-1 leading-relaxed">
                 {t('hero.card1Desc')}
               </p>
             </div>
@@ -272,19 +272,19 @@ export const HeroSection: React.FC = () => {
           {/* Card C2: Feature 2 (Peach #F4D9C6, links to #teachers) */}
           <a
             href="#teachers"
-            className="bento-card bento-card-c2 bento-card-link group bg-[#F4D9C6] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[#2F5D46]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+            className="bento-card bento-card-c2 bento-card-link group bg-[var(--peach)] border border-[var(--border)] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[var(--primary)]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
           >
             <div className="flex items-center justify-between">
-              <span className="font-serif text-sm font-bold text-[#B4532A] tracking-wider">
+              <span className="font-serif text-sm font-bold text-[var(--terracotta-text)] tracking-wider">
                 02
               </span>
-              <ArrowUpRight className="bento-arrow w-4 h-4 text-[#1E2A22] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[#2F5D46]" />
+              <ArrowUpRight className="bento-arrow w-4 h-4 text-[var(--ink)] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[var(--primary)]" />
             </div>
             <div className="mt-4">
-              <p className="text-base font-medium text-[#1E2A22]">
+              <p className="text-base font-medium text-[var(--ink)]">
                 {t('hero.card2Title')}
               </p>
-              <p className="text-xs sm:text-sm text-[#5E6B62] mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[var(--ink-muted)] mt-1 leading-relaxed">
                 {t('hero.card2Desc')}
               </p>
             </div>
@@ -293,19 +293,19 @@ export const HeroSection: React.FC = () => {
           {/* Card C3: Feature 3 (Sage-200 #DCE6D0, links to /analysis) */}
           <Link
             href="/analysis"
-            className="bento-card bento-card-c3 bento-card-link group bg-[#DCE6D0] border border-[#E3DCCB] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[#2F5D46]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2F5D46]"
+            className="bento-card bento-card-c3 bento-card-link group bg-[var(--sage-200)] border border-[var(--border)] rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 flex flex-col justify-between transition-[transform,border-color] duration-200 ease-out hover:-translate-y-[3px] hover:border-[var(--primary)]/40 shadow-[0_1px_2px_rgba(30,42,34,0.06)] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
           >
             <div className="flex items-center justify-between">
-              <span className="font-serif text-sm font-bold text-[#B4532A] tracking-wider">
+              <span className="font-serif text-sm font-bold text-[var(--terracotta-text)] tracking-wider">
                 03
               </span>
-              <ArrowUpRight className="bento-arrow w-4 h-4 text-[#1E2A22] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[#2F5D46]" />
+              <ArrowUpRight className="bento-arrow w-4 h-4 text-[var(--ink)] transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-[var(--primary)]" />
             </div>
             <div className="mt-4">
-              <p className="text-base font-medium text-[#1E2A22]">
+              <p className="text-base font-medium text-[var(--ink)]">
                 {t('hero.card3Title')}
               </p>
-              <p className="text-xs sm:text-sm text-[#5E6B62] mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[var(--ink-muted)] mt-1 leading-relaxed">
                 {t('hero.card3Desc')}
               </p>
             </div>

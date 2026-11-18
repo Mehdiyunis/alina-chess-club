@@ -315,7 +315,7 @@ export function AnalysisBoard() {
         {/* Chessboard: square, sized to fit the visible viewport height */}
         <div className="lg:col-span-8 flex justify-start min-w-0">
           <div className="w-full max-w-[min(100%,calc(100dvh-6rem))]">
-              <div className="aspect-square w-full rounded-[16px] overflow-hidden border-2 border-[#1E2A22]/20 grid grid-cols-8 grid-rows-8 select-none shadow-[0_8px_30px_rgba(30,42,34,0.12)]">
+              <div className="aspect-square w-full rounded-[16px] overflow-hidden border-2 border-[var(--ink)]/20 grid grid-cols-8 grid-rows-8 select-none shadow-[0_8px_30px_rgba(30,42,34,0.12)]">
                 {displayRanks.map((rank, rankIdx) =>
                   displayFiles.map((file, fileIdx) => {
                     const square = `${file}${rank}`;
@@ -332,16 +332,16 @@ export function AnalysisBoard() {
                         onClick={() => handleSquareClick(square)}
                         className={`relative flex items-center justify-center cursor-pointer transition-colors ${
                           isSelectedSquare
-                            ? '!bg-[#F6E7B4] ring-4 ring-[#2F5D46] ring-inset z-10'
+                            ? '!bg-[var(--butter)] ring-4 ring-[var(--primary)] ring-inset z-10'
                             : isLegalTarget && piece
-                            ? 'ring-4 ring-[#2F5D46]/60 ring-inset z-10'
+                            ? 'ring-4 ring-[var(--primary)]/60 ring-inset z-10'
                             : isLight
                             ? 'bg-[#EEEED2] hover:bg-[#e6e6c2]'
                             : 'bg-[#769656] hover:bg-[#6c8b4e]'
                         }`}
                       >
                         {isLegalTarget && !piece && (
-                          <span className="absolute w-[30%] h-[30%] rounded-full bg-[#2F5D46]/55 pointer-events-none z-10" />
+                          <span className="absolute w-[30%] h-[30%] rounded-full bg-[var(--primary-bg)]/55 pointer-events-none z-10" />
                         )}
                         {piece && (
                           <div className="w-[88%] h-[88%] pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-105">
@@ -376,13 +376,13 @@ export function AnalysisBoard() {
 
         {/* Right: piece palette and tools */}
         <div className="lg:col-span-4 space-y-4">
-          <div className="bg-[#FFFFFF] rounded-[24px] border border-[#E3DCCB] p-4 sm:p-5 space-y-5 shadow-[0_4px_24px_rgba(30,42,34,0.06)]">
+          <div className="bg-[var(--surface)] rounded-[24px] border border-[var(--border)] p-4 sm:p-5 space-y-5 shadow-[0_4px_24px_rgba(30,42,34,0.06)]">
             {/* Board actions */}
             <div className="grid grid-cols-3 gap-1.5">
               <button
                 onClick={() => setIsFlipped(!isFlipped)}
                 title={t('sandbox.flipTitle')}
-                className="inline-flex items-center justify-center gap-1.5 px-2 py-2.5 rounded-[12px] bg-[#EFE9DB] border border-[#E3DCCB] text-[11px] font-semibold text-[#1E2A22] hover:bg-[#E4EBD9] transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-2 py-2.5 rounded-[12px] bg-[var(--bg-alt)] border border-[var(--border)] text-[11px] font-semibold text-[var(--ink)] hover:bg-[var(--sage-100)] transition-colors cursor-pointer"
               >
                 <RotateCw className="w-3.5 h-3.5 shrink-0" />
                 <span>{t('sandbox.flipBtn')}</span>
@@ -391,7 +391,7 @@ export function AnalysisBoard() {
                 onClick={handleReset}
                 title={t('sandbox.resetTitle')}
                 disabled={mode === 'play'}
-                className="inline-flex items-center justify-center gap-1.5 px-2 py-2.5 rounded-[12px] bg-[#EFE9DB] border border-[#E3DCCB] text-[11px] font-semibold text-[#1E2A22] hover:bg-[#E4EBD9] transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="inline-flex items-center justify-center gap-1.5 px-2 py-2.5 rounded-[12px] bg-[var(--bg-alt)] border border-[var(--border)] text-[11px] font-semibold text-[var(--ink)] hover:bg-[var(--sage-100)] transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <RefreshCw className="w-3.5 h-3.5 shrink-0" />
                 <span>{t('sandbox.resetBtn')}</span>
@@ -400,7 +400,7 @@ export function AnalysisBoard() {
                 onClick={handleClear}
                 title={t('sandbox.clearTitle')}
                 disabled={mode === 'play'}
-                className="inline-flex items-center justify-center gap-1.5 px-2 py-2.5 rounded-[12px] bg-[#F7F3EA] border border-[#E3DCCB] text-[11px] font-semibold text-[#B3261E] hover:bg-rose-50 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="inline-flex items-center justify-center gap-1.5 px-2 py-2.5 rounded-[12px] bg-[var(--bg)] border border-[var(--border)] text-[11px] font-semibold text-[var(--danger)] hover:bg-rose-50 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Trash2 className="w-3.5 h-3.5 shrink-0" />
                 <span>{t('sandbox.clearBtn')}</span>
@@ -408,11 +408,11 @@ export function AnalysisBoard() {
             </div>
 
             {/* Game controls */}
-            <div className="pt-4 border-t border-[#E3DCCB] space-y-3">
+            <div className="pt-4 border-t border-[var(--border)] space-y-3">
               {mode === 'edit' ? (
                 <>
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#5E6B62] block mb-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)] block mb-2">
                       {t('sandbox.turnLabel')}
                     </span>
                     <div className="grid grid-cols-2 gap-2">
@@ -420,8 +420,8 @@ export function AnalysisBoard() {
                         onClick={() => setStartTurn('w')}
                         className={`py-2.5 rounded-[12px] text-xs font-semibold transition-all cursor-pointer ${
                           effectiveStartTurn === 'w'
-                            ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-                            : 'bg-[#F7F3EA] text-[#1E2A22] border border-[#E3DCCB] hover:bg-[#EFE9DB]'
+                            ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+                            : 'bg-[var(--bg)] text-[var(--ink)] border border-[var(--border)] hover:bg-[var(--bg-alt)]'
                         }`}
                       >
                         {t('sandbox.whiteTurn')}
@@ -432,28 +432,28 @@ export function AnalysisBoard() {
                         title={isInitialPosition ? t('sandbox.startingTurnHint') : undefined}
                         className={`py-2.5 rounded-[12px] text-xs font-semibold transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                           effectiveStartTurn === 'b'
-                            ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-                            : 'bg-[#F7F3EA] text-[#1E2A22] border border-[#E3DCCB] hover:bg-[#EFE9DB]'
+                            ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+                            : 'bg-[var(--bg)] text-[var(--ink)] border border-[var(--border)] hover:bg-[var(--bg-alt)]'
                         }`}
                       >
                         {t('sandbox.blackTurn')}
                       </button>
                     </div>
                     {isInitialPosition && (
-                      <p className="mt-2 text-[11px] text-[#5E6B62] leading-relaxed">
+                      <p className="mt-2 text-[11px] text-[var(--ink-muted)] leading-relaxed">
                         {t('sandbox.startingTurnHint')}
                       </p>
                     )}
                   </div>
                   <button
                     onClick={handleStart}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-[12px] bg-[#2F5D46] hover:bg-[#254B38] text-[#F7F3EA] text-sm font-bold transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-[12px] bg-[var(--primary-bg)] hover:bg-[var(--primary-hover-bg)] text-[var(--on-primary)] text-sm font-bold transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
                   >
                     <Play className="w-4 h-4" />
                     <span>{t('sandbox.startBtn')}</span>
                   </button>
                   {errMsg && (
-                    <p className="text-[11px] leading-relaxed text-[#B3261E] bg-rose-50 border border-rose-200 rounded-[10px] px-3 py-2">
+                    <p className="text-[11px] leading-relaxed text-[var(--danger)] bg-rose-50 border border-rose-200 rounded-[10px] px-3 py-2">
                       {errMsg}
                     </p>
                   )}
@@ -462,22 +462,22 @@ export function AnalysisBoard() {
                 <>
                   <button
                     onClick={handleEnd}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-[12px] bg-[#F7F3EA] hover:bg-[#EFE9DB] border border-[#E3DCCB] text-[#1E2A22] text-sm font-bold transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-[12px] bg-[var(--bg)] hover:bg-[var(--bg-alt)] border border-[var(--border)] text-[var(--ink)] text-sm font-bold transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
                   >
                     <SquareIcon className="w-4 h-4" />
                     <span>{t('sandbox.endBtn')}</span>
                   </button>
                   <div className="flex items-center justify-between text-xs font-semibold">
-                    <span className="text-[#5E6B62]">{t('sandbox.turnLabel')}</span>
-                    <span className="text-[#2F5D46]">
+                    <span className="text-[var(--ink-muted)]">{t('sandbox.turnLabel')}</span>
+                    <span className="text-[var(--primary)]">
                       {game?.turn() === 'w' ? t('sandbox.whiteTurn') : t('sandbox.blackTurn')}
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#5E6B62] leading-relaxed">
+                  <p className="text-[11px] text-[var(--ink-muted)] leading-relaxed">
                     {t('sandbox.playModeHint')}
                   </p>
                   {statusMsg && (
-                    <p className="text-xs font-bold text-[#2F5D46] bg-[#E4EBD9] border border-[#C9D9BC] rounded-[10px] px-3 py-2">
+                    <p className="text-xs font-bold text-[var(--primary)] bg-[var(--sage-100)] border border-[#C9D9BC] rounded-[10px] px-3 py-2">
                       {statusMsg}
                     </p>
                   )}
@@ -486,16 +486,16 @@ export function AnalysisBoard() {
             </div>
 
             {mode === 'play' && moves.length > 0 && (
-              <div className="pt-4 border-t border-[#E3DCCB] space-y-2">
+              <div className="pt-4 border-t border-[var(--border)] space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#5E6B62]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)]">
                     {t('sandbox.capturedTitle')}
                   </span>
                   <div className="text-right">
-                    <span className="block text-[9px] uppercase tracking-wide text-[#5E6B62]">
+                    <span className="block text-[9px] uppercase tracking-wide text-[var(--ink-muted)]">
                       {t('sandbox.advantage')}
                     </span>
-                    <span className="block text-[11px] font-bold text-[#2F5D46]">
+                    <span className="block text-[11px] font-bold text-[var(--primary)]">
                       {advantageText}
                     </span>
                   </div>
@@ -504,11 +504,11 @@ export function AnalysisBoard() {
                   {(['w', 'b'] as const).map((side) => (
                     <div
                       key={side}
-                      className="flex items-center gap-2 rounded-[10px] bg-[#F7F3EA] border border-[#E3DCCB] px-2 py-1.5"
+                      className="flex items-center gap-2 rounded-[10px] bg-[var(--bg)] border border-[var(--border)] px-2 py-1.5"
                     >
                       <span
                         className={`w-16 shrink-0 text-[10px] font-bold ${
-                          side === 'w' ? 'text-[#2F5D46]' : 'text-[#1E2A22]'
+                          side === 'w' ? 'text-[var(--primary)]' : 'text-[var(--ink)]'
                         }`}
                       >
                         {side === 'w' ? t('sandbox.whiteTurn') : t('sandbox.blackTurn')}
@@ -520,10 +520,10 @@ export function AnalysisBoard() {
                           </div>
                         ))}
                         {captured[side].length === 0 && (
-                          <span className="text-[10px] text-[#5E6B62]">—</span>
+                          <span className="text-[10px] text-[var(--ink-muted)]">—</span>
                         )}
                       </div>
-                      <span className="w-6 shrink-0 text-right text-[11px] font-mono font-bold text-[#1E2A22]">
+                      <span className="w-6 shrink-0 text-right text-[11px] font-mono font-bold text-[var(--ink)]">
                         +{captured[side].reduce((sum, piece) => sum + PIECE_VALUES[piece], 0)}
                       </span>
                     </div>
@@ -533,18 +533,18 @@ export function AnalysisBoard() {
             )}
 
             {mode === 'play' && moves.length > 0 && (
-              <div className="pt-4 border-t border-[#E3DCCB]">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#5E6B62] block mb-2">
+              <div className="pt-4 border-t border-[var(--border)]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)] block mb-2">
                   {t('sandbox.notationTitle')}
                 </span>
-                <div className="max-h-44 overflow-y-auto rounded-[12px] border border-[#E3DCCB] bg-[#F7F3EA] divide-y divide-[#E3DCCB]">
+                <div className="max-h-44 overflow-y-auto rounded-[12px] border border-[var(--border)] bg-[var(--bg)] divide-y divide-[var(--border)]">
                   {Array.from({ length: Math.ceil(moves.length / 2) }, (_, i) => (
                     <div
                       key={i}
-                      className="grid grid-cols-[2.25rem_1fr_1fr] gap-2 px-3 py-1.5 text-xs font-mono text-[#1E2A22] items-center"
+                      className="grid grid-cols-[2.25rem_1fr_1fr] gap-2 px-3 py-1.5 text-xs font-mono text-[var(--ink)] items-center"
                     >
-                      <span className="text-[#5E6B62]">{i + 1}.</span>
-                      <span className="font-semibold text-[#2F5D46]">{moves[i * 2]}</span>
+                      <span className="text-[var(--ink-muted)]">{i + 1}.</span>
+                      <span className="font-semibold text-[var(--primary)]">{moves[i * 2]}</span>
                       <span>{moves[i * 2 + 1] ?? ''}</span>
                     </div>
                   ))}
@@ -556,7 +556,7 @@ export function AnalysisBoard() {
               <>
             {/* Modes */}
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#5E6B62] block mb-2.5">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)] block mb-2.5">
                 {t('sandbox.modeLabel')}
               </span>
               <div className="grid grid-cols-2 gap-2">
@@ -567,8 +567,8 @@ export function AnalysisBoard() {
                   }}
                   className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-[12px] text-xs font-semibold transition-all cursor-pointer ${
                     selectedPalette === 'move'
-                      ? 'bg-[#2F5D46] text-[#F7F3EA] shadow-xs'
-                      : 'bg-[#F7F3EA] text-[#1E2A22] border border-[#E3DCCB] hover:bg-[#EFE9DB]'
+                      ? 'bg-[var(--primary-bg)] text-[var(--on-primary)] shadow-xs'
+                      : 'bg-[var(--bg)] text-[var(--ink)] border border-[var(--border)] hover:bg-[var(--bg-alt)]'
                   }`}
                 >
                   <Move className="w-4 h-4" />
@@ -581,8 +581,8 @@ export function AnalysisBoard() {
                   }}
                   className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-[12px] text-xs font-semibold transition-all cursor-pointer ${
                     selectedPalette === 'trash'
-                      ? 'bg-[#B3261E] text-white shadow-xs'
-                      : 'bg-[#F7F3EA] text-[#B3261E] border border-[#E3DCCB] hover:bg-rose-50'
+                      ? 'bg-[var(--danger)] text-white shadow-xs'
+                      : 'bg-[var(--bg)] text-[var(--danger)] border border-[var(--border)] hover:bg-rose-50'
                   }`}
                 >
                   <Trash2 className="w-4 h-4" />
@@ -593,7 +593,7 @@ export function AnalysisBoard() {
 
             {/* White pieces */}
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#5E6B62] block mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)] block mb-2">
                 {t('sandbox.whitePieces')}
               </span>
               <div className="grid grid-cols-6 gap-2">
@@ -613,8 +613,8 @@ export function AnalysisBoard() {
                       }}
                       className={`h-12 sm:h-13 rounded-[12px] flex items-center justify-center p-1.5 transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#E4EBD9] ring-2 ring-[#2F5D46] shadow-md scale-105'
-                          : 'bg-[#F7F3EA] border border-[#E3DCCB] hover:bg-[#EFE9DB] hover:scale-102'
+                          ? 'bg-[var(--sage-100)] ring-2 ring-[var(--primary)] shadow-md scale-105'
+                          : 'bg-[var(--bg)] border border-[var(--border)] hover:bg-[var(--bg-alt)] hover:scale-102'
                       }`}
                       title={t('sandbox.whiteTitle')}
                     >
@@ -629,7 +629,7 @@ export function AnalysisBoard() {
 
             {/* Black pieces */}
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#5E6B62] block mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)] block mb-2">
                 {t('sandbox.blackPieces')}
               </span>
               <div className="grid grid-cols-6 gap-2">
@@ -649,8 +649,8 @@ export function AnalysisBoard() {
                       }}
                       className={`h-12 sm:h-13 rounded-[12px] flex items-center justify-center p-1.5 transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#E4EBD9] ring-2 ring-[#2F5D46] shadow-md scale-105'
-                          : 'bg-[#F7F3EA] border border-[#E3DCCB] hover:bg-[#EFE9DB] hover:scale-102'
+                          ? 'bg-[var(--sage-100)] ring-2 ring-[var(--primary)] shadow-md scale-105'
+                          : 'bg-[var(--bg)] border border-[var(--border)] hover:bg-[var(--bg-alt)] hover:scale-102'
                       }`}
                       title={t('sandbox.blackTitle')}
                     >
@@ -667,18 +667,18 @@ export function AnalysisBoard() {
             )}
 
             {/* FEN output */}
-            <div className="pt-4 border-t border-[#E3DCCB] space-y-2">
+            <div className="pt-4 border-t border-[var(--border)] space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#5E6B62]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)]">
                   {t('sandbox.fenCode')}
                 </span>
                 <button
                   onClick={copyFen}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2F5D46] hover:bg-[#254B38] text-[#F7F3EA] text-xs font-semibold transition-all cursor-pointer shadow-xs active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--primary-bg)] hover:bg-[var(--primary-hover-bg)] text-[var(--on-primary)] text-xs font-semibold transition-all cursor-pointer shadow-xs active:scale-95"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-[#F7F3EA]" />
+                      <Check className="w-3.5 h-3.5 text-[var(--on-primary)]" />
                       <span>{t('sandbox.copied')}</span>
                     </>
                   ) : (
@@ -689,7 +689,7 @@ export function AnalysisBoard() {
                   )}
                 </button>
               </div>
-              <div className="p-3 rounded-[14px] bg-[#F7F3EA] border border-[#E3DCCB] font-mono text-xs text-[#1E2A22] break-all select-all leading-relaxed">
+              <div className="p-3 rounded-[14px] bg-[var(--bg)] border border-[var(--border)] font-mono text-xs text-[var(--ink)] break-all select-all leading-relaxed">
                 {fenString}
               </div>
             </div>

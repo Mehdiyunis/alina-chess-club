@@ -11,7 +11,10 @@ Uşaqlar və yeni başlayanlar üçün interaktiv şahmat təhsil portalı. Loka
 | `/play/{KOD}` | Dəvət olunmuş otağa qoşulma |
 | `/analysis` | Analiz lövhəsi |
 | `/books` | Kitabxana |
+| `/profile` | Profil, görünüş rejimi, hesab və aldığım kitablar |
 | `/auth` | Qeydiyyat və giriş |
+
+Görünüş rejimi varsayılan olaraq ağdır. Qonaqlar seçimi `localStorage`-da, qeydiyyatlı istifadəçilər isə `public.profiles.theme` sahəsində saxlayır; hesab teması başqa brauzerdə avtomatik tətbiq olunur.
 
 ## Texnologiya
 
@@ -42,6 +45,8 @@ Windows PowerShell üçün `npm.cmd` istifadə edin.
 
 Onlayn oyun, otaqlar və təsadüfi rəqib növbəsi üçün `supabase-online-play.sql` faylını Supabase SQL Editor-da icra edin. Script idempotentdır; 7 funksiya və `matchmaking_queue` cədvəli yaranır.
 
+Profil və tema üçün `supabase-profile-theme.sql` faylını icra edin: `profiles.theme` sahəsi, hər istifadəçinin aldığı kitabları saxlayan `public.user_books` cədvəli və RLS qaydaları yaranır. Admin paneli bu cədvələ `(user_id, book_id)` cütlüyü yazaraq kitab təyin edir.
+
 Kitab PDF-ləri `book-files` adlı private bucket-da saxlanılır. Fayllar `/api/books/download?path=...` üzərindən qısaömürlü signed URL ilə verilir; service-role açarı istifadə olunmur.
 
 Deploy-dan sonra Supabase Auth üçün sayt URL-ni və redirect URL-lərini Vercel domenine uyğun təyin edin.
@@ -64,6 +69,7 @@ lib/                    i18n, tiplər, vaxt parametrləri, Supabase client/serve
 messages/               az.json, en.json, ru.json
 public/                 Loqo, fiqur SVG-ləri və müəllim şəkilləri
 proxy.ts                Supabase sessiyasının yenilənməsi və təhlükəsizlik header-ləri
+supabase-profile-theme.sql  Profil teması, istifadəçi kitabları və RLS
 supabase-online-play.sql  Onlayn oyun üçün cədvəl, RLS və RPC-lər
 .env.example            Mühit dəyişənləri nümunəsi
 ```

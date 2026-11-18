@@ -32,20 +32,60 @@
     --border: #E3DCCB;
     --ink: #1E2A22;
     --ink-muted: #5E6B62;
+
+    /* Brand green stays dark on buttons; a lighter shade is used for text/icons. */
     --primary: #2F5D46;
     --primary-hover: #254B38;
+    --primary-bg: #2F5D46;
+    --primary-hover-bg: #254B38;
     --on-primary: #F7F3EA;
+
     --sage-100: #E4EBD9;
     --sage-200: #DCE6D0;
     --butter: #F6E7B4;
+    --butter-text: #F6E7B4;
     --peach: #F4D9C6;
     --terracotta: #D9774A;
     --terracotta-text: #B4532A;
+    --danger: #B3261E;
+    --danger-bg: #FCE8E6;
+
     --dark: #1F3D2F;
     --on-dark: #F7F3EA;
     --on-dark-muted: #C9D3C4;
     --board-light: #EEEED2;
     --board-dark: #769656;
+  }
+
+  /* The <head> script sets data-theme before paint; members get it from the server. */
+  html[data-theme='dark'] {
+    color-scheme: dark;
+    --bg: #101A14;
+    --bg-alt: #18241C;
+    --surface: #1B2A21;
+    --border: #33473A;
+    --ink: #EDF3EA;
+    --ink-muted: #A8B8AC;
+
+    --primary: #7FC19A;
+    --primary-hover: #9BD3B0;
+    --primary-bg: #2F5D46;
+    --primary-hover-bg: #254B38;
+    --on-primary: #F7F3EA;
+
+    --sage-100: #253A2C;
+    --sage-200: #2C4634;
+    --butter: #5C4A22;
+    --butter-text: #F0D98C;
+    --peach: #553726;
+    --terracotta: #E39A70;
+    --terracotta-text: #F0B48F;
+    --danger: #FFB4AB;
+    --danger-bg: #4A2422;
+
+    --dark: #24402F;
+    --on-dark: #F7F3EA;
+    --on-dark-muted: #C9D3C4;
   }
 
   html {
@@ -108,7 +148,7 @@
 
 /* Primary Button: Forest green, on-primary text, hover darker green */
 .btn-primary {
-  background-color: var(--primary);
+  background-color: var(--primary-bg);
   color: var(--on-primary);
   border-radius: 9999px;
   font-weight: 600;
@@ -118,7 +158,7 @@
   justify-content: center;
 }
 .btn-primary:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--primary-hover-bg);
   transform: translateY(-1px);
 }
 .btn-primary:active {
@@ -164,7 +204,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C9D3C4;
+  background: var(--on-dark-muted);
   border-radius: 4px;
 }
 
