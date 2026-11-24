@@ -94,6 +94,9 @@
     color: var(--ink);
     font-family: var(--font-sans), 'Segoe UI', Tahoma, 'Noto Sans', Roboto, sans-serif;
     font-size-adjust: from-font;
+    /* Scroll-reveal elements start translated 50px off-screen; clip the
+       horizontal spill without creating a scroll container (sticky still works). */
+    overflow-x: clip;
   }
 
   body {
@@ -101,6 +104,7 @@
     line-height: 1.6;
     background-color: var(--bg);
     color: var(--ink);
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4 {

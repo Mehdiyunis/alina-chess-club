@@ -14,6 +14,16 @@ export function normalizeSupabaseUrl(rawUrl?: string): string {
   return url;
 }
 
+/**
+ * Canonical public URL for Supabase email/OAuth redirects.
+ * Set NEXT_PUBLIC_SITE_URL in production so reset links never point at localhost.
+ */
+export function getSiteUrl(): string {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (configured) return configured.replace(/\/+$/, '');
+  return typeof window !== 'undefined' ? window.location.origin : '';
+}
+
 export function getSupabaseConfig(): {
   url: string;
   anonKey: string;

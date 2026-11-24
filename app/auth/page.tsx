@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
+import { getSiteUrl } from '@/lib/supabase/config';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import {
@@ -94,7 +95,7 @@ export default function AuthPage() {
             data: {
               full_name: fullName.trim(),
             },
-            emailRedirectTo: `${window.location.origin}/auth/callback?next=/play`,
+            emailRedirectTo: `${getSiteUrl()}/auth/callback?${new URLSearchParams({ next: '/play' }).toString()}`,
           },
         });
 
@@ -146,7 +147,7 @@ export default function AuthPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=/play`,
+          redirectTo: `${getSiteUrl()}/auth/callback?${new URLSearchParams({ next: '/play' }).toString()}`,
         },
       });
       if (error) {
@@ -176,7 +177,7 @@ export default function AuthPage() {
       }
       const supabase = createClient();
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/callback?next=/auth?mode=reset`,
+        redirectTo: `${getSiteUrl()}/auth/callback?${new URLSearchParams({ next: '/auth?mode=reset' }).toString()}`,
       });
       if (error) {
         setErrorMsg(error.message || t('auth.errResetGeneral'));
